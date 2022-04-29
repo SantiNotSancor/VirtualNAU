@@ -22,8 +22,7 @@ export default class Menu extends Component {
           <li><ModifyDataButton /></li>
 
         </ul>
-        {/* <DataShowing titles={['id', 'descripcion']} table={[[2024, 5054], ['Cartucherita', 'Riñonera']]}/> */}
-        <ShowData />
+        <ShowData titles={['id', 'descripcion']} table={[[2024, 5054], ['Cartucherita', 'Riñonera']]}/>
       </>
     );
   }

@@ -31,13 +31,17 @@ export class ShowData extends Component {
 
     render() {
         const { table, titles } = this.state, data = { 'articles': 'Artículos', 'workshops': 'Talleres', 'payments': 'Pagos', 'tasks': 'Tareas' };
+        let title = 'Elegir datos a mostrar', dropdownList = [];
+        for (const key in data)
+            dropdownList.push(key);
+        console.log(dropdownList);
         return (
             <>
                 <DropdownButton title={title} onSelect={e => {
                     this.setData(e);
                     title = data.e;
                 }}>
-                    {data.map(e => <Dropdown.Item eventKey={e}>{data.e}</Dropdown.Item>)}
+                    {dropdownList.map((e, index) => <Dropdown.Item key={index} eventKey={e}>{data[e]}</Dropdown.Item>)}
                 </DropdownButton>
                 {(titles && table) ?
                     <Table striped bordered>
