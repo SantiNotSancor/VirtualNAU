@@ -19,14 +19,99 @@ export class ShowData extends Component {
     }
 
     setData = e => {
-
         Axios.get('http://localhost:3001/get' + e.charAt(0).toUpperCase() + e.slice(1)).then(response => {
             const res = response.data;
             const table = [];
             console.log(res);
-            res.map(row => table.push(Object.values(row)));
-            this.setState({ titles: Object.getOwnPropertyNames(res[0]), table });
+            if (res)
+                res.map(row => table.push(Object.values(row)));
+            this.setState({ titles: Object.getOwnPropertyNames(res[0]), table, data: e });
         });
+    }
+
+    header = (name, index) => {
+        let header = name, show = true;
+        switch (name) {
+            case 'id':
+                header = 'Código';
+                show = (this.state.data !== 'workshop' && this.state.data !== 'payments');
+                break;
+            case 'description':
+                header = 'Descripción';
+                break;
+            case 'name':
+                header = 'Nombre';
+                break;
+            case 'contact':
+                header = 'Contacto';
+                break;
+            case 'money':
+                header = (this.state.data === 'Workshop') ? 'Cuenta corriente' : 'Dinero';
+                break;
+            case 'article_id':
+                header = 'Código de artículo';
+                break;
+            case 'article_description':
+                header = 'Descripción de artículo';
+                break;
+            case 'quantity':
+                header = 'Cantidad';
+                break;
+            case 'packages':
+                header = 'Bultos';
+                break;
+            case 'cutDate':
+                header = 'Fecha de corte';
+                break;
+            case 'fabrics':
+                header = 'Telas';
+                break;
+            case 'colors':
+                header = 'Colores';
+                break;
+            case 'responsable':
+                header = 'Responsable/s';
+                break;
+            case 'generalFeatures':
+                header = 'Detalles';
+                break;
+            case 'state':
+                header = 'Estado';
+                break;
+            case 'exitDate':
+                header = 'Fecha de salida';
+                break;
+            case 'deadline':
+                header = 'Fecha esperada';
+                break;
+            case 'weight':
+                header = 'Peso';
+                break;
+            case 'price':
+                header = 'Precio unitario';
+                break;
+            case 'threads':
+                header = 'Hilos entregados';
+                break;
+            case 'calification':
+                header = 'Calificación';
+                break;
+            case 'observations':
+                header = 'Observaciones';
+                break;
+            case 'faulty':
+                header = 'Fallados';
+                break;
+        }
+        console.log(header + '   ' + show + '     ' + this.state.data);
+        return (show ? <th key={index}>{header}</th> : null);
+    }
+
+    table = (row, index) => {
+        const { table, data } = this.state;
+        return <tr key={index}>{row.map((cell, i) => {
+            return (cell || cell === 0) ? <td key={i}>{cell}</td> : null;
+        })}</tr>
     }
 
     render() {
@@ -34,6 +119,7 @@ export class ShowData extends Component {
         let title = 'Elegir datos a mostrar', dropdownList = [];
         for (const key in data)
             dropdownList.push(key);
+
         console.log(dropdownList);
         return (
             <>
@@ -47,15 +133,11 @@ export class ShowData extends Component {
                     <Table striped bordered>
                         <thead>
                             <tr>
-                                {titles.map((title, i) => <th key={i}>{title}</th>)}
+                                {titles.map((title, i) => this.header(title, i))}
                             </tr>
                         </thead>
                         <tbody>
-                            {table.map((row, i) => {
-                                return <tr key={i}>{row.map((cell, j) => {
-                                    return <td key={j}>{cell}</td>;
-                                })}</tr>
-                            })}
+                            {table.map((row, i) => this.table(row, i))}
                         </tbody>
                     </Table>
                     : null}
