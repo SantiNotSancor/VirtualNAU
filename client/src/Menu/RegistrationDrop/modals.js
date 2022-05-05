@@ -19,13 +19,13 @@ export const ModalArt = ({ handleClose, show, registration }) => {//Se encargarÃ
 
     const post = () => {
         if (registration)
-            Axios.post('http://localhost:3001/getDescriptionWhere', { id }).then((response) => {
+            Axios.post('http://localhost:3307/getDescriptionWhere', { id }).then((response) => {
                 setError(response.data.length !== 0);
                 if (response.data.length === 0)
-                    Axios.post('http://localhost:3001/regArticle', { id, description });
+                    Axios.post('http://localhost:3307/regArticle', { id, description });
             });
         else
-            Axios.delete(`http://localhost:3001/dropArticle/${id}`).then(() => console.log('hi'));
+            Axios.delete(`http://localhost:3307/dropArticle/${id}`).then(() => console.log('hi'));
         myHandleClose();
     }
 
@@ -82,13 +82,13 @@ export const ModalWork = ({ handleClose, show, registration }) => {//Se encargar
 
     const post = () => {
         if (registration)
-            Axios.post('http://localhost:3001/getNamesWhere', { name }).then((response) => {
+            Axios.post('http://localhost:3307/getNamesWhere', { name }).then((response) => {
                 setError(response.data.length !== 0);
                 if (response.data.length === 0)
-                    Axios.post('http://localhost:3001/regWorkshop', { name, contact });
+                    Axios.post('http://localhost:3307/regWorkshop', { name, contact });
             });
         else
-            Axios.delete(`http://localhost:3001/dropWorkshop/${name}`);
+            Axios.delete(`http://localhost:3307/dropWorkshop/${name}`);
         myHandleClose();
     }
 

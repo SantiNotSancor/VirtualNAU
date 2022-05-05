@@ -19,15 +19,15 @@ export const ModalWork = ({ handleClose, show, registration }) => {//Se encargar
 
     const post = () => {
         if (registration)
-            Axios.post('http://localhost:3001/getNamesWhere', { name, table: 'workshops' }).then((response) => {
+            Axios.post('http://localhost:3307/getNamesWhere', { name, table: 'workshops' }).then((response) => {
                 setError(response.data.length !== 0);
                 if (response.data.length === 0) {
-                    Axios.post('http://localhost:3001/regWorkshop', { name, contact });
+                    Axios.post('http://localhost:3307/regWorkshop', { name, contact });
                     myHandleClose();
                 }
             });
         else
-            Axios.post('http://localhost:3001/create', { name });
+            Axios.post('http://localhost:3307/create', { name });
     }
 
     const myForm = () => {

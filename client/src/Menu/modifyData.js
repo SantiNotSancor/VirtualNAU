@@ -59,7 +59,7 @@ export const ModalArt = ({ handleClose, show }) => {//Se encargará de los forms
     const [description, setDescription] = useState('');
 
     const post = () => {
-        Axios.post('http://localhost:3001/create',
+        Axios.post('http://localhost:3307/create',
             { id, price, description }).then(() => {
                 console.log('Artículos>Alta');
             });
@@ -100,7 +100,7 @@ export const ModalWork = ({ handleClose, show }) => {//Se encargará de los form
     const [contact, setContact] = useState('');
 
     const post = () => {
-        Axios.post('http://localhost:3001/create',
+        Axios.post('http://localhost:3307/create',
             { name, contact });
     }
 

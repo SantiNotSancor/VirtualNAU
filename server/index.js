@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const db = mysql.createConnection({
   user: 'root',
-  host: 'localhost',
+  host: '127.0.0.1',
   password: '',
   database: 'database_factory'
 });
@@ -321,6 +321,6 @@ app.post('/getPrices', (req, res) => {
 
 
 
-app.listen(3001, () => {
-  console.log('Yey, your server is running on port 3001');
+app.listen(3307, () => {
+  console.log('Yey, your server is running on port 3307');
 });

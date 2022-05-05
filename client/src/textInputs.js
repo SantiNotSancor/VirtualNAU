@@ -52,7 +52,7 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
             checked = async (input) => {
                 if (input === '')
                     return false
-                let response = await Axios.get('http://localhost:3001/getNames');
+                let response = await Axios.get('http://localhost:3307/getNames');
                 response = !response.data.find(e => e.name.toLowerCase() === input.toLowerCase());
                 return response;
             };
@@ -63,7 +63,7 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
             checked = async (input) => {
                 if (input === '' || isNaN(input))
                     return false;
-                let response = await Axios.post('http://localhost:3001/getDescriptionWhere', { id: input });
+                let response = await Axios.post('http://localhost:3307/getDescriptionWhere', { id: input });
                 return response.data.length === 0;
             };
             break;
@@ -167,7 +167,7 @@ const ArticleRequest = ({ placeholder, onChange, handleEnter }) => {
     const [articles, setArticles] = useState([]);
 
     const getList = () => {
-        Axios.get('http://localhost:3001/getArticles').then((response) => {
+        Axios.get('http://localhost:3307/getArticles').then((response) => {
             setArticles(response.data.map(article => article.id + ': ' + article.description));
         })
     }
@@ -198,7 +198,7 @@ const NameRequest = ({ label, placeholder, onChange, handleEnter }) => {
         getList();
     }, []);
     const getList = () => {
-        Axios.get('http://localhost:3001/getNames').then((response) => {
+        Axios.get('http://localhost:3307/getNames').then((response) => {
             setList(response.data);
         });
     }
@@ -395,7 +395,7 @@ export const TaskRequest = ({ setSelectedTask, tasks, title, setTitle, handleEnt
 //     const [show, setShow] = useState(false);
 
 //     const getDescription = (userInput) => {
-//         Axios.post('http://localhost:3001/getDescriptionWhere', { id: userInput }).then((response) => {
+//         Axios.post('http://localhost:3307/getDescriptionWhere', { id: userInput }).then((response) => {
 //             setError(response.data.length === 0);
 //             if (response.data.length !== 0)
 //                 setDescription(response.data[0].description);

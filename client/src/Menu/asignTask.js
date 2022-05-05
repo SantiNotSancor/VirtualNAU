@@ -50,7 +50,7 @@ export class AsignTaskButton extends Component {
             return;
         if (!this.state.name || !this.state.selectedTask)
             return;
-        Axios.post('http://localhost:3001/getPrices',
+        Axios.post('http://localhost:3307/getPrices',
             { name: this.state.name, article: this.state.selectedTask.article_id }).then((response) => {
                 //Se debe encontrar el mayor de los id que sean menores a selectedTask.id o el mayor, si no tiene menores
                 if (response.data.length === 0)
@@ -78,7 +78,7 @@ export class AsignTaskButton extends Component {
     };
 
     myForm = () => {
-        Axios.post('http://localhost:3001/getTasks', { state: 'toAsign' }).then((response) => {
+        Axios.post('http://localhost:3307/getTasks', { state: 'toAsign' }).then((response) => {
             this.setState({ tasks: response.data });
         });
         return (
@@ -130,7 +130,7 @@ export class AsignTaskButton extends Component {
     post = () => {
         let aux = this.state;
         this.resetState();
-        Axios.put('http://localhost:3001/asignTask', {
+        Axios.put('http://localhost:3307/asignTask', {
             name: aux.name, task: this.state.selectedTask.id, deadline: aux.deadline, weight: aux.weight, threads: aux.threads,
             price: aux.price, exitDate: moment(new Date()).format("DD/MM/YYYY")
         });

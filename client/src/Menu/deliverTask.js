@@ -78,11 +78,11 @@ export class DeliverTaskButton extends Component {
         let aux = this.state;
         if (!aux.completed)
             this.resetState();
-        Axios.post('http://localhost:3001/getTasks', { id: aux.task }).then((response) => {
-            Axios.put('http://localhost:3001/payWorkshop',
+        Axios.post('http://localhost:3307/getTasks', { id: aux.task }).then((response) => {
+            Axios.put('http://localhost:3307/payWorkshop',
                 { name: response.data[0].name, money: aux.money - aux.quantity * aux.price })
         });
-        Axios.post('http://localhost:3001/newPart',
+        Axios.post('http://localhost:3307/newPart',
             {
                 name: aux.name, task: aux.task, date: moment(new Date()).format('DD/MM/YYYY'), quantity: aux.quantity,
                 weight: Number(aux.weight).toFixed(1), money: Number(aux.money).toFixed(1), threads: aux.threads
@@ -94,7 +94,7 @@ export class DeliverTaskButton extends Component {
 
     completelyReturned = () => {
         console.log(this.state);
-        Axios.put('http://localhost:3001/printObs',
+        Axios.put('http://localhost:3307/printObs',
             {
                 id: this.state.task, observations: this.state.observation, calification: this.state.calification,
                 faulty: this.state.faulty
@@ -151,9 +151,9 @@ export const Input = ({ onChange, name }) => {
 
     useEffect(() => {
         setInput({ quantity: 0, weight: 0, money: 0, threads: 0 });
-        Axios.post('http://localhost:3001/getParts', { task: selectedTask.id }).then(response => setParts(response.data));
+        Axios.post('http://localhost:3307/getParts', { task: selectedTask.id }).then(response => setParts(response.data));
         if (name)
-            Axios.post('http://localhost:3001/getAccount', { name }).then(response => setAccount(response.data[0].money));
+            Axios.post('http://localhost:3307/getAccount', { name }).then(response => setAccount(response.data[0].money));
     }, [selectedTask]);
 
     useEffect(() => {
@@ -245,7 +245,7 @@ export const Input = ({ onChange, name }) => {
     }
 
     if (name !== '') {
-        Axios.post('http://localhost:3001/getTasks', { name, state: 'asigned' }).then((response) => {
+        Axios.post('http://localhost:3307/getTasks', { name, state: 'asigned' }).then((response) => {
             if (response.data.length === 0)
                 return;
             setTasks(response.data);

@@ -53,7 +53,7 @@ export class NewTaskButton extends Component {
     };
 
     myForm = () => {
-        Axios.get('http://localhost:3001/getTaskCount').then(response => {
+        Axios.get('http://localhost:3307/getTaskCount').then(response => {
             let res = response.data[0].count;
             let limit = 9;//TODO: Cambiar a 999
             res = (res + 1 > limit) ? 1 : res + 1;//Límite cantidad de tareas
@@ -106,11 +106,11 @@ export class NewTaskButton extends Component {
         console.log(aux);
         console.log(this.state);
         this.resetState();
-        Axios.post('http://localhost:3001/getDescriptionWhere', { id: aux.article }).then((response) => {
+        Axios.post('http://localhost:3307/getDescriptionWhere', { id: aux.article }).then((response) => {
             let description = response.data[0].description;
-            Axios.delete(`http://localhost:3001/deleteTask/${aux.task}`).then(() => {
-                Axios.post('http://localhost:3001/updateTaskCount', { task: aux.task });
-                Axios.post('http://localhost:3001/newTask',
+            Axios.delete(`http://localhost:3307/deleteTask/${aux.task}`).then(() => {
+                Axios.post('http://localhost:3307/updateTaskCount', { task: aux.task });
+                Axios.post('http://localhost:3307/newTask',
                     {
                         id: aux.task, article: aux.article, description, quantity: aux.quantity, packages: aux.packages,
                         cutDate: moment(new Date()).format("DD/MM/YYYY"), fabrics: aux.fabrics, colors: aux.colors,
