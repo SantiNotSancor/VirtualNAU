@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Menu from './Menu/index';
+import WorkshopsAdm from './WorkshopsAdm/index';
+import Login from './Login/index';
 import 'bootstrap/dist/css/bootstrap.css';
 
 
 ReactDOM.render(
-  <Menu />,
+  <WorkshopsAdm />,
+  //<Login />,
   document.getElementById('root')
 );
 

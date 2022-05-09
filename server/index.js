@@ -269,6 +269,32 @@ app.post('/updateTaskCount', (req, res) => {
   });
 });
 
+app.put('updateArticle', (req, res) => {
+  const {id, description} = req.body;
+  db.query(
+    "UPDATE articles SET description = ? WHERE id = ?", [description, id],
+    (err, result) => {
+      if(err)
+        console.log(err);
+      else
+        res.send(result);
+    }
+  );
+});
+
+app.put('updateWorkshop', (req, res) => {
+  const {name, contact} = req.body;
+  db.query(
+    "UPDATE workshop SET contact = ? WHERE name = ?", [contact, name],
+    (err, result) => {
+      if(err)
+        console.log(err);
+      else
+        res.send(result);
+    }
+  );
+});
+
 app.put('/asignTask', (req, res) => {
   const { name, task, deadline, weight, threads, price, exitDate } = req.body;
   db.query(

@@ -9,7 +9,7 @@ import Axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import { ModalArt, ModalWork } from './Menu/RegistrationDrop/modals'
+import { ModalArt, ModalWork } from './WorkshopsAdm/RegistrationDrop/modals'
 import './autocomplete.css';
 
 export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//Pedirá un dato con un input tipo text
