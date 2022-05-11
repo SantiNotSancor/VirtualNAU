@@ -6,8 +6,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 
 ReactDOM.render(
-  <WorkshopsAdm />,
-  //<Login />,
+  //<WorkshopsAdm />,
+  <Login />,
   document.getElementById('root')
 );
 
