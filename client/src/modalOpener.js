@@ -1,5 +1,5 @@
 import React from 'react';
-import { ModalController, ModalPrototype } from '../modal';
+import { ModalController, ModalPrototype } from './modal';
 import PropTypes from 'prop-types';
 
 //Crea un botón que abre un modal

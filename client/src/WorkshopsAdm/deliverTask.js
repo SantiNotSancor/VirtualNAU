@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react';
-import { ModalOpener } from './modalOpener';
+import { ModalOpener } from '../modalOpener';
 import { Request, TaskRequest } from '../textInputs';
 import Form from 'react-bootstrap/Form';
 import image from './Images/DeliverTask.svg';

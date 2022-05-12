@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ModalOpener } from './modalOpener';
+import { ModalOpener } from '../modalOpener';
 import image from './Images/Navegation.svg';
 
 export class NavegationButton extends Component {

@@ -11,14 +11,14 @@ ul {
   place-items: center;
 }
 
-.workshopsAdm-selector {
+.menu-selector {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-template-rows: repeat(1, minmax(0, 1fr));
   column-gap: 15px;
   row-gap: 15px;
 }
 
-.workshopsAdm-selector > li {
+.menu-selector > li {
   padding: 5px;
   text-align: center;
   border: 2px solid black;

@@ -2,6 +2,12 @@ CREATE DATABASE IF NOT EXISTS database_factory;
   
 USE database_factory;
 
+CREATE TABLE IF NOT EXISTS user(
+	name TEXT(30) NOT NULL UNIQUE,
+    password TEXT(20) NOT NULL,
+    PRIMARY KEY(name)
+);
+
 CREATE TABLE IF NOT EXISTS articles(
 	id INT(5) UNSIGNED NOT NULL UNIQUE,/*99.999*/
     description TEXT(255) NOT NULL,

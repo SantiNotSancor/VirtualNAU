@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ModalOpener } from './modalOpener';
+import { ModalOpener } from '../modalOpener';
 import { Request } from '../textInputs';
 import image from './Images/NewTask.svg';
 import Axios from 'axios';
