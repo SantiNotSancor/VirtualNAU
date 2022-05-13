@@ -24,16 +24,16 @@ export class ModalPrototype extends Component {//Debe ser invocada para crear el
 
     render() {
         return (
-            <Modal show={this.props.show} className='modal'>
-                <Modal.Header>
+            <Modal show={this.props.show} dialogClassName="modal-dialog">
+                <Modal.Header >
                     <Modal.Title>{this.props.title}</Modal.Title>
                 </Modal.Header>
 
-                <Modal.Body>
+                <Modal.Body >
                     {this.props.children}
                 </Modal.Body>
 
-                <Modal.Footer>
+                <Modal.Footer >
                     {(this.props.footer && this.props.footer.show)?
                     <Button variant="primary" type="submit" onClick={() => {
                         this.props.post();
@@ -44,7 +44,7 @@ export class ModalPrototype extends Component {//Debe ser invocada para crear el
                     }}>Enviar</Button>
                     <Button variant="secundary" onClick={this.props.handleClose}>Cerrar</Button>
                 </Modal.Footer>
-            </Modal>
+            </Modal >
         );
     }
 }

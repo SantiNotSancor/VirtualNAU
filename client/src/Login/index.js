@@ -11,16 +11,9 @@ const initialState = {
 export default class Login extends Component {
     state = initialState;
 
-    componentDidMount = () => {
-        Axios.post('http://localhost:3307/getPassword', { user: this.state.user }).then((response) => {//TODO: Crear método
-            console.log(response.data)
-            this.setState({ actualPassword: response.data });// TODO: Verificar que lo devuelto esté bien
-        });
-        // this.setState({ actualPassword: 123 });
-    };
-
     submit = () => {
-        window.open(this.state.user,'_self');
+        console.log('submit');
+        //window.open(this.state.user,'_self');
         // TODO: Debe existir una págnia para cada usuario que se llame vendor, production, workshops, expedition o manager
     };
 
@@ -28,7 +21,10 @@ export default class Login extends Component {
         return (
             <>
                 <form>
-                    <select onChange={(user) => { this.setState({ user: user.target.value }); console.log(user.target.value) }}>
+                    <select onChange={(user) => {
+                        Axios.post('http://localhost:3001/getPassword', { user: user.target.value }).then((response) =>
+                            this.setState({ actualPassword: response.data[0].password, user: user.target.value }));
+                    }}>
                         <option value="vendor">Vendedor</option>
                         <option value="production" selected>
                             Producción
@@ -42,10 +38,11 @@ export default class Login extends Component {
                     <button onClick={
                         (e) => {
                             e.preventDefault();
-                            const error = !this.state.user && (this.state.password !== this.state.actualPassword);
+                            const error = this.state.password !== this.state.actualPassword;
                             this.setState({ error });
-                            console.log(this.state.actualPassword !== this.state.password);
                             console.log(error);
+                            console.log(this.state.actualPassword);
+                            console.log(this.state.password);
                             if (!error)
                                 this.submit();
                         }

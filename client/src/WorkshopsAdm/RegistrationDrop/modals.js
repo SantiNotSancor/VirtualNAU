@@ -20,15 +20,15 @@ export const ModalWork = ({ handleClose, show, modify }) => {//Se encargará de 
 
     const post = () => {
         if (modify === 'reg')
-            Axios.post('http://localhost:3307/getNamesWhere', { name }).then((response) => {
+            Axios.post('http://localhost:3001/getNamesWhere', { name }).then((response) => {
                 setError(response.data.length !== 0);
                 if (response.data.length === 0)
-                    Axios.post('http://localhost:3307/regWorkshop', { name, contact });
+                    Axios.post('http://localhost:3001/regWorkshop', { name, contact });
             });
         if (modify === 'drop')
-            Axios.delete(`http://localhost:3307/dropWorkshop/${name}`);
+            Axios.delete(`http://localhost:3001/dropWorkshop/${name}`);
         if (modify === 'update')
-            Axios.post('http://localhost:3307/updateWorkshop',{ name, contact });
+            Axios.post('http://localhost:3001/updateWorkshop',{ name, contact });
         myHandleClose();
     }
 
@@ -106,15 +106,15 @@ ModalWork.propTypes = {
 
 //     const post = () => {
 //         if (modify === 'reg')
-//             Axios.post('http://localhost:3307/getDescriptionWhere', { id }).then((response) => {
+//             Axios.post('http://localhost:3001/getDescriptionWhere', { id }).then((response) => {
 //                 setError(response.data.length !== 0);
 //                 if (response.data.length === 0)
-//                     Axios.post('http://localhost:3307/regArticle', { id, description });
+//                     Axios.post('http://localhost:3001/regArticle', { id, description });
 //             });
 //         if (modify === 'drop')
-//             Axios.delete(`http://localhost:3307/dropArticle/${id}`).then(() => console.log('hi'));
+//             Axios.delete(`http://localhost:3001/dropArticle/${id}`).then(() => console.log('hi'));
 //         if (modify === 'update')
-//             Axios.put('http://localhost:3307/updateArticle', { id, description });
+//             Axios.put('http://localhost:3001/updateArticle', { id, description });
 //         myHandleClose();
 //     }
 

@@ -20,7 +20,7 @@ export class ShowData extends Component {
     }
 
     setData = e => {
-        Axios.get('http://localhost:3307/get' + e.charAt(0).toUpperCase() + e.slice(1)).then(response => {
+        Axios.get('http://localhost:3001/get' + e.charAt(0).toUpperCase() + e.slice(1)).then(response => {
             const res = response.data, table = [], titles = [];
             console.log(res);
             if (res)

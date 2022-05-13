@@ -1,3 +1,7 @@
 .modal{
     background-color: violet;
 }
+.modal-dialog {
+    width: 90vw;    /* Occupy the 90% of the screen width */
+    max-width: none!important;
+}

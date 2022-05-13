@@ -2,10 +2,11 @@ CREATE DATABASE IF NOT EXISTS database_factory;
   
 USE database_factory;
 
-CREATE TABLE IF NOT EXISTS user(
-	name TEXT(30) NOT NULL UNIQUE,
+CREATE TABLE IF NOT EXISTS users(
+    id INT(2) UNSIGNED NOT NULL UNIQUE,
+    name TEXT(30) NOT NULL UNIQUE,
     password TEXT(20) NOT NULL,
-    PRIMARY KEY(name)
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE IF NOT EXISTS articles(
@@ -14,7 +15,7 @@ CREATE TABLE IF NOT EXISTS articles(
     PRIMARY KEY(id)
 );
 
-  CREATE TABLE IF NOT EXISTS workshops(
+CREATE TABLE IF NOT EXISTS workshops(
     id INT(3) UNSIGNED NOT NULL AUTO_INCREMENT,/*1.000*/
     name TEXT(255) NOT NULL UNIQUE,
     contact TEXT(255),
@@ -74,6 +75,7 @@ CREATE TABLE IF NOT EXISTS taskCount(
     PRIMARY KEY(id)
 );
 
+SELECT * FROM users;
 SELECT * FROM articles;
 SELECT * FROM workshops;
 SELECT * FROM payments;

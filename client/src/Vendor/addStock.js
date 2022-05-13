@@ -40,27 +40,27 @@ export class AddStock extends Component {
                     </thead>
                     <tbody>
                         <Input onChange={(row) => {//Debería tomar la fila dada por Input y agregarsela a la lista de
-                                                   //materias primas que posee el componente. De estar esta ya ingresada
-                                                   //(en caso de una modificación), reemplazarle.
-                                                   //En caso de eliminarse una fila, aparecerá la cantidad como -1
-                            let alreadyListed = false , aux = this.state.material, i = 0;
+                            //materias primas que posee el componente. De estar esta ya ingresada (en caso de una
+                            //modificación), reemplazarle. En caso de eliminarse una fila, aparecerá la cantidad como -1
+                            let alreadyListed = false, aux = this.state.material, i = 0;
                             console.log(this.state.material);
-                            if(aux)
+                            if (aux)
                                 aux.map((listedRow) => {
                                     console.log(listedRow);
-                                    if(!alreadyListed) i++;
-                                    if(listedRow.id === row.id) alreadyListed = true;
+                                    if (!alreadyListed) i++;
+                                    if (listedRow.id === row.id) alreadyListed = true;
                                 })
                             console.log(i);
                             if (alreadyListed)
-                                if(row.quantity !== -1)
+                                if (row.quantity !== -1)
                                     aux[i] = row;
                                 else
                                     aux.splice(i, 1);
                             else
                                 aux.push(row);
-                            this.setState({ material: aux })}
-                            } />
+                            this.setState({ material: aux })
+                        }
+                        } />
                     </tbody>
                 </Table>
             </Form>
@@ -87,35 +87,41 @@ export const Input = ({ onChange }) => {
                 onChange={(e) => {
                     let aux = { ...input };
                     aux.id = e.target.value;
-                    setInput({ ...aux });}}/>
+                    setInput({ ...aux });
+                }} />
             </td>
             <td><FormControl value={input.name}//Nombre
                 onChange={(e) => {
                     let aux = { ...input };
                     aux.name = e.target.value;
-                    setInput({ ...aux });}}/></td>
+                    setInput({ ...aux });
+                }} /></td>
             <td><FormControl value={input.description}//Descripción
                 onChange={(e) => {
                     let aux = { ...input };
                     aux.description = e.target.value;
-                    setInput({ ...aux });}}/></td>
+                    setInput({ ...aux });
+                }} /></td>
             <td><FormControl value={input.quantity}//Cantidad
                 onChange={(e) => {
-                    if(isNaN(e.target.value) || e.target.value < 0)
+                    if (isNaN(e.target.value) || e.target.value < 0)
                         return;
                     let aux = { ...input };
                     aux.quantity = e.target.value;
-                    setInput({ ...aux });}}/></td>
+                    setInput({ ...aux });
+                }} /></td>
             <td><FormControl value={input.weight}//Peso
                 onChange={(e) => {
                     let aux = { ...input };
                     aux.weight = e.target.value;
-                    setInput({ ...aux });}}/></td>
+                    setInput({ ...aux });
+                }} /></td>
             <td><FormControl value={input.meters}//Metros
                 onChange={(e) => {
                     let aux = { ...input };
                     aux.meters = e.target.value;
-                    setInput({ ...aux });}}/></td>
+                    setInput({ ...aux });
+                }} /></td>
             <td><Button onClick={() => {
                 let aux = { ...input };
                 aux.quantity = -1;

@@ -72,6 +72,16 @@ app.get('/getNames', (req, res) => {
   });
 });
 
+app.post('/getPassword', (req, res) => {
+  const user = req.body.user;
+  db.query("SELECT password FROM users WHERE user = ?", [user], (err, result) => {
+    if(err)
+      console.log(err);
+    else
+      res.send(result);
+  });
+});
+
 app.post('/getNamesWhere', (req, res) => {
   const { name } = req.body;
   db.query("SELECT id FROM workshops WHERE name = ?", [name], (err, result) => {
@@ -347,6 +357,6 @@ app.post('/getPrices', (req, res) => {
 
 
 
-app.listen(3307, () => {
-  console.log('Yey, your server is running on port 3307');
+app.listen(3001, () => {
+  console.log('Yey, your server is running on port 3001');
 });
