@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { ArtWorkButton } from './RegistrationDrop/registrationDrop';
 import { NewTaskButton } from './newTask';
+import { NewPaymentButton } from './newPayment';
 import { DeliverTaskButton } from './deliverTask';
-import { AsignTaskButton } from './asignTask';
+import { AssignTaskButton } from './assignTask';
+import { ShowData } from '../showData';
 import '../styles.css';
-import { ShowData } from './showData';
 
 export default class WorkshopsAdm extends Component {
 
@@ -13,12 +14,14 @@ export default class WorkshopsAdm extends Component {
       <>
         <ul className='menu-selector'>
 
-          <li><AsignTaskButton /></li>
+          <li><NewTaskButton /></li>
+          <li><NewPaymentButton /></li>
+          <li><AssignTaskButton /></li>
           <li><DeliverTaskButton /></li>
           <li><ArtWorkButton article={false} /></li>
 
         </ul>
-        {/* <ShowData titles={['id', 'descripcion']} table={[[2024, 5054], ['Cartucherita', 'Riñonera']]}/> */}
+        <ShowData />
       </>
     );
   }

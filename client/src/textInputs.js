@@ -112,6 +112,7 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
         case 'generalFeatures':
             label = 'Características generales';
             placeholder = 'Ingrese las características generales';
+            checked = (input) => true;
             break;
         case 'colors':
             label = 'Colores';
@@ -139,13 +140,11 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
                             if (checked[Symbol.toStringTag] !== 'AsyncFunction') {
                                 res = checked(e.target.value);
                                 setError(!res);
-                                //if(res || value)
                                 onChange(e, error);
                             }
                             else
                                 checked(e.target.value).then(result => {
                                     setError(!result);
-                                    //if(result)
                                     onChange(e, error);
                                 });
                         }} />

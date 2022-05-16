@@ -79,7 +79,7 @@ export const ModalWork = ({ handleClose, show, modify }) => {//Se encargará de 
     if (modify === 'drop')
         title = 'Baja';
     if (modify === 'update')
-        title = 'Actualizar';
+        title = 'Actualización';
     return (
         <ModalPrototype show={show} handleClose={myHandleClose} children={myForm()}
             title={title + ' de taller'} post={post} />//El modal debe mostrar el form especificado en Workshop

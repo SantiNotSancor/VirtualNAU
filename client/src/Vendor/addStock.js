@@ -12,19 +12,36 @@ import moment from 'moment';
 const initialState = {
     responsable: '',
     date: moment(new Date()).format("DD/MM/YYYY"),
-    material: []
+    materials: [{id: '', quantity: ''}]
     //Una lista que tendrá objetos de la forma {id, quantity} (descripción y nombre están guardados en una tabla)
 }
 
 export class AddStock extends Component {
     state = initialState;
 
+    addMaterial() {
+        this.setState({materials: [...this.state.materials, { id: '', quantity: '' }]})
+    }
+
+    removeMaterial(i) {
+        let materials = this.state.materials;
+        materials.splice(i, 1);
+        this.setState({ materials });
+    }
+
+    changeMaterial(i, e, property) {
+        let materials = this.state.materials;
+        materials[i][property] = e.target.value;
+        this.setState({ materials });
+    }
+    
+
     myForm() {
         return (
             <Form onSubmit={e => e.preventDefault()}>
                 {/* Se hará un formulario para que el usuario complete los datos de la materia prima; fecha actual, responsable, nombre, descripción y cantidad  */}
                 <Request toShow="responsable" onChange={(event) => {
-                    this.setState({ name: event });
+                    this.setState({ responsable: event.target.value });
                 }} />
                 <Table striped bordered id="taskTable">
                     <thead>
@@ -39,28 +56,15 @@ export class AddStock extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        <Input onChange={(row) => {//Debería tomar la fila dada por Input y agregarsela a la lista de
-                            //materias primas que posee el componente. De estar esta ya ingresada (en caso de una
-                            //modificación), reemplazarle. En caso de eliminarse una fila, aparecerá la cantidad como -1
-                            let alreadyListed = false, aux = this.state.material, i = 0;
-                            console.log(this.state.material);
-                            if (aux)
-                                aux.map((listedRow) => {
-                                    console.log(listedRow);
-                                    if (!alreadyListed) i++;
-                                    if (listedRow.id === row.id) alreadyListed = true;
-                                })
-                            console.log(i);
-                            if (alreadyListed)
-                                if (row.quantity !== -1)
-                                    aux[i] = row;
-                                else
-                                    aux.splice(i, 1);
-                            else
-                                aux.push(row);
-                            this.setState({ material: aux })
+                        {!this.state.materials? null :
+                        this.state.materials.map((material, index) => {
+//Debería tomar la fila dada por Row y agregarsela a la lista de materias primas que posee el componente. De estar esta
+//ya ingresada (en caso de una modificación), reemplazarle. En caso de eliminarse una fila, aparecerá la cantidad como -1
+                        <Row onRemove={this.removeMaterial(index)} onChange={(e, property) => {
+                            this.changeMaterial(index, e, property);
+                            this.addMaterial();
+                        }} /> })
                         }
-                        } />
                     </tbody>
                 </Table>
             </Form>
@@ -75,11 +79,14 @@ export class AddStock extends Component {
     }
 }
 
-export const Input = ({ onChange }) => {
+export const Row = ({ onChange, onRemove }) => {
 
     const [input, setInput] = useState({ id: '', name: '', description: '', quantity: '', weight: '', meters: '' });
 
-    useEffect(() => onChange(input), [input]);
+    useEffect(() => {
+        onChange(input.id, 'id');
+        onChange(input.id, 'quantity');
+    }, [input]);
 
     return (
         <tr style={{ 'backgroundColor': 'green' }}>{/*Muestra el primero*/}
@@ -122,12 +129,68 @@ export const Input = ({ onChange }) => {
                     aux.meters = e.target.value;
                     setInput({ ...aux });
                 }} /></td>
-            <td><Button onClick={() => {
-                let aux = { ...input };
-                aux.quantity = -1;
-                setInput({ ...aux });
-                //Eliminar fila
-            }}>X</Button></td>
+            <td><Button onClick={onRemove}>X</Button></td>
         </tr>
     );
 }
+
+// import React from "react";
+// import './styles.css'
+
+// class App extends React.Component {
+//   constructor(props) {
+//     super(props)
+//     this.state = { 
+//        materials: [{ name: "", email : "" }]
+//      };
+//     this.handleSubmit = this.handleSubmit.bind(this)
+//   }
+  
+//   handleChange(i, e) {
+//     let materials = this.state.materials;
+//     materials[i][e.target.name] = e.target.value;
+//     this.setState({ materials });
+//   }
+
+//   addFormFields() {
+//     this.setState(({
+//       materials: [...this.state.materials, { name: "", email: "" }]
+//     }))
+//   }
+
+//   removeFormFields(i) {
+//     let materials = this.state.materials;
+//     materials.splice(i, 1);
+//     this.setState({ materials });
+//   }
+
+//   handleSubmit(event) {
+//     event.preventDefault();
+//     alert(JSON.stringify(this.state.materials));
+//   }
+
+//   render() {
+
+//     return (
+//         <form  onSubmit={this.handleSubmit}>
+//           {this.state.materials.map((element, index) => (
+//             <div className="form-inline" key={index}>
+//               <label>Name</label>
+//               <input type="text" name="name" value={element.name || ""} onChange={e => this.handleChange(index, e)} />
+//               <label>Email</label>
+//               <input type="text" name="email" value={element.email || ""} onChange={e => this.handleChange(index, e)} />
+//               {
+//                 index ? 
+//                   <button type="button"  className="button remove" onClick={() => this.removeFormFields(index)}>Remove</button> 
+//                 : null
+//               }
+//             </div>
+//           ))}
+//           <div className="button-section">
+//               <button className="button add" type="button" onClick={() => this.addFormFields()}>Add</button>
+//               <button className="button submit" type="submit">Submit</button>
+//           </div>
+//       </form>
+//     );
+//   }
+// }

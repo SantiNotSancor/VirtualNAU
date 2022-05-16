@@ -26,11 +26,13 @@ export class ShowData extends Component {
             if (res)
                 res.map(row => table.push(Object.values(row)));
             Object.getOwnPropertyNames(res[0]).map(property => {
-                let show = true, header;
+                let header;
                 switch (property) {
+                    case 'date':
+                        header = 'Fecha';
+                        break;
                     case 'id':
                         header = 'Código';
-                        show = (this.state.data !== 'workshop' && this.state.data !== 'payments');
                         break;
                     case 'description':
                         header = 'Descripción';
@@ -42,7 +44,7 @@ export class ShowData extends Component {
                         header = 'Contacto';
                         break;
                     case 'money':
-                        header = (this.state.data === 'Workshop') ? 'Cuenta corriente' : 'Dinero';
+                        header = (this.state.data === 'Workshop') ? 'Cuenta corriente' : 'Saldo';
                         break;
                     case 'article_id':
                         header = 'Código de artículo';
@@ -99,24 +101,30 @@ export class ShowData extends Component {
                         header = 'Fallados';
                         break;
                 }
-                if(show) titles.push(header);
+                titles.push(header);
             });
             this.setState({ titles, table, data: e });
         });
     }
 
     header = (name, index) => {
-
         return (<th key={index}>{name}</th>);
     }
 
     table = (row, index, titles) => {
         const { table, data } = this.state;
-        return <tr key={index}>{row.map((cell, i) => {
-            console.log(row);
-            console.log(this.state.headers.indexOf(titles[i]));
-
-            return (cell || cell === 0 || this.state.headers.indexOf(titles[i])) ? <td key={i}>{cell}</td> : null;
+        if (data === 'payments' && !row[row.length - 1])
+            return;
+        return <tr key={index}>{row.map((e, i) => {
+            let cell = e;
+            if (data === 'payments' && i === row.length - 1)
+                cell = '$' + e;
+            else switch(e){
+                case 'toAssign': cell = 'A asignar'; break;
+                case 'assigned': cell = 'Asignada'; break;
+                case 'returned': cell = 'Devuelta'; break;
+            };
+            return (e || e === 0 || this.state.headers.indexOf(titles[i])) ? <td key={i}>{cell}</td> : null;
         })}</tr>
     }
 

@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 
 const initialState = {}
 
-export class AsignTaskButton extends Component {
+export class AssignTaskButton extends Component {
     state = initialState;
 
     render() {

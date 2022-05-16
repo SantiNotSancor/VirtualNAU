@@ -50,11 +50,13 @@ app.post('/regWorkshop', (req, res) => {
   );
 });
 
+
+
 app.post('/newTask', (req, res) => {
   const { id, article, description, quantity, packages, cutDate, fabrics, colors, responsable, generalFeatures } = req.body;
   db.query(
-    'INSERT INTO tasks (id, article_id, article_description, quantity, packages, cutDate, fabrics, colors, responsable, generalFeatures, state) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
-    [id, article, description, quantity, packages, cutDate, fabrics, colors, responsable, generalFeatures, 'toAsign'],
+    'INSERT INTO tasks (id, article_id, article_description, quantity, packages, cutDate, fabrics, colors, responsable, generalFeatures, state, paid) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
+    [id, article, description, quantity, packages, cutDate, fabrics, colors, responsable, generalFeatures, 'toAssign', 0],
     (err, result) => {
       if (err)
         console.log(err);
@@ -75,7 +77,7 @@ app.get('/getNames', (req, res) => {
 app.post('/getPassword', (req, res) => {
   const user = req.body.user;
   db.query("SELECT password FROM users WHERE user = ?", [user], (err, result) => {
-    if(err)
+    if (err)
       console.log(err);
     else
       res.send(result);
@@ -96,6 +98,17 @@ app.post('/getNamesWhere', (req, res) => {
 app.post('/getDescriptionWhere', (req, res) => {
   const { id } = req.body;
   db.query("SELECT description FROM articles WHERE id = ?", [id], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.post('/getUnpaidTasks', (req, res) => {
+  const { name } = req.body;
+  db.query("SELECT * FROM tasks WHERE name = ? AND paid = 0", [name], (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -145,12 +158,12 @@ app.post('/getParts', (req, res) => {
 });
 
 app.post('/newPart', (req, res) => {
-  const { name, task, date, quantity, weight, money, threads } = req.body;//name y id deben ser los mismos que en el seleccionado
+  const { name, task, date, quantity, weight, money, threads, paid } = req.body;//name y id deben ser los mismos que en el seleccionado
 
   db.query(
     "INSERT INTO parts (task, date, quantity, weight, money, threads) VALUES (?,?,?,?,?,?)",
     [task, date, quantity, weight, money, threads],
-    (err, result) => {
+    (err) => {
       if (err) {
         console.log(err);
       } else {
@@ -161,7 +174,15 @@ app.post('/newPart', (req, res) => {
             if (err) {
               console.log(err);
             } else {
-              res.send(result);
+              if (paid)
+                db.query("UPDATE tasks SET paid = ? WHERE id = ?", [1, task], (err, result1) => {
+                  if (err)
+                    console.log(err);
+                  else
+                    res.send(result1);
+                });
+              else
+                res.send(result);
             }
           }
         );
@@ -213,11 +234,23 @@ app.put('/printObs', (req, res) => {
   db.query(
     "UPDATE tasks SET observations = ?, calification = ?, faulty = ?, state = 'returned' WHERE id = ?", [observations, calification, faulty, id],
     (err, result) => {
-      if (err) {
+      if (err)
         console.log(err);
-      } else {
+      else
         res.send(result);
-      }
+    }
+  );
+});
+
+app.put('/setAccount', (req, res) => {
+  const { account, name } = req.body;
+  db.query(
+    "UPDATE workshops SET account = ? WHERE name = ?", [account, name],
+    (err, result) => {
+      if (err)
+        console.log(err);
+      else
+        res.send(result);
     }
   );
 });
@@ -280,11 +313,11 @@ app.post('/updateTaskCount', (req, res) => {
 });
 
 app.put('updateArticle', (req, res) => {
-  const {id, description} = req.body;
+  const { id, description } = req.body;
   db.query(
     "UPDATE articles SET description = ? WHERE id = ?", [description, id],
     (err, result) => {
-      if(err)
+      if (err)
         console.log(err);
       else
         res.send(result);
@@ -293,11 +326,11 @@ app.put('updateArticle', (req, res) => {
 });
 
 app.put('updateWorkshop', (req, res) => {
-  const {name, contact} = req.body;
+  const { name, contact } = req.body;
   db.query(
     "UPDATE workshop SET contact = ? WHERE name = ?", [contact, name],
     (err, result) => {
-      if(err)
+      if (err)
         console.log(err);
       else
         res.send(result);
@@ -305,10 +338,10 @@ app.put('updateWorkshop', (req, res) => {
   );
 });
 
-app.put('/asignTask', (req, res) => {
+app.put('/assignTask', (req, res) => {
   const { name, task, deadline, weight, threads, price, exitDate } = req.body;
   db.query(
-    "UPDATE tasks SET exitDate = ?, deadline = ?, name = ?, weight = ?, price = ?, threads = ?, state = 'asigned' WHERE id = ?",
+    "UPDATE tasks SET exitDate = ?, deadline = ?, name = ?, weight = ?, price = ?, threads = ?, state = 'assigned' WHERE id = ?",
     [exitDate, deadline, name, weight, price, threads, task],
     (err, result) => {
       if (err) {
@@ -347,7 +380,7 @@ app.post('/getAccount', (req, res) => {
 
 app.post('/getPrices', (req, res) => {
   const { name, article } = req.body;
-  db.query("SELECT * FROM tasks WHERE name = ? AND article_id = ? AND state != 'toAsign'", [name, article], (err, result) => {
+  db.query("SELECT * FROM tasks WHERE name = ? AND article_id = ? AND state != 'toAssign'", [name, article], (err, result) => {
     if (err)
       console.log(err);
     else

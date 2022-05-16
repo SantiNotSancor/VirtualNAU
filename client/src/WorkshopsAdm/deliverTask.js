@@ -23,11 +23,11 @@ const initialState = {
     faulty: '',
     completed: false,
     calification: '',
-    observation: ''
+    observation: '',
+    paid: false
 }
 
 export class DeliverTaskButton extends Component {
-
     state = initialState;
     form = React.createRef();
 
@@ -63,10 +63,10 @@ export class DeliverTaskButton extends Component {
                     this.setState({ name: value });
                     this.updateError(0, error);
                 }} />
-                <Input name={this.state.name} onChange={(data, price, faulty, task, completed) => {
+                <Input name={this.state.name} onChange={(data, price, faulty, task, completed, paid) => {
                     this.setState({
                         task, quantity: data.quantity, money: data.money, weight: data.weight,
-                        threads: data.threads, completed, price, faulty
+                        threads: data.threads, completed, price, faulty, paid
                     });
                     this.updateError(1, false);
                 }} />
@@ -76,6 +76,7 @@ export class DeliverTaskButton extends Component {
 
     post = () => {
         let aux = this.state;
+        let paid = false;//TODO: Debe ser true si y sólo si se pagó por completo a la tarea
         if (!aux.completed)
             this.resetState();
         Axios.post('http://localhost:3001/getTasks', { id: aux.task }).then((response) => {
@@ -85,7 +86,7 @@ export class DeliverTaskButton extends Component {
         Axios.post('http://localhost:3001/newPart',
             {
                 name: aux.name, task: aux.task, date: moment(new Date()).format('DD/MM/YYYY'), quantity: aux.quantity,
-                weight: Number(aux.weight).toFixed(1), money: Number(aux.money).toFixed(1), threads: aux.threads
+                weight: Number(aux.weight).toFixed(1), money: Number(aux.money).toFixed(1), threads: aux.threads, paid
             }).then(() => {
                 if (aux.completed)
                     this.setState({ showObsModal: true });
@@ -93,7 +94,6 @@ export class DeliverTaskButton extends Component {
     }
 
     completelyReturned = () => {
-        console.log(this.state);
         Axios.put('http://localhost:3001/printObs',
             {
                 id: this.state.task, observations: this.state.observation, calification: this.state.calification,
@@ -157,8 +157,17 @@ export const Input = ({ onChange, name }) => {
     }, [selectedTask]);
 
     useEffect(() => {
-        let delivered = input.quantity;
+        let leftover, delivered = input.quantity;
         let totalMoney = selectedTask.quantity * selectedTask.price - account;
+        console.log(leftover);
+        if(totalMoney < 0){
+            leftover = -totalMoney;
+            totalMoney = 0;
+        }
+        else
+            leftover = 0;
+        console.log(leftover);
+        Axios.put('http://localhost:3001/setAccount', {leftover, name});
         parts.map(part => delivered += part.quantity);
 
         if (quantityBackUp !== input.quantity) {
@@ -167,7 +176,8 @@ export const Input = ({ onChange, name }) => {
                 input.money = totalMoney;
             setQuantityBackUp(input.quantity);
         }
-        onChange(input, selectedTask.price, selectedTask.quantity - delivered, selectedTask.id, (delivered === selectedTask.quantity || completed));
+        onChange(input, selectedTask.price, selectedTask.quantity - delivered, selectedTask.id,
+            (delivered === selectedTask.quantity) || completed, totalMoney - input.quantity < 0);
     }, [input, completed, refund]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const inputField = (property, total) => {
@@ -245,7 +255,7 @@ export const Input = ({ onChange, name }) => {
     }
 
     if (name !== '') {
-        Axios.post('http://localhost:3001/getTasks', { name, state: 'asigned' }).then((response) => {
+        Axios.post('http://localhost:3001/getUnpaidTasks', { name }).then((response) => {
             if (response.data.length === 0)
                 return;
             setTasks(response.data);

@@ -7,7 +7,7 @@ export class ArtWorkButton extends ModalController {
 
     state = {
         ...this.state,//Hereda los estados de ModalController (showModal: false)
-        modify: false//True si y sólo si se está dando el alta al artículo
+        modify: 'reg'
     }
 
     showModal = e => {//Cuando se presione el botón se ejecuta
@@ -20,6 +20,7 @@ export class ArtWorkButton extends ModalController {
         //     return (
         //         <ModalArt handleClose={this.hideModal} show={this.state.showModal} modify={this.state.modify}/>
         //     );
+        console.log(this.state.modify);
         return (
             <ModalWork handleClose={this.hideModal} show={this.state.showModal} modify={this.state.modify}/>
         )

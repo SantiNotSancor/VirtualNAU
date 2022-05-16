@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ModalOpener } from '../modalOpener';
 import { Request, TaskRequest } from '../textInputs';
-import image from './Images/AsignTask.svg';
+import image from './Images/AssignTask.svg';
 import Axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import moment from 'moment';
@@ -25,7 +25,7 @@ const initialState = {
     title: 'Elegir Tarea'
 };
 
-export class AsignTaskButton extends Component {
+export class AssignTaskButton extends Component {
     state = initialState;
     form = React.createRef();
 
@@ -78,7 +78,7 @@ export class AsignTaskButton extends Component {
     };
 
     myForm = () => {
-        Axios.post('http://localhost:3001/getTasks', { state: 'toAsign' }).then((response) => {
+        Axios.post('http://localhost:3001/getTasks', { state: 'toAssign' }).then((response) => {
             this.setState({ tasks: response.data });
         });
         return (
@@ -94,7 +94,6 @@ export class AsignTaskButton extends Component {
                 <TaskRequest setSelectedTask={(e) => {
                     this.setState({ selectedTask: e });
                     this.updateError(0, !!e);
-                    console.log('año');
                     this.handleEnter({ key: 'enter' });
                 }} tasks={this.state.tasks} handleEnter={this.handleEnter}
                     title={this.state.title} setTitle={(e) => { this.setState({ title: e }) }} />
@@ -130,7 +129,7 @@ export class AsignTaskButton extends Component {
     post = () => {
         let aux = this.state;
         this.resetState();
-        Axios.put('http://localhost:3001/asignTask', {
+        Axios.put('http://localhost:3001/assignTask', {
             name: aux.name, task: this.state.selectedTask.id, deadline: aux.deadline, weight: aux.weight, threads: aux.threads,
             price: aux.price, exitDate: moment(new Date()).format("DD/MM/YYYY")
         });

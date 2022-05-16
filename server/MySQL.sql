@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS tasks(
     colors TEXT(255),
     responsable TEXT(255) NOT NULL,
     generalFeatures TEXT(255),
-    state TEXT(10),/*toAsign, asigned, returned*/
+    state TEXT(10),/*toAssign, assigned, returned*/
     /*A asignar en salida*/
     exitDate TEXT(10),
     deadline TEXT(10),

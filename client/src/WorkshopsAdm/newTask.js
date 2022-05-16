@@ -103,8 +103,6 @@ export class NewTaskButton extends Component {
 
     post = () => {
         let aux = this.state;
-        console.log(aux);
-        console.log(this.state);
         this.resetState();
         Axios.post('http://localhost:3001/getDescriptionWhere', { id: aux.article }).then((response) => {
             let description = response.data[0].description;
