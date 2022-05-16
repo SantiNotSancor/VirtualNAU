@@ -59,7 +59,7 @@ export class DeliverTaskButton extends Component {
     myForm = () => {
         return (
             <Form id='toPrint' ref={this.form} onSubmit={e => e.preventDefault()}>
-                <Request toShow='name' handleEnter={this.handleEnter} onChange={(value, error) => {
+                <Request toShow="workshopName" handleEnter={this.handleEnter} onChange={(value, error) => {
                     this.setState({ name: value });
                     this.updateError(0, error);
                 }} />
@@ -79,11 +79,11 @@ export class DeliverTaskButton extends Component {
         let paid = false;//TODO: Debe ser true si y sólo si se pagó por completo a la tarea
         if (!aux.completed)
             this.resetState();
-        Axios.post('http://localhost:3001/getTasks', { id: aux.task }).then((response) => {
-            Axios.put('http://localhost:3001/payWorkshop',
+        Axios.post('http://localhost:3307/getTasks', { id: aux.task }).then((response) => {
+            Axios.put('http://localhost:3307/payWorkshop',
                 { name: response.data[0].name, money: aux.money - aux.quantity * aux.price })
         });
-        Axios.post('http://localhost:3001/newPart',
+        Axios.post('http://localhost:3307/newPart',
             {
                 name: aux.name, task: aux.task, date: moment(new Date()).format('DD/MM/YYYY'), quantity: aux.quantity,
                 weight: Number(aux.weight).toFixed(1), money: Number(aux.money).toFixed(1), threads: aux.threads, paid
@@ -94,7 +94,7 @@ export class DeliverTaskButton extends Component {
     }
 
     completelyReturned = () => {
-        Axios.put('http://localhost:3001/printObs',
+        Axios.put('http://localhost:3307/printObs',
             {
                 id: this.state.task, observations: this.state.observation, calification: this.state.calification,
                 faulty: this.state.faulty
@@ -139,60 +139,56 @@ export class DeliverTaskButton extends Component {
 
 export const Input = ({ onChange, name }) => {
 
-    const [title, setTitle] = useState('Elegir tarea');
-    const [tasks, setTasks] = useState([]);
-    const [parts, setParts] = useState([]);
-    const [input, setInput] = useState({ quantity: 0, weight: 0, money: 0, threads: 0 });
-    const [selectedTask, setSelectedTask] = useState('');
-    const [refund, setRefund] = useState(false);
-    const [completed, setCompleted] = useState(false);
-    const [account, setAccount] = useState('');
-    const [quantityBackUp, setQuantityBackUp] = useState('');
+    const [title, setTitle] = useState('Elegir tarea'); //Título del selectBox. Primero va a ser 'Elegir tarea' pero luego va a mostrar la tarea elegida
+    const [tasks, setTasks] = useState([]);//Todas las tareas que no se le pagaron por completo al taller
+    const [parts, setParts] = useState([]);//Todas las entregas parciales de la tarea elegida
+    const [input, setInput] = useState({ quantity: 0, weight: 0, money: 0, threads: 0 });//Lo ingresado por el usuario en la tabla
+    const [selectedTask, setSelectedTask] = useState('');//La tarea elegida
+    const [refund, setRefund] = useState(false);//Está cargando una devolución?
+    const [completed, setCompleted] = useState(false);//El taller entregó el total de la mercadería?
+    const [account, setAccount] = useState('');//Dinero que le fue pagado al taller anteriormente (la cuenta corriente) y que ahora se utilizará para pagar la tarea
+    const [quantityBackUp, setQuantityBackUp] = useState('');//Una variable auxiliar para recordar la cantidad
 
-    useEffect(() => {
-        setInput({ quantity: 0, weight: 0, money: 0, threads: 0 });
-        Axios.post('http://localhost:3001/getParts', { task: selectedTask.id }).then(response => setParts(response.data));
-        if (name)
-            Axios.post('http://localhost:3001/getAccount', { name }).then(response => setAccount(response.data[0].money));
+    useEffect(() => {//Cuando selectedTask cambia...
+        setInput({ quantity: 0, weight: 0, money: 0, threads: 0 });//Resetear los valores de Input (porque el usuario no ingresó nada)
+        Axios.post('http://localhost:3307/getParts', { task: selectedTask.id }).then(response => setParts(response.data));//Recuperar partes desde la BD y asignarselas a parts
+        if (name)//Si se sabe el nombre del taller...
+            Axios.post('http://localhost:3307/getAccount', { name }).then(response => {//Recuperar de la BD la cuenta corriente del taller
+                let totalMoney = selectedTask.quantity * selectedTask.price, res = response.data[0].money;//totalMoney es lo que se deberá pagar por la tarea entera y res es la cuenta corriente del taller
+                setAccount((totalMoney < res)? totalMoney : res);//account debe ser el menor de totalMoney y res, ya que si totalMoney es mayor a res, no alcanza a pagar todo, mientras que si totalMoney es menor a res, el taller va a tener un resto de cuenta corriente
+                Axios.put('http://localhost:3307/setAccount', {money: ((totalMoney < res) ? res - totalMoney : 0), name})//Actualizar el dinero que posee a cuenta el taller
+            });
     }, [selectedTask]);
 
     useEffect(() => {
-        let leftover, delivered = input.quantity;
-        let totalMoney = selectedTask.quantity * selectedTask.price - account;
-        console.log(leftover);
-        if(totalMoney < 0){
-            leftover = -totalMoney;
-            totalMoney = 0;
-        }
-        else
-            leftover = 0;
-        console.log(leftover);
-        Axios.put('http://localhost:3001/setAccount', {leftover, name});
-        parts.map(part => delivered += part.quantity);
+        let delivered = input.quantity, totalMoney = selectedTask.quantity * selectedTask.price;//delivered es la cantidad total devuelta por el taller (en todas las partes) y totalMoney es lo que se deberá pagar por la tarea entera
+        parts.map(part => delivered += part.quantity);//Sumar a delivered todas las cantidades entregadas en cada parte
 
-        if (quantityBackUp !== input.quantity) {
-            input.money = input.quantity * selectedTask.price;
-            if (input.money > totalMoney)
-                input.money = totalMoney;
-            setQuantityBackUp(input.quantity);
+        if (quantityBackUp !== input.quantity) {//???
+            input.money = input.quantity * selectedTask.price - account;//Le recomienda al usuario pagar todo lo que debe pagar (lo entregado en esta parte * el precio acordado - la cuenta corriente de esta parte)
+            if (input.money > totalMoney)//Si lo ingresado por el usuario excede lo total a pagar...
+                input.money = totalMoney;//Asignar lo ingresado por el usuario lo total a pagar ???
+            setQuantityBackUp(input.quantity);//???
         }
-        onChange(input, selectedTask.price, selectedTask.quantity - delivered, selectedTask.id,
+        onChange(input, selectedTask.price, selectedTask.quantity - delivered, selectedTask.id,//Se envían los cambios
             (delivered === selectedTask.quantity) || completed, totalMoney - input.quantity < 0);
+        //onChange(data, price, faulty, task, completed, paid)//objeto con todo lo ingresado, precio, artículos fallados, id de tarea, si se entregaron todos los artículos y si se pagó la totalidad de la tarea
     }, [input, completed, refund]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    const inputField = (property, total) => {
+    const inputField = (property, total) => {//Función que devuelve un inputbox para ingresar datos al objeto input. propery
+        //property es la propiedad de input que se quiere modificar con el inputbox y total es el objeto que contiene todos los totales
         return (
-            <FormControl value={input[property]}
-                onChange={(e) => {
-                    if (isNaN(e.target.value) || (total[property] < e.target.value && property !== 'money'))
-                        return;
+            <FormControl value={input[property]}//Asignar al inputbox la variable input[property], es decir que cada vez que el inputbox se modifica, la variable también y vice versa
+                onChange={(e) => {//Cuando cambia el inputbox...
+                    if (isNaN(e.target.value) || (total[property] < e.target.value && property !== 'money'))//Si el valor es inválido...
+                        return;//Cancelar
                     let aux = { ...input };
                     aux[property] = e.target.value;
-                    aux[property] = (refund) ?
-                        -Math.abs(aux[property]) :
-                        (aux[property] < 0) ? 0 : aux[property];
-                    if (property === 'quantity' || property === 'threads')
-                        aux[property] = Math.round(aux[property]);
+                    aux[property] = (refund) ?//Si se está haciendo una devolución de mercadería o se contó mal la mercadería en una parte anterior
+                        -Math.abs(aux[property]) ://Poner en negativo lo ingresado (así se suma y no se resta al total)
+                        (aux[property] < 0) ? 0 : aux[property];//Si la propiedad es negativa, convertir en 0
+                    if (property === 'quantity' || property === 'threads')//Si la propiedad es cantidad o hilos...
+                        aux[property] = Math.round(aux[property]);//No puede ser decimal
                     setInput({ ...aux });
                 }} />
         );
@@ -203,9 +199,10 @@ export const Input = ({ onChange, name }) => {
         let total = {
             quantity: selectedTask.quantity,
             weight: selectedTask.weight,
-            money: selectedTask.quantity * selectedTask.price - account,
+            money: selectedTask.quantity * selectedTask.price,
             threads: selectedTask.threads
         };
+        
         return (
             <>
                 {parts.map((part, index) => {
@@ -225,6 +222,7 @@ export const Input = ({ onChange, name }) => {
                             <td>{part.threads}</td>
                             <td>{total.threads}</td>
                             <td>{'$' + Number(part.money).toFixed(1)}</td>
+                            <td>{}</td>
                             <td>{'$' + Number(total.money).toFixed(1)}</td>
                         </tr>
                     );
@@ -238,7 +236,8 @@ export const Input = ({ onChange, name }) => {
                     <td>{inputField('threads', total)}</td>
                     <td>{total.threads - input.threads}</td>
                     <td>{inputField('money', total)}</td>
-                    <td>{'$' + (total.money - input.money).toFixed(1)}</td>
+                    <td>{'$' + account}</td>
+                    <td>{'$' + (total.money - input.money - account).toFixed(1)}</td>
                 </tr>
             </>
         )
@@ -255,7 +254,7 @@ export const Input = ({ onChange, name }) => {
     }
 
     if (name !== '') {
-        Axios.post('http://localhost:3001/getUnpaidTasks', { name }).then((response) => {
+        Axios.post('http://localhost:3307/getUnpaidTasks', { name }).then((response) => {
             if (response.data.length === 0)
                 return;
             setTasks(response.data);
@@ -291,6 +290,7 @@ export const Input = ({ onChange, name }) => {
                                 <th>Hilos devueltos</th>
                                 <th>Hilos totales</th>
                                 <th>Dinero entregado</th>
+                                <th>Dinero a cuenta</th>
                                 <th>Dinero total</th>
                             </tr>
                         </thead>
@@ -303,7 +303,8 @@ export const Input = ({ onChange, name }) => {
                                 <td>{selectedTask.weight}</td>
                                 <td></td>
                                 <td>{selectedTask.threads}</td>
-                                <td>{'$' + account + ' (A CTA)'}</td>
+                                <td></td>
+                                <td></td>
                                 <td>{'$' + selectedTask.price * selectedTask.quantity}</td>
                             </tr>
                             {getTable()}

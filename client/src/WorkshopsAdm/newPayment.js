@@ -52,7 +52,7 @@ export class NewPaymentButton extends Component {
     myForm = () => {
         return (
             <Form ref={this.form}>
-                <Request toShow="name" handleEnter={this.handleEnter} onChange={(value, error) => {
+                <Request toShow="workshopName" handleEnter={this.handleEnter} onChange={(value, error) => {
                     this.setState({ name: value });
                     this.updateError(0, error);
                 }} />
@@ -66,7 +66,7 @@ export class NewPaymentButton extends Component {
 
     post = () => {
         const { name, money } = this.state;
-        Axios.put('http://localhost:3001/payWorkshop', { name, money });
+        Axios.put('http://localhost:3307/payWorkshop', { name, money });
         this.resetState();
     }
 

@@ -5,10 +5,31 @@ import Axios from 'axios';
 import Form from 'react-bootstrap/Form';
 //import image from './Images/newQuery.svg';
 
-const initialState = {}
+const initialState = {
+    customer : " ", //Añade cliente  
+    observation : " ",
+}
 
-export class AssignTaskButton extends Component {
+export class NewQuery extends Component {
     state = initialState;
+
+    resetState = () => {
+        this.setState(initialState);
+    }
+
+    myForm = () => {
+        return(
+            <>
+                <Request toShow="customerName" onChange={(e) => {
+                    this.setState({customer: e.target.value});
+                }}/>
+                <Request toShow="observation" onChange={(e) => {
+                    this.setState({observation: e.target.value});
+                }}/>
+            </>
+        );
+    }
+
 
     render() {
         return (

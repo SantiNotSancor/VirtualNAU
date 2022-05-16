@@ -19,7 +19,15 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
     let placeholder, auxLabel = label, checked = (input) => input !== '';
 
     switch (toShow) {
-        case 'name':
+        //GENERAL
+        case 'observation':
+            label = 'Observaciones';
+            placeholder = 'Ingrese observaciones si las tiene';
+            checked = (input) => true;
+            break;
+
+        //TALLERES
+        case 'workshopName':
             label = 'Nombre del taller';
             placeholder = 'Ingrese el nombre del/la tallerista';
             break;
@@ -52,7 +60,7 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
             checked = async (input) => {
                 if (input === '')
                     return false
-                let response = await Axios.get('http://localhost:3001/getNames');
+                let response = await Axios.get('http://localhost:3307/getNames');
                 response = !response.data.find(e => e.name.toLowerCase() === input.toLowerCase());
                 return response;
             };
@@ -63,7 +71,7 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
             checked = async (input) => {
                 if (input === '' || isNaN(input))
                     return false;
-                let response = await Axios.post('http://localhost:3001/getDescriptionWhere', { id: input });
+                let response = await Axios.post('http://localhost:3307/getDescriptionWhere', { id: input });
                 return response.data.length === 0;
             };
             break;
@@ -84,11 +92,6 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
                 })
                 return input.length === 10 && input[2] === '/' && input[5] === '/' && !error;
             }
-            break;
-        case 'observation':
-            label = 'Observación/es';
-            placeholder = 'Ingrese observaciones sobre la tarea si las tiene';
-            checked = (input) => true;
             break;
         case 'calification':
             label = 'Calificación';
@@ -122,6 +125,13 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
             label = 'Hilos';
             placeholder = 'Ingrese la cantidad de hilos';
             break;
+
+            //CLIENTES
+            case 'customerName':
+                label = 'Nombre del cliente';
+                placeholder = 'Ingrese el nombre del/la cliente';
+                break;
+
         default:
             console.error("ERROR, HA INGRESADO EL toShow " + toShow + " EN EL COMPONENTE TEXTINPUT");
     }
@@ -129,7 +139,7 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
     label = (auxLabel) ? auxLabel : label;
     placeholder += '…';
     return (
-        (toShow === 'name') ? <NameRequest handleEnter={handleEnter} placeholder={placeholder} onChange={onChange} /> :
+        (toShow === 'workshopName') ? <NameRequest handleEnter={handleEnter} placeholder={placeholder} onChange={onChange} /> :
             ((toShow === 'article') ? <ArticleRequest handleEnter={handleEnter} placeholder={placeholder} onChange={onChange} /> :
                 <Form.Group>
                     <Form.Label>{label}</Form.Label>
@@ -158,7 +168,7 @@ Request.propTypes = {
     onChange: PropTypes.func.isRequired, //Función a ejecutar cuando se modifica el input
     toShow: PropTypes.string.isRequired,
     label: PropTypes.string,
-    defValue: PropTypes.string,
+    value: PropTypes.string,
     handleEnter: PropTypes.func
 }
 
@@ -166,7 +176,7 @@ const ArticleRequest = ({ placeholder, onChange, handleEnter }) => {
     const [articles, setArticles] = useState([]);
 
     const getList = () => {
-        Axios.get('http://localhost:3001/getArticles').then((response) => {
+        Axios.get('http://localhost:3307/getArticles').then((response) => {
             setArticles(response.data.map(article => article.id + ': ' + article.description));
         })
     }
@@ -197,7 +207,7 @@ const NameRequest = ({ label, placeholder, onChange, handleEnter }) => {
         getList();
     }, []);
     const getList = () => {
-        Axios.get('http://localhost:3001/getNames').then((response) => {
+        Axios.get('http://localhost:3307/getNames').then((response) => {
             setList(response.data);
         });
     }
@@ -394,7 +404,7 @@ export const TaskRequest = ({ setSelectedTask, tasks, title, setTitle, handleEnt
 //     const [show, setShow] = useState(false);
 
 //     const getDescription = (userInput) => {
-//         Axios.post('http://localhost:3001/getDescriptionWhere', { id: userInput }).then((response) => {
+//         Axios.post('http://localhost:3307/getDescriptionWhere', { id: userInput }).then((response) => {
 //             setError(response.data.length === 0);
 //             if (response.data.length !== 0)
 //                 setDescription(response.data[0].description);

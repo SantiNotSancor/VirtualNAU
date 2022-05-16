@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {AddStock} from './addStock';
-// import {NewQuery} from './newQuery';
+import {NewQuery} from './newQuery';
 // import {TickSuspended} from './tickSuspended';
 // import {TickToDos} from './tickToDos';
 import '../styles.css';
@@ -11,9 +11,9 @@ export default class Vendor extends Component {
     return (
         <ul className='menu-selector'>
             <AddStock />
-            {/* <NewQuery />
-            <TickSuspended />
-            <TickToDos /> */}
+            <NewQuery />
+            {/*<TickSuspended />
+            <TickToDo /> */}
         </ul>
     );
   }

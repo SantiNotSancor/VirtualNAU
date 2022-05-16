@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS tasks(
     calification INT(2),
     observations TEXT(255),
     faulty INT(2),
+    paid BOOL,
     PRIMARY KEY(id)
 );
 

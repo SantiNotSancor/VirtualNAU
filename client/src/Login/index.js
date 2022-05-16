@@ -22,7 +22,7 @@ export default class Login extends Component {
             <>
                 <form>
                     <select onChange={(user) => {
-                        Axios.post('http://localhost:3001/getPassword', { user: user.target.value }).then((response) =>
+                        Axios.post('http://localhost:3307/getPassword', { user: user.target.value }).then((response) =>
                             this.setState({ actualPassword: response.data[0].password, user: user.target.value }));
                     }}>
                         <option value="vendor">Vendedor</option>

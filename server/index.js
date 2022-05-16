@@ -161,7 +161,7 @@ app.post('/newPart', (req, res) => {
   const { name, task, date, quantity, weight, money, threads, paid } = req.body;//name y id deben ser los mismos que en el seleccionado
 
   db.query(
-    "INSERT INTO parts (task, date, quantity, weight, money, threads) VALUES (?,?,?,?,?,?)",
+    "INSERT INTO parts (task, date, quantity, weight, money, threads) VALUES (?,?,?,?,?,?,?)",
     [task, date, quantity, weight, money, threads],
     (err) => {
       if (err) {
@@ -243,9 +243,9 @@ app.put('/printObs', (req, res) => {
 });
 
 app.put('/setAccount', (req, res) => {
-  const { account, name } = req.body;
+  const { money, name } = req.body;
   db.query(
-    "UPDATE workshops SET account = ? WHERE name = ?", [account, name],
+    "UPDATE workshops SET money = ? WHERE name = ?", [money, name],
     (err, result) => {
       if (err)
         console.log(err);
@@ -390,6 +390,6 @@ app.post('/getPrices', (req, res) => {
 
 
 
-app.listen(3001, () => {
-  console.log('Yey, your server is running on port 3001');
+app.listen(3307, () => {
+  console.log('Yey, your server is running on port 3307');
 });
