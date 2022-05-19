@@ -1,0 +1,70 @@
+body {
+  background-color: rgb(97, 97, 97);
+  font-family: "SalmaAlfasans", sans-serif;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 25px 10px;
+  text-decoration: none;
+  
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+  text-decoration: none;
+}
+
+.active {
+  background-color: rgb(190, 0, 0);
+}
+.logo { padding: 2px; margin: 2px; border: 0px solid black; float: left; width: 70px; }
+h1 {
+  color: rgb(255, 255, 255);
+  margin-left: 20px;
+}
+
+h2{
+  color: white;
+  font-size:30px;
+  text-align: center;
+     text-shadow: 1px 1px 4px rgb(0, 0, 0);
+     
+  
+}
+
+
+div {
+  
+  position: absolute;
+top: 45%;
+left: 65%;
+margin: -150px 0 0 -150px; 
+  padding: 20px;
+  border: 0%;
+  padding-top: 6.25%;
+padding-right: 11%;
+padding-bottom: 6.25%;
+padding-left: 11%;
+width: 180px;
+border-radius: 10px;
+box-shadow: 5px 5px 40px rgba(0, 0, 0, 0.5);
+
+
+  background-color: #a5a5a5 ;
+
+}
