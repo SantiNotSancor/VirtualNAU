@@ -1,5 +1,9 @@
 body {
   background-color: rgb(97, 97, 97);
+  opacity: 0.75;
+ 
+    
+    
   font-family: "SalmaAlfasans", sans-serif;
 }
 
@@ -38,15 +42,88 @@ h1 {
   margin-left: 20px;
 }
 
-h2{
+h1{
   color: white;
-  font-size:30px;
+  font-size:40px;
   text-align: center;
-     text-shadow: 1px 1px 4px rgb(0, 0, 0);
-     
-  
+  text-shadow: 1px 1px 4px rgb(0, 0, 0);
+  position:relative;
+  bottom:50px;
+  white-space: pre;
+  left: -20px;
 }
 
+h2{
+  color: white;
+  font-size:17px;
+  text-align: center;
+  text-shadow: 1px 1px 5px rgb(0, 0, 0);
+  position:relative;
+  bottom:35px;
+  right: 100px;
+  white-space: pre;
+}
+
+select {
+  width: 230px;
+  height: 35px;
+  margin: 20px;
+  position:relative;
+  bottom:60px;
+  left: -120px;
+
+}
+
+input {
+position:relative;
+bottom:80px;
+left: -100px;
+width: 222px;
+height: 28px;
+}
+
+.error {
+   border: 0px;  
+   position: relative;
+ width: 20px;
+ float: left;
+ top: 15px;
+
+  }
+
+p{
+  color: rgb(255, 255, 255);
+  font-size:15px;
+  text-align: center;
+  position:relative;
+  bottom:115px;
+  right: 100px;
+  white-space: pre;
+}
+
+button {
+  background-color: rgb(75, 74, 74);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  position: relative;
+  bottom: 70px;
+  left: 15px;
+  opacity: 0.6;
+  transition: 0.3s;
+  box-shadow: 2px 2px 3px rgb(0, 0, 0);
+
+
+}
+
+button:hover {opacity: 3}
+  
 
 div {
   
@@ -56,9 +133,9 @@ left: 65%;
 margin: -150px 0 0 -150px; 
   padding: 20px;
   border: 0%;
-  padding-top: 6.25%;
+  padding-top: 5%;
 padding-right: 11%;
-padding-bottom: 6.25%;
+padding-bottom: 0%;
 padding-left: 11%;
 width: 180px;
 border-radius: 10px;
@@ -67,4 +144,7 @@ box-shadow: 5px 5px 40px rgba(0, 0, 0, 0.5);
 
   background-color: #a5a5a5 ;
 
+  
+
 }
+

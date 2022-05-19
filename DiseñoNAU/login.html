@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<meta charset="UTF-8"/>
 <html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bodylogin.css">
@@ -14,8 +15,8 @@
   
 <img class="logo" src="nau.png" alt="imagen logo">
 <h1></h1>
-<h1>Log in</h1>
 <div>
+<h1>Log in</h1>
 <h2>Seleccione tipo de usuario</h2>
 
 <select name="Tipo de Usuario" id="usuario">
@@ -26,8 +27,10 @@
     <option value="e">Expedición</option>
   </select>
 <p></p>
-  <input type="password">
-  <p>Contraseña incorrecta. Vuelva a intentarlo.</p>
+  <input type="password" placeholder="Contraseña">
+  <p>
+    <img class="error" src="advertencia.png" alt="imagen advertencia">
+    Contraseña incorrecta. Vuelva a intentarlo.</p>
   <p></p>
   <button type="button" >Ingresar</button>
   </div>
