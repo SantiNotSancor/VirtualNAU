@@ -12,9 +12,9 @@ const initialState = {
     actualTable: [],//La tabla a mostrar
     titles: [],//Los atributos de la BD
     headers: [],//Los títulos que se mostrarán en la tabla
-    input: '',   //Ingreso de Inputbox para filtrar la tabla
-    filters: [],
-    list: []
+    input: '',//Ingreso de Inputbox para filtrar la tabla
+    filters: [],//Lista que muestra el tipo de filtro
+    filterInputs: [] //Lista que contiene lo ingresado por el usuario en cada filtro
 };
 
 export class ShowData extends Component {
@@ -72,8 +72,8 @@ export class ShowData extends Component {
                     case 'colors':
                         header = 'Colores';
                         break;
-                    case 'responsable':
-                        header = 'Responsable/s';
+                    case 'responsible':
+                        header = 'responsible/s';
                         break;
                     case 'generalFeatures':
                         header = 'Detalles';
@@ -113,7 +113,7 @@ export class ShowData extends Component {
             });
             
             let filters = [];
-            let list = [];
+            let filterInputs = [];
             titles.map((title) => {//TODO: 
                 switch(title){
                     case 'Descripción':
@@ -123,7 +123,7 @@ export class ShowData extends Component {
                     case 'Descripción de artículo':
                     case 'Telas':
                     case 'Colores':
-                    case 'Responsable/s':
+                    case 'responsible/s':
                     case 'Detalles':
                     case 'Observaciones':
                         filters.push('input');
@@ -146,21 +146,43 @@ export class ShowData extends Component {
                         filters.push('date');
                         break;
                     case 'Estado':
-                        filters.push('dropbox');
+                        filters.push(['Todos', 'Asignado', 'No Asignado', 'Devuelto']);
                         break;
                     case 'Pago':
-                        filters.push('checkbox');
+                        filters.push(['Todos', 'Pago', 'No Pago']);
                         break;
                     default:
                         filters.push('');
                         break;
                 }
-                list.push('');
+                filterInputs.push('');
             })
-            console.log(filters);
-
-            this.setState({ titles, table, data: e, filters, list});
+            this.setState({ titles, table, actualTable: table, data: e, filters, filterInputs});
         });
+    }
+
+    compareTable = () => {//Le asigna a actualTable una versión filtrada de table 
+        //TODO:     
+        const {table, filterInputs} = this.state;
+        let actualTable = table;
+        console.log(table);//['', 'an']
+        table.map((row, i) => {
+            let erase = false;
+            console.log(row);//[2004, 'Gorro de lana'];
+            row.map((cell, j) => {
+                let aux = typeof(cell) !== 'string'? toString(cell) : cell;
+                if(!aux.includes(filterInputs[j])){
+                    console.log('BORRAR');
+                    erase = true;
+                }
+            })
+            if(erase){
+                actualTable.splice(i, 1);//Eliminar el elemento número i
+                console.log("ELIMINAR   " + i);}
+        })
+        //Filtrar actualTable
+        this.setState({actualTable});
+
     }
 
     table = (row, index, titles) => {
@@ -172,7 +194,7 @@ export class ShowData extends Component {
     }
 
     render() {
-        const { table, titles } = this.state, data = { 'articles': 'Artículos', 'workshops': 'Talleres', 'payments': 'Pagos', 'tasks': 'Tareas' };
+        const { actualTable, titles } = this.state, data = { 'articles': 'Artículos', 'workshops': 'Talleres', 'payments': 'Pagos', 'tasks': 'Tareas' };
         let title = 'Elegir datos a mostrar', dropdownList = [];
         for (const key in data)
             dropdownList.push(key);
@@ -184,7 +206,7 @@ export class ShowData extends Component {
                 }}>
                     {dropdownList.map((e, index) => <Dropdown.Item key={index} eventKey={e}>{data[e]}</Dropdown.Item>)}
                 </DropdownButton>
-                {(titles && table) ?
+                {(titles && actualTable) ?
                     <Table striped bordered>
                         <thead>
                             <tr>
@@ -197,24 +219,54 @@ export class ShowData extends Component {
                                 switch (filter) {
                                     case 'input':
                                         return <td key={i}><FormControl onChange={(e) => {
-                                            let aux = this.state.list;
+                                            let aux = this.state.filterInputs;
                                             aux[i] = e.target.value;
-                                            this.setState({list: aux});
+                                            this.setState({filterInputs: aux});
+                                            this.compareTable();
                                         }}/></td>
                                     case 'number':
-                                        return <td key={i}><FormControl/><DropdownButton/></td>
+                                        return <td key={i}><FormControl onChange={(e) => {
+                                            let aux = this.state.filterInputs;
+                                            if(aux[i] === '')
+                                                aux[i] = ' ';
+                                            let firstChar = aux[i][0];
+                                            aux[i] = firstChar + e.target.value;
+                                            this.setState({filterInputs: aux});
+                                            this.compareTable();
+                                        }}/>
+                                        
+                                        <DropdownButton onSelect={(e) => {
+                                            let aux = this.state.filterInputs;
+                                            if(aux[i] === '')
+                                                aux[i] = e;
+                                            else
+                                                aux[i] = e + aux[i].substring(1);
+                                            this.setState({filterInputs: aux});
+                                            this.compareTable();
+                                        }}>
+                                            <Dropdown.Item eventKey={'>'}>Mayor</Dropdown.Item>
+                                            <Dropdown.Item eventKey={'<'}>Menor</Dropdown.Item>
+                                            <Dropdown.Item eventKey={'='}>Igual</Dropdown.Item>
+                                        </DropdownButton></td>
                                     case 'date':
                                         return <td key={i}>FALTA AGREGAR</td>//TODO: AGREGAR
-                                    case 'dropbox':
-                                        return <td key={i}><DropdownButton /></td>
-                                    case 'checkbox':
-                                        return <td key={i}><Form.Check/></td>
                                     default:
-                                        return <td key={i}></td>;
+                                        if(!filter[0])
+                                            return <td key={i}></td>;
+                                        return <td key={i}>
+                                        <DropdownButton onSelect={(e) => {
+                                            let aux = this.state.filterInputs;
+                                            aux[i] = e;
+                                            this.setState({filterInputs: aux});
+                                            this.compareTable();
+                                        }}>
+                                            {filter.map((element, index) => 
+                                            <Dropdown.Item key={index} eventKey={element}>{element}</Dropdown.Item>)}
+                                        </DropdownButton></td>        
                                 }
                             })}
                             </tr>
-                            {table.map((row, i) => this.table(row, i, titles))}
+                            {actualTable.map((row, i) => this.table(row, i, titles))}
                         </tbody>
                     </Table>
                     : null}

@@ -108,7 +108,7 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
             placeholder = 'Ingrese las telas';
             checked = (input) => true;
             break;
-        case 'responsable':
+        case 'responsible':
             label = 'Responsables';
             placeholder = 'Ingrese las personas responsables';
             break;
