@@ -36,13 +36,13 @@ export class ModalPrototype extends Component {//Debe ser invocada para crear el
                 <Modal.Footer >
                     {(this.props.footer && this.props.footer.show)?
                     <Button variant="primary" type="submit" onClick={() => {
-                        this.props.post();
                         this.props.footer.func();
+                        //this.props.post();
                     }}>{this.props.footer.label}</Button> : <></>}
                     <Button variant="primary" type="submit" onClick={() => {
                         this.props.post();//Se cierra desde post si todo está en orden
-                    }}>Enviar</Button>
-                    <Button variant="secundary" onClick={this.props.handleClose}>Cerrar</Button>
+                    }}>Confirmar</Button>
+                    <Button variant="secundary" onClick={this.props.handleClose}>Cancelar</Button>
                 </Modal.Footer>
             </Modal >
         );

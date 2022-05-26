@@ -24,7 +24,8 @@ const initialState = {
     completed: false,
     calification: '',
     observation: '',
-    paid: false
+    paid: false,
+    workshopAccount: ''
 }
 
 export class DeliverTaskButton extends Component {
@@ -41,7 +42,7 @@ export class DeliverTaskButton extends Component {
         this.setState({ errors });
 
         let aux = false;
-        errors.map((e, key) => 
+        errors.map((e, key) =>
             aux = aux && (key === index) ? error : e
         );
         this.setState({ error: aux });
@@ -63,10 +64,10 @@ export class DeliverTaskButton extends Component {
                     this.setState({ name: value });
                     this.updateError(0, error);
                 }} />
-                <Input name={this.state.name} onChange={(data, price, faulty, task, completed, paid) => {
+                <Input name={this.state.name} onChange={(data, price, faulty, task, completed, paid, workshopAccount, usedAccount) => {
                     this.setState({
-                        task, quantity: data.quantity, money: data.money, weight: data.weight,
-                        threads: data.threads, completed, price, faulty, paid
+                        task, quantity: data.quantity, money: Number(data.money) + Number(usedAccount), weight: data.weight,
+                        threads: data.threads, completed, price, faulty, paid, workshopAccount
                     });
                     this.updateError(1, false);
                 }} />
@@ -75,22 +76,22 @@ export class DeliverTaskButton extends Component {
     }
 
     post = () => {
-        let aux = this.state;
-        let paid = false;//TODO: Debe ser true si y sólo si se pagó por completo a la tarea
-        if (!aux.completed)
+        let { completed, task, money, weight, name, quantity, price, threads, paid, workshopAccount } = this.state;
+        if (!completed)
             this.resetState();
-        Axios.post('http://localhost:3307/getTasks', { id: aux.task }).then((response) => {
+        Axios.post('http://localhost:3307/getTasks', { id: task }).then((response) => {
             Axios.put('http://localhost:3307/payWorkshop',
-                { name: response.data[0].name, money: aux.money - aux.quantity * aux.price })
-        });
+                { name: response.data[0].name, money: money - quantity * price })
+        })
         Axios.post('http://localhost:3307/newPart',
             {
-                name: aux.name, task: aux.task, date: moment(new Date()).format('DD/MM/YYYY'), quantity: aux.quantity,
-                weight: Number(aux.weight).toFixed(1), money: Number(aux.money).toFixed(1), threads: aux.threads, paid
+                name, task, date: moment(new Date()).format('DD/MM/YYYY'), quantity, threads, paid,
+                weight: Number(weight).toFixed(1), money: Number(money).toFixed(1)
             }).then(() => {
-                if (aux.completed)
+                if (completed)
                     this.setState({ showObsModal: true });
             });
+        Axios.put('http://localhost:3307/setAccount', { money: workshopAccount, name })//Actualizar el dinero que posee a cuenta el taller
     }
 
     completelyReturned = () => {
@@ -144,35 +145,38 @@ export const Input = ({ onChange, name }) => {
     const [parts, setParts] = useState([]);//Todas las entregas parciales de la tarea elegida
     const [input, setInput] = useState({ quantity: 0, weight: 0, money: 0, threads: 0 });//Lo ingresado por el usuario en la tabla
     const [selectedTask, setSelectedTask] = useState('');//La tarea elegida
-    const [refund, setRefund] = useState(false);//Está cargando una devolución?
-    const [completed, setCompleted] = useState(false);//El taller entregó el total de la mercadería?
-    const [account, setAccount] = useState('');//Dinero que le fue pagado al taller anteriormente (la cuenta corriente) y que ahora se utilizará para pagar la tarea
-    const [quantityBackUp, setQuantityBackUp] = useState('');//Una variable auxiliar para recordar la cantidad
+    const [refund, setRefund] = useState(false);//¿Está cargando una devolución?
+    const [completed, setCompleted] = useState(false);//¿El taller entregó el total de la mercadería?
+    //const [actualAccount, setActualAccount] = useState('');//Dinero que le fue pagado al taller anteriormente (la cuenta corriente)
+    const [account, setAccount] = useState('');//Dinero que le fue pagado al taller anteriormente (la cuenta corriente)
+    const [quantityBackUp, setQuantityBackUp] = useState('');//Una variable auxiliar para recordar la cantidad, de esta forma podremos saber cuándo cambia
 
     useEffect(() => {//Cuando selectedTask cambia...
         setInput({ quantity: 0, weight: 0, money: 0, threads: 0 });//Resetear los valores de Input (porque el usuario no ingresó nada)
-        Axios.post('http://localhost:3307/getParts', { task: selectedTask.id }).then(response => setParts(response.data));//Recuperar partes desde la BD y asignarselas a parts
-        if (name)//Si se sabe el nombre del taller...
-            Axios.post('http://localhost:3307/getAccount', { name }).then(response => {//Recuperar de la BD la cuenta corriente del taller
-                let totalMoney = selectedTask.quantity * selectedTask.price, res = response.data[0].money;//totalMoney es lo que se deberá pagar por la tarea entera y res es la cuenta corriente del taller
-                setAccount((totalMoney < res)? totalMoney : res);//account debe ser el menor de totalMoney y res, ya que si totalMoney es mayor a res, no alcanza a pagar todo, mientras que si totalMoney es menor a res, el taller va a tener un resto de cuenta corriente
-                Axios.put('http://localhost:3307/setAccount', {money: ((totalMoney < res) ? res - totalMoney : 0), name})//Actualizar el dinero que posee a cuenta el taller
-            });
+        let moneyPaid = input.money;
+        Axios.post('http://localhost:3307/getParts', { task: selectedTask.id }).then(response => {
+            setParts(response.data)//Recuperar partes desde la BD y asignarselas a parts
+            response.data.map(part => moneyPaid += part.money);//Sumar a moneyPaid todo lo pagado en cada parte
+            if (name)//Si se sabe el nombre del taller...
+                Axios.post('http://localhost:3307/getAccount', { name }).then(response => {//Recuperar de la BD la cuenta corriente del taller
+                    setAccount(response.data[0].money);
+                });
+        });
     }, [selectedTask]);
 
     useEffect(() => {
-        let delivered = input.quantity, totalMoney = selectedTask.quantity * selectedTask.price;//delivered es la cantidad total devuelta por el taller (en todas las partes) y totalMoney es lo que se deberá pagar por la tarea entera
+        let delivered = input.quantity;
+        let moneyPaid = isNaN(input.money) ? 0 : input.money;
+        parts.map(part => moneyPaid = Number(moneyPaid) + Number(part.money));//Sumar a moneyPaid todo lo pagado en cada parte
         parts.map(part => delivered += part.quantity);//Sumar a delivered todas las cantidades entregadas en cada parte
-
-        if (quantityBackUp !== input.quantity) {//???
+        if (quantityBackUp !== input.quantity) {//Si se modificó la cantidad
             input.money = input.quantity * selectedTask.price - account;//Le recomienda al usuario pagar todo lo que debe pagar (lo entregado en esta parte * el precio acordado - la cuenta corriente de esta parte)
-            if (input.money > totalMoney)//Si lo ingresado por el usuario excede lo total a pagar...
-                input.money = totalMoney;//Asignar lo ingresado por el usuario lo total a pagar ???
-            setQuantityBackUp(input.quantity);//???
+            input.money = input.money < 0 ? 0 : input.money;//No se le puede recomendar pagar un número negativo
+            setQuantityBackUp(input.quantity);//Volver a actualizar la cantidad
         }
         onChange(input, selectedTask.price, selectedTask.quantity - delivered, selectedTask.id,//Se envían los cambios
-            (delivered === selectedTask.quantity) || completed, totalMoney - input.quantity < 0);
-        //onChange(data, price, faulty, task, completed, paid)//objeto con todo lo ingresado, precio, artículos fallados, id de tarea, si se entregaron todos los artículos y si se pagó la totalidad de la tarea
+            delivered === selectedTask.quantity || completed, selectedTask.quantity * selectedTask.price <= moneyPaid, input.quantity * selectedTask.price - moneyPaid - account, account);//TODO: Revisar fórmula para leftover (workshopAccount)
+        //onChange(data, price, faulty, task, completed, paid, workshopAccount, usedAccount)//objeto con todo lo ingresado, precio, artículos fallados, id de tarea, si se entregaron todos los artículos, si se pagó la totalidad de la tarea, lo que le quedará de cuenta corriente al taller luego de la parte y la cantidad de dinero utilizado de la cuenta corriente
     }, [input, completed, refund]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const inputField = (property, total) => {//Función que devuelve un inputbox para ingresar datos al objeto input. propery
@@ -180,10 +184,11 @@ export const Input = ({ onChange, name }) => {
         return (
             <FormControl value={input[property]}//Asignar al inputbox la variable input[property], es decir que cada vez que el inputbox se modifica, la variable también y vice versa
                 onChange={(e) => {//Cuando cambia el inputbox...
-                    if (isNaN(e.target.value) || (total[property] < e.target.value && property !== 'money'))//Si el valor es inválido...
+                    let value = e.target.value;
+                    if (isNaN(value) || (total[property] < value && property !== 'money'))//Si el valor es inválido...
                         return;//Cancelar
                     let aux = { ...input };
-                    aux[property] = e.target.value;
+                    aux[property] = (value[value.length - 1] === '.') ? value : Number(value);
                     aux[property] = (refund) ?//Si se está haciendo una devolución de mercadería o se contó mal la mercadería en una parte anterior
                         -Math.abs(aux[property]) ://Poner en negativo lo ingresado (así se suma y no se resta al total)
                         (aux[property] < 0) ? 0 : aux[property];//Si la propiedad es negativa, convertir en 0
@@ -202,7 +207,6 @@ export const Input = ({ onChange, name }) => {
             money: selectedTask.quantity * selectedTask.price,
             threads: selectedTask.threads
         };
-        
         return (
             <>
                 {parts.map((part, index) => {
@@ -222,7 +226,7 @@ export const Input = ({ onChange, name }) => {
                             <td>{part.threads}</td>
                             <td>{total.threads}</td>
                             <td>{'$' + Number(part.money).toFixed(1)}</td>
-                            <td>{}</td>
+                            <td>{ }</td>
                             <td>{'$' + Number(total.money).toFixed(1)}</td>
                         </tr>
                     );

@@ -20,7 +20,6 @@ export class ArtWorkButton extends ModalController {
         //     return (
         //         <ModalArt handleClose={this.hideModal} show={this.state.showModal} modify={this.state.modify}/>
         //     );
-        console.log(this.state.modify);
         return (
             <ModalWork handleClose={this.hideModal} show={this.state.showModal} modify={this.state.modify}/>
         )

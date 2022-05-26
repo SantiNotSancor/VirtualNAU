@@ -12,7 +12,6 @@ export default class Login extends Component {
     state = initialState;
 
     submit = () => {
-        console.log('submit');
         //window.open(this.state.user,'_self');
         // TODO: Debe existir una págnia para cada usuario que se llame vendor, production, workshops, expedition o manager
     };
@@ -40,9 +39,6 @@ export default class Login extends Component {
                             e.preventDefault();
                             const error = this.state.password !== this.state.actualPassword;
                             this.setState({ error });
-                            console.log(error);
-                            console.log(this.state.actualPassword);
-                            console.log(this.state.password);
                             if (!error)
                                 this.submit();
                         }

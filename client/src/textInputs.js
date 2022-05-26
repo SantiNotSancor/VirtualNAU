@@ -183,7 +183,6 @@ const ArticleRequest = ({ placeholder, onChange, handleEnter }) => {
     const myOnChange = (event, error) => {
         if (event.indexOf(':') > 0)
             event = event.substr(0, event.indexOf(':'));
-        console.log(event);
         onChange(event, error);
     }
 
@@ -280,7 +279,6 @@ class Autocomplete extends Component {
         const { activeSuggestion, filteredSuggestions, showSuggestions, userInput } = this.state;
         // User pressed the enter key
         if (e.key.toLowerCase() === 'enter') {
-            console.log(showSuggestions);
             if (showSuggestions){
                 this.setState({
                     activeSuggestion: 0,
@@ -339,10 +337,9 @@ class Autocomplete extends Component {
                     </ul>
                 );
             } else {
-                //TODO: Puede ser que no exista el artículo (Dice taller)
                 suggestionsListComponent = (
                     <div className="no-suggestions">
-                        <em>El taller ingresado no existe</em>
+                        <em>No se ha encontrado ninguna opción</em>
                         <Button onClick={() => {
                             this.setState({
                                 showModal: true

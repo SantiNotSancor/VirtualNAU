@@ -22,7 +22,6 @@ export class ShowData extends Component {
     setData = e => {
         Axios.get('http://localhost:3307/get' + e.charAt(0).toUpperCase() + e.slice(1)).then(response => {
             const res = response.data, table = [], titles = [];
-            console.log(res);
             if (res)
                 res.map(row => table.push(Object.values(row)));
             Object.getOwnPropertyNames(res[0]).map(property => {
@@ -119,6 +118,8 @@ export class ShowData extends Component {
             let cell = e;
             if (data === 'payments' && i === row.length - 1)
                 cell = '$' + e;
+            else if (data === 'tasks' && i === 17)
+                cell = (e === 1) ? 'Pago' : 'Impago';
             else switch(e){
                 case 'toAssign': cell = 'A asignar'; break;
                 case 'assigned': cell = 'Asignada'; break;

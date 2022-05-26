@@ -4,6 +4,7 @@ import { Request, TaskRequest } from '../textInputs';
 import image from './Images/AssignTask.svg';
 import Axios from 'axios';
 import Form from 'react-bootstrap/Form';
+import Table from 'react-bootstrap/Table';
 import moment from 'moment';
 
 const initialState = {
@@ -22,7 +23,8 @@ const initialState = {
     errors: [true, true, true, true, true, true],
     selectedTask: null,
     tasks: [],
-    title: 'Elegir Tarea'
+    title: 'Elegir Tarea',
+    showPrint: false
 };
 
 export class AssignTaskButton extends Component {
@@ -48,7 +50,7 @@ export class AssignTaskButton extends Component {
     componentDidUpdate(prevState) {
         if (this.state.selectedTask === prevState.selectedTask && this.state.name === prevState.name)
             return;
-        if (!this.state.name || !this.state.selectedTask)
+        if (!this.state.name || !this.state.selectedTask || this.state.price)
             return;
         Axios.post('http://localhost:3307/getPrices',
             { name: this.state.name, article: this.state.selectedTask.article_id }).then((response) => {
@@ -56,12 +58,10 @@ export class AssignTaskButton extends Component {
                 if (response.data.length === 0)
                     return;
                 let currentId = this.state.selectedTask.id, aux = response.data[0];
-                console.log(aux);
                 response.data.map((task) => {
                     if ((task.id > aux.id && task.id < currentId) || (task.id > currentId && (aux.id === 0 || aux.id > currentId)))
                         aux = task;
                 })
-                console.log(aux);
                 this.setState({ price: aux.price });
             });
     }
@@ -72,7 +72,7 @@ export class AssignTaskButton extends Component {
         const form = this.form.current;
         const index = [...form].indexOf(event.target);
         if (form.elements[index + 1])
-            form.elements[(index === -1)? 1 : index + 1].focus();
+            form.elements[(index === -1) ? 1 : index + 1].focus();
         if (event.keyCode) //Si el evento es artificial ({key = 'enter'}), no se prevendrá el evento porque no existe
             event.preventDefault();
     };
@@ -103,7 +103,7 @@ export class AssignTaskButton extends Component {
                     this.updateError(1, error);
                 }} />
 
-                <Request toShow="price" value={this.state.price} handleEnter={this.handleEnter} onChange={(event, error) => {
+                <Request toShow="price" value={this.state.price.toString()} handleEnter={this.handleEnter} onChange={(event, error) => {
                     this.setState({ price: event.target.value });
                     this.updateError(2, error);
                 }} />
@@ -126,6 +126,52 @@ export class AssignTaskButton extends Component {
         );
     }
 
+    toPrint = () => {
+        const { showPrint, date, quantity, weight, threads, price } = this.state;
+        if (!showPrint)
+            return null;
+        return (
+            <div id="toPrint">
+                <Table striped bordered>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Cantidad</th>
+                            <th>Peso</th>
+                            <th>Hilos</th>
+                            <th>Precio por unidad</th>
+                            <th>Dinero</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style={{ 'backgroundColor': 'green' }}>{/*Muestra el primero*/}
+                            <td>{date}</td>
+                            <td>{quantity}</td>
+                            <td>{weight}</td>
+                            <td>{threads}</td>
+                            <td>{'$' + price}</td>
+                            <td>{'$' + price * quantity}</td>
+                        </tr>
+                    </tbody>
+                </Table>
+            </div>
+        );
+    }
+
+    print = () => {
+        if (this.state.error) {
+            alert('Error. No se puede imprimir una boleta inválida.');
+            return;
+        }
+        this.setState({ showPrint: true });
+        var printContents = document.getElementById('toPrint').innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+        this.setState({ showPrint: false });
+    }
+
     post = () => {
         let aux = this.state;
         this.resetState();
@@ -137,9 +183,13 @@ export class AssignTaskButton extends Component {
 
     render() {
         return (
-            <ModalOpener buttonText='Remito' handleClose={this.resetState}
-                className={'title'} logo={image} title={'Asignar Tarea'} post={this.post} children={this.myForm()} />
+            <>
+                <ModalOpener buttonText='Remito' handleClose={this.resetState}
+                    footer={{ label: 'Imprimir', func: this.print, show: true/*!this.state.error*/ }} error={this.state.error}
+                    className={'title'} logo={image} title={'Asignar Tarea'} post={this.post} children={this.myForm()} />
             //Crea un botón que abre a un modal en el que aparecerá lo devuelto en this.myForm
+                {this.toPrint()}
+            </>
         );
     }
 }

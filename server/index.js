@@ -108,7 +108,7 @@ app.post('/getDescriptionWhere', (req, res) => {
 
 app.post('/getUnpaidTasks', (req, res) => {
   const { name } = req.body;
-  db.query("SELECT * FROM tasks WHERE name = ? AND paid = 0", [name], (err, result) => {
+  db.query("SELECT * FROM tasks WHERE name = ? AND (paid = 0 OR state = 'assigned')", [name], (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -161,7 +161,7 @@ app.post('/newPart', (req, res) => {
   const { name, task, date, quantity, weight, money, threads, paid } = req.body;//name y id deben ser los mismos que en el seleccionado
 
   db.query(
-    "INSERT INTO parts (task, date, quantity, weight, money, threads) VALUES (?,?,?,?,?,?,?)",
+    "INSERT INTO parts (task, date, quantity, weight, money, threads) VALUES (?,?,?,?,?,?)",
     [task, date, quantity, weight, money, threads],
     (err) => {
       if (err) {
@@ -175,7 +175,7 @@ app.post('/newPart', (req, res) => {
               console.log(err);
             } else {
               if (paid)
-                db.query("UPDATE tasks SET paid = ? WHERE id = ?", [1, task], (err, result1) => {
+                db.query("UPDATE tasks SET paid = 1 WHERE id = ?", [task], (err, result1) => {
                   if (err)
                     console.log(err);
                   else

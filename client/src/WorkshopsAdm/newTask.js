@@ -55,7 +55,7 @@ export class NewTaskButton extends Component {
     myForm = () => {
         Axios.get('http://localhost:3307/getTaskCount').then(response => {
             let res = response.data[0].count;
-            let limit = 9;//TODO: Cambiar a 999
+            let limit = 9;//TODO: Cambiar a 9999
             res = (res + 1 > limit) ? 1 : res + 1;//Límite cantidad de tareas
             this.setState({ task: res });
         });
@@ -63,7 +63,6 @@ export class NewTaskButton extends Component {
             <Form ref={this.form}>
                 <h3>Tarea número {this.state.task}</h3>
                 <Request toShow="article" handleEnter={this.handleEnter} onChange={(event, error) => {
-                    console.log('onChange');
                     this.setState({ article: event });
                     this.updateError(0, error);
                 }} />
