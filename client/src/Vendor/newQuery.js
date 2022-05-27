@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 
 const initialState = {
     customer : " ", //Añade cliente  
-    observation : " ",
+    observation : " "
 }
 
 export class NewQuery extends Component {

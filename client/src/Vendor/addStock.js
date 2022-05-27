@@ -12,8 +12,7 @@ import moment from 'moment';
 const initialState = {
     responsable: '',
     date: moment(new Date()).format("DD/MM/YYYY"),
-    materials: [{id: '', quantity: ''}]
-    //Una lista que tendrá objetos de la forma {id, quantity} (descripción y nombre están guardados en una tabla)
+    materials: [{id: '', quantity: ''}]//Una lista que tendrá objetos de la forma {id, quantity} (descripción y nombre están guardados en una tabla)
 }
 
 export class AddStock extends Component {
@@ -35,6 +34,9 @@ export class AddStock extends Component {
         this.setState({ materials });
     }
     
+    post() {//TODO:
+        console.log('hi');
+    }
 
     myForm() {
         return (
@@ -73,6 +75,7 @@ export class AddStock extends Component {
 
     render() {
         return (
+            //null
             <ModalOpener buttonText='Añadir stock' handleClose={this.resetState}
                 className={'title'} /*logo={image}*/ title={'Añadir stock'} post={this.post} children={this.myForm()} />
         );
