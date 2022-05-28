@@ -2,34 +2,28 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
 import Table from 'react-bootstrap/Table';
 
 const initialState = {
-    data: '', //El nombre de la BD de la que sacamos los datos
-    table: [],//La tabla de datos
-    actualTable: [],//La tabla a mostrar
-    titles: [],//Los atributos de la BD
-    headers: [],//Los títulos que se mostrarán en la tabla
-    input: '',   //Ingreso de Inputbox para filtrar la tabla
-    filters: [],
-    list: []
+    data: '',
+    table: '',
+    titles: [],
+    headers: []
 };
 
 export class ShowData extends Component {
 
     state = initialState;
 
-    resetState = () => this.setState(initialState);
+    resetState = () => {
+        this.setState(initialState);
+    }
 
     setData = e => {
         Axios.get('http://localhost:3307/get' + e.charAt(0).toUpperCase() + e.slice(1)).then(response => {
             const res = response.data, table = [], titles = [];
-            console.log(res);
             if (res)
                 res.map(row => table.push(Object.values(row)));
-
             Object.getOwnPropertyNames(res[0]).map(property => {
                 let header;
                 switch (property) {
@@ -105,69 +99,33 @@ export class ShowData extends Component {
                     case 'faulty':
                         header = 'Fallados';
                         break;
-                    case 'paid':
-                        header = 'Pago';
-                        break;
                 }
                 titles.push(header);
             });
-            
-            let filters = [];
-            let list = [];
-            titles.map((title) => {//TODO: 
-                switch(title){
-                    case 'Descripción':
-                    case 'Nombre':
-                    case 'Contacto':
-                    case 'Código de artículo':
-                    case 'Descripción de artículo':
-                    case 'Telas':
-                    case 'Colores':
-                    case 'Responsable/s':
-                    case 'Detalles':
-                    case 'Observaciones':
-                        filters.push('input');
-                        break;
-                    case 'Saldo':
-                    case 'Cantidad':
-                    case 'Código':
-                    case 'Bultos':
-                    case 'Precio unitario':
-                    case 'Peso':
-                    case 'Hilos entregados':
-                    case 'Calificación':
-                    case 'Fallados':
-                        filters.push('number');
-                        break;
-                    case 'Fecha':
-                    case 'Fecha de corte':
-                    case 'Fecha de salida':
-                    case 'Fecha esperada':
-                        filters.push('date');
-                        break;
-                    case 'Estado':
-                        filters.push('dropbox');
-                        break;
-                    case 'Pago':
-                        filters.push('checkbox');
-                        break;
-                    default:
-                        filters.push('');
-                        break;
-                }
-                list.push('');
-            })
-            console.log(filters);
-
-            this.setState({ titles, table, data: e, filters, list});
+            this.setState({ titles, table, data: e });
         });
     }
 
+    header = (name, index) => {
+        return (<th key={index}>{name}</th>);
+    }
+
     table = (row, index, titles) => {
-        const { data } = this.state;
+        const { table, data } = this.state;
+        if (data === 'payments' && !row[row.length - 1])
+            return;
         return <tr key={index}>{row.map((e, i) => {
             let cell = e;
-            return <td key={i}>{cell}</td>;
+            if (data === 'payments' && i === row.length - 1)
+                cell = '$' + e;
+            else if (data === 'tasks' && i === 17)
+                cell = (e === 1) ? 'Pago' : 'Impago';
+            else switch(e){
+                case 'toAssign': cell = 'A asignar'; break;
+                case 'assigned': cell = 'Asignada'; break;
+                case 'returned': cell = 'Devuelta'; break;
+            };
+            return (e || e === 0 || this.state.headers.indexOf(titles[i])) ? <td key={i}>{cell}</td> : null;
         })}</tr>
     }
 
@@ -178,7 +136,7 @@ export class ShowData extends Component {
             dropdownList.push(key);
         return (
             <>
-                <DropdownButton title={title} onSelect={e => {//Define la BD a mostrar
+                <DropdownButton title={title} onSelect={e => {
                     this.setData(e);
                     title = data.e;
                 }}>
@@ -188,32 +146,10 @@ export class ShowData extends Component {
                     <Table striped bordered>
                         <thead>
                             <tr>
-                                {titles.map((title, i) => <th key={i}>{title}</th>)}
+                                {titles.map((title, i) => this.header(title, i))}
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                            {this.state.filters.map((filter, i) => {
-                                switch (filter) {
-                                    case 'input':
-                                        return <td key={i}><FormControl onChange={(e) => {
-                                            let aux = this.state.list;
-                                            aux[i] = e.target.value;
-                                            this.setState({list: aux});
-                                        }}/></td>
-                                    case 'number':
-                                        return <td key={i}><FormControl/><DropdownButton/></td>
-                                    case 'date':
-                                        return <td key={i}>FALTA AGREGAR</td>//TODO: AGREGAR
-                                    case 'dropbox':
-                                        return <td key={i}><DropdownButton /></td>
-                                    case 'checkbox':
-                                        return <td key={i}><Form.Check/></td>
-                                    default:
-                                        return <td key={i}></td>;
-                                }
-                            })}
-                            </tr>
                             {table.map((row, i) => this.table(row, i, titles))}
                         </tbody>
                     </Table>
