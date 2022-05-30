@@ -5,10 +5,21 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Table from 'react-bootstrap/Table';
 
 const initialState = {
+<<<<<<< HEAD
     data: '',
     table: '',
     titles: [],
     headers: []
+=======
+    data: '', //El nombre de la BD de la que sacamos los datos
+    table: [],//La tabla de datos
+    actualTable: [],//La tabla a mostrar
+    titles: [],//Los atributos de la BD
+    headers: [],//Los títulos que se mostrarán en la tabla
+    input: '',//Ingreso de Inputbox para filtrar la tabla
+    filters: [],//Lista que muestra el tipo de filtro
+    filterInputs: [] //Lista que contiene lo ingresado por el usuario en cada filtro
+>>>>>>> vendor
 };
 
 export class ShowData extends Component {
@@ -66,8 +77,8 @@ export class ShowData extends Component {
                     case 'colors':
                         header = 'Colores';
                         break;
-                    case 'responsable':
-                        header = 'Responsable/s';
+                    case 'responsible':
+                        header = 'responsible/s';
                         break;
                     case 'generalFeatures':
                         header = 'Detalles';
@@ -102,12 +113,87 @@ export class ShowData extends Component {
                 }
                 titles.push(header);
             });
+<<<<<<< HEAD
             this.setState({ titles, table, data: e });
         });
     }
 
     header = (name, index) => {
         return (<th key={index}>{name}</th>);
+=======
+            
+            let filters = [];
+            let filterInputs = [];
+            titles.map((title) => {//TODO: 
+                switch(title){
+                    case 'Descripción':
+                    case 'Nombre':
+                    case 'Contacto':
+                    case 'Código de artículo':
+                    case 'Descripción de artículo':
+                    case 'Telas':
+                    case 'Colores':
+                    case 'responsible/s':
+                    case 'Detalles':
+                    case 'Observaciones':
+                        filters.push('input');
+                        break;
+                    case 'Saldo':
+                    case 'Cantidad':
+                    case 'Código':
+                    case 'Bultos':
+                    case 'Precio unitario':
+                    case 'Peso':
+                    case 'Hilos entregados':
+                    case 'Calificación':
+                    case 'Fallados':
+                        filters.push('number');
+                        break;
+                    case 'Fecha':
+                    case 'Fecha de corte':
+                    case 'Fecha de salida':
+                    case 'Fecha esperada':
+                        filters.push('date');
+                        break;
+                    case 'Estado':
+                        filters.push(['Todos', 'Asignado', 'No Asignado', 'Devuelto']);
+                        break;
+                    case 'Pago':
+                        filters.push(['Todos', 'Pago', 'No Pago']);
+                        break;
+                    default:
+                        filters.push('');
+                        break;
+                }
+                filterInputs.push('');
+            })
+            this.setState({ titles, table, actualTable: table, data: e, filters, filterInputs});
+        });
+    }
+
+    compareTable = () => {//Le asigna a actualTable una versión filtrada de table 
+        //TODO:     
+        const {table, filterInputs} = this.state;
+        let actualTable = table;
+        console.log(table);//['', 'an']
+        table.map((row, i) => {
+            let erase = false;
+            console.log(row);//[2004, 'Gorro de lana'];
+            row.map((cell, j) => {
+                let aux = typeof(cell) !== 'string'? toString(cell) : cell;
+                if(!aux.includes(filterInputs[j])){
+                    console.log('BORRAR');
+                    erase = true;
+                }
+            })
+            if(erase){
+                actualTable.splice(i, 1);//Eliminar el elemento número i
+                console.log("ELIMINAR   " + i);}
+        })
+        //Filtrar actualTable
+        this.setState({actualTable});
+
+>>>>>>> vendor
     }
 
     table = (row, index, titles) => {
@@ -130,7 +216,7 @@ export class ShowData extends Component {
     }
 
     render() {
-        const { table, titles } = this.state, data = { 'articles': 'Artículos', 'workshops': 'Talleres', 'payments': 'Pagos', 'tasks': 'Tareas' };
+        const { actualTable, titles } = this.state, data = { 'articles': 'Artículos', 'workshops': 'Talleres', 'payments': 'Pagos', 'tasks': 'Tareas' };
         let title = 'Elegir datos a mostrar', dropdownList = [];
         for (const key in data)
             dropdownList.push(key);
@@ -142,7 +228,7 @@ export class ShowData extends Component {
                 }}>
                     {dropdownList.map((e, index) => <Dropdown.Item key={index} eventKey={e}>{data[e]}</Dropdown.Item>)}
                 </DropdownButton>
-                {(titles && table) ?
+                {(titles && actualTable) ?
                     <Table striped bordered>
                         <thead>
                             <tr>
@@ -150,7 +236,63 @@ export class ShowData extends Component {
                             </tr>
                         </thead>
                         <tbody>
+<<<<<<< HEAD
                             {table.map((row, i) => this.table(row, i, titles))}
+=======
+                            <tr>
+                            {this.state.filters.map((filter, i) => {
+                                switch (filter) {
+                                    case 'input':
+                                        return <td key={i}><FormControl onChange={(e) => {
+                                            let aux = this.state.filterInputs;
+                                            aux[i] = e.target.value;
+                                            this.setState({filterInputs: aux});
+                                            this.compareTable();
+                                        }}/></td>
+                                    case 'number':
+                                        return <td key={i}><FormControl onChange={(e) => {
+                                            let aux = this.state.filterInputs;
+                                            if(aux[i] === '')
+                                                aux[i] = ' ';
+                                            let firstChar = aux[i][0];
+                                            aux[i] = firstChar + e.target.value;
+                                            this.setState({filterInputs: aux});
+                                            this.compareTable();
+                                        }}/>
+                                        
+                                        <DropdownButton onSelect={(e) => {
+                                            let aux = this.state.filterInputs;
+                                            if(aux[i] === '')
+                                                aux[i] = e;
+                                            else
+                                                aux[i] = e + aux[i].substring(1);
+                                            this.setState({filterInputs: aux});
+                                            this.compareTable();
+                                        }}>
+                                            <Dropdown.Item eventKey={'>'}>Mayor</Dropdown.Item>
+                                            <Dropdown.Item eventKey={'<'}>Menor</Dropdown.Item>
+                                            <Dropdown.Item eventKey={'='}>Igual</Dropdown.Item>
+                                        </DropdownButton></td>
+                                    case 'date':
+                                        return <td key={i}>FALTA AGREGAR</td>//TODO: AGREGAR
+                                    default:
+                                        if(!filter[0])
+                                            return <td key={i}></td>;
+                                        return <td key={i}>
+                                        <DropdownButton onSelect={(e) => {
+                                            let aux = this.state.filterInputs;
+                                            aux[i] = e;
+                                            this.setState({filterInputs: aux});
+                                            this.compareTable();
+                                        }}>
+                                            {filter.map((element, index) => 
+                                            <Dropdown.Item key={index} eventKey={element}>{element}</Dropdown.Item>)}
+                                        </DropdownButton></td>        
+                                }
+                            })}
+                            </tr>
+                            {actualTable.map((row, i) => this.table(row, i, titles))}
+>>>>>>> vendor
                         </tbody>
                     </Table>
                     : null}
