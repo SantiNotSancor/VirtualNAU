@@ -109,7 +109,9 @@ export class AssignTaskButton extends Component {
                 }} />
 
                 <Request toShow="deadline" handleEnter={this.handleEnter} onChange={(event, error) => {
-                    this.setState({ deadline: event.target.value });
+                    let deadline = event.target.value, currentYear = new Date().getFullYear();
+                    deadline += deadline.length < 10 ? '/' + currentYear : '';
+                    this.setState({ deadline });
                     this.updateError(3, error);
                 }} />
 
@@ -159,10 +161,6 @@ export class AssignTaskButton extends Component {
     }
 
     print = () => {
-        if (this.state.error) {
-            alert('Error. No se puede imprimir una boleta inválida.');
-            return;
-        }
         this.setState({ showPrint: true });
         var printContents = document.getElementById('toPrint').innerHTML;
         var originalContents = document.body.innerHTML;
@@ -185,7 +183,7 @@ export class AssignTaskButton extends Component {
         return (
             <>
                 <ModalOpener buttonText='Remito' handleClose={this.resetState}
-                    footer={{ label: 'Imprimir', func: this.print, show: true/*!this.state.error*/ }} error={this.state.error}
+                    footer={{ label: 'Imprimir', func: this.print, show: !this.state.error }} error={this.state.error}
                     className={'title'} logo={image} title={'Asignar Tarea'} post={this.post} children={this.myForm()} />
             //Crea un botón que abre a un modal en el que aparecerá lo devuelto en this.myForm
                 {this.toPrint()}

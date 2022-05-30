@@ -90,7 +90,7 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
                     if (isNaN(e))
                         error = true;
                 })
-                return input.length === 10 && input[2] === '/' && input[5] === '/' && !error;
+                return ((input.length === 10 && input[5] === '/') || input.length === 5) && input[2] === '/' && !error;
             }
             break;
         case 'calification':
