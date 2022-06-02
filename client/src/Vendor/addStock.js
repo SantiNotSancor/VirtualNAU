@@ -12,14 +12,25 @@ import moment from 'moment';
 const initialState = {
     responsable: '',
     date: moment(new Date()).format("DD/MM/YYYY"),
-    materials: [{id: '', quantity: ''}]//Una lista que tendrá objetos de la forma {id, quantity} (descripción y nombre están guardados en una tabla)
+    materials: [],//Una lista que tendrá objetos de la forma {id, quantity} (descripción y nombre están guardados en una tabla)
+    materialsData: []//Tabla que va a contener todos los datos de toda la materia prima, para hacer las conversiones entre id, descripción y nombre y cantidad, metros y peso
 }
 
 export class AddStock extends Component {
     state = initialState;
 
-    addMaterial() {
-        this.setState({materials: [...this.state.materials, { id: '', quantity: '' }]})
+    componentDidMount() {
+        //TODO: Debe darle valor a materialData, que será una lista de objetos con id, nombre, descripción, peso por unidad y metro por unidad. De no poseer alguno de los últimos dos datos, debe mostrar 0
+        let aux = [{id: 15, name: 'Cierre', description: 'Marca SanCor', weight: 0.5, meters: 0},
+                {id: 4, name: 'Pasador', description: 'Amarillo', weight: 3, meters: 1},
+                {id: 6, name: 'Cable', description: 'De cobre', weight: 0.5, meters: 1.5}]  
+        this.setState({ materialsData: aux });
+    }
+
+    addMaterial(value, property) {
+        let aux = {id: '', quantity: ''};
+        aux[property] = value;
+        this.setState({materials: [...this.state.materials, aux]})//Agrega un objeto al final de la lista. Sus propiedades serán los parámetros
     }
 
     removeMaterial(i) {
@@ -28,9 +39,12 @@ export class AddStock extends Component {
         this.setState({ materials });
     }
 
-    changeMaterial(i, e, property) {
+    changeMaterial(i, value, property) {
+        console.log(value);
+        console.log(property);
+
         let materials = this.state.materials;
-        materials[i][property] = e.target.value;
+        materials[i][property] = value;
         this.setState({ materials });
     }
     
@@ -59,14 +73,16 @@ export class AddStock extends Component {
                     </thead>
                     <tbody>
                         {!this.state.materials? null :
-                        this.state.materials.map((material, index) => {
+                        this.state.materials.map((material, index) =>
 //Debería tomar la fila dada por Row y agregarsela a la lista de materias primas que posee el componente. De estar esta
-//ya ingresada (en caso de una modificación), reemplazarle. En caso de eliminarse una fila, aparecerá la cantidad como -1
-                        <Row onRemove={this.removeMaterial(index)} onChange={(e, property) => {
-                            this.changeMaterial(index, e, property);
-                            this.addMaterial();
-                        }} /> })
-                        }
+//ya ingresada (en caso de una modificación), reemplazarle.
+                        <Row material={material} index={index} remove={i => this.removeMaterial(i)} materialsData={this.state.materialsData}
+                            onChange={(e, property) => this.changeMaterial(index, e, property)} />
+                        )}
+                        <Row material={{id: '', quantity: ''}} onChange={(value, property) => {
+                            console.log('hi');
+                            this.addMaterial(value, property);
+                        }} materialsData={this.state.materialsData} />
                     </tbody>
                 </Table>
             </Form>
@@ -75,24 +91,24 @@ export class AddStock extends Component {
 
     render() {
         return (
-            //null
             <ModalOpener buttonText='Añadir stock' handleClose={this.resetState}
                 className={'title'} /*logo={image}*/ title={'Añadir stock'} post={this.post} children={this.myForm()} />
         );
     }
 }
 
-export const Row = ({ onChange, onRemove }) => {
+export const Row = ({ material, index, onChange, remove, materialsData }) => {
 
-    const [input, setInput] = useState({ id: '', name: '', description: '', quantity: '', weight: '', meters: '' });
+    const [input, setInput] = useState({ id: material.id, name: '', description: '', quantity: material.quantity, weight: '', meters: '' });
 
     useEffect(() => {
         onChange(input.id, 'id');
-        onChange(input.id, 'quantity');
+        onChange(input.quantity, 'quantity');
     }, [input]);
 
     return (
-        <tr style={{ 'backgroundColor': 'green' }}>{/*Muestra el primero*/}
+        <tr key={index}>{/*Muestra el primero*/}
+            
             <td><FormControl value={input.id}//ID
                 onChange={(e) => {
                     let aux = { ...input };
@@ -105,13 +121,15 @@ export const Row = ({ onChange, onRemove }) => {
                     let aux = { ...input };
                     aux.name = e.target.value;
                     setInput({ ...aux });
-                }} /></td>
+                }} />
+            </td>
             <td><FormControl value={input.description}//Descripción
                 onChange={(e) => {
                     let aux = { ...input };
                     aux.description = e.target.value;
                     setInput({ ...aux });
-                }} /></td>
+                }} />
+            </td>
             <td><FormControl value={input.quantity}//Cantidad
                 onChange={(e) => {
                     if (isNaN(e.target.value) || e.target.value < 0)
@@ -119,20 +137,23 @@ export const Row = ({ onChange, onRemove }) => {
                     let aux = { ...input };
                     aux.quantity = e.target.value;
                     setInput({ ...aux });
-                }} /></td>
+                }} />
+            </td>
             <td><FormControl value={input.weight}//Peso
                 onChange={(e) => {
                     let aux = { ...input };
                     aux.weight = e.target.value;
                     setInput({ ...aux });
-                }} /></td>
+                }} />
+            </td>
             <td><FormControl value={input.meters}//Metros
                 onChange={(e) => {
                     let aux = { ...input };
                     aux.meters = e.target.value;
                     setInput({ ...aux });
-                }} /></td>
-            <td><Button onClick={onRemove}>X</Button></td>
+                }} />
+            </td>
+            {remove? <td><Button onClick={remove.bind(this, index)}>X</Button></td> : <></>}
         </tr>
     );
 }
