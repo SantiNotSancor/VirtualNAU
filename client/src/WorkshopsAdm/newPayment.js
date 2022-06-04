@@ -7,6 +7,7 @@ import image from './Images/NewPayment.svg';
 
 const initialState = {
     errors: [true, true],
+    error: true,
     name: '',
     money: ''
 }
@@ -21,7 +22,7 @@ export class NewPaymentButton extends Component {
         this.myForm = this.myForm.bind(this);
         this.post = this.post.bind(this);
     }
-    //state = initialState;
+    
     form = React.createRef();
 
     resetState = () => {
@@ -70,9 +71,13 @@ export class NewPaymentButton extends Component {
         this.resetState();
     }
 
+    print = () => {
+        window.print();
+    }
+
     render() {
         return (
-            <ModalOpener buttonText='Nuevo pago' handleClose={this.resetState}
+            <ModalOpener buttonText='Nuevo pago' handleClose={this.resetState} footer={{ label: 'Imprimir', func: this.print, show: !this.state.error }}
                 className={'title'} logo={image} title={'Pagar'} post={this.post} children={this.myForm()} />
         );
     }

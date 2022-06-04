@@ -90,7 +90,7 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
                     if (isNaN(e))
                         error = true;
                 })
-                return input.length === 10 && input[2] === '/' && input[5] === '/' && !error;
+                return ((input.length === 10 && input[5] === '/') || input.length === 5) && input[2] === '/' && !error;
             }
             break;
         case 'calification':
@@ -108,7 +108,7 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
             placeholder = 'Ingrese las telas';
             checked = (input) => true;
             break;
-        case 'responsable':
+        case 'responsible':
             label = 'Responsables';
             placeholder = 'Ingrese las personas responsables';
             break;

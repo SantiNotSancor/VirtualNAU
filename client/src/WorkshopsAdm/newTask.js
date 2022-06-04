@@ -16,7 +16,7 @@ const initialState = {
     cutDate: '',
     fabrics: '',
     colors: '',
-    responsable: '',
+    responsible: '',
     generalFeatures: '',
 }
 
@@ -87,8 +87,8 @@ export class NewTaskButton extends Component {
                     this.updateError(4, error);
                 }} />
 
-                <Request toShow="responsable" handleEnter={this.handleEnter} onChange={(event, error) => {
-                    this.setState({ responsable: event.target.value });
+                <Request toShow="responsible" handleEnter={this.handleEnter} onChange={(event, error) => {
+                    this.setState({ responsible: event.target.value });
                     this.updateError(5, error);
                 }} />
 
@@ -111,7 +111,7 @@ export class NewTaskButton extends Component {
                     {
                         id: aux.task, article: aux.article, description, quantity: aux.quantity, packages: aux.packages,
                         cutDate: moment(new Date()).format("DD/MM/YYYY"), fabrics: aux.fabrics, colors: aux.colors,
-                        responsable: aux.responsable, generalFeatures: aux.generalFeatures
+                        responsible: aux.responsible, generalFeatures: aux.generalFeatures
                     });
             });
         });
