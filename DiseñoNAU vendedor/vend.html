@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<meta charset="UTF-8"/>
+<html>
+  <!DOCTYPE html>
+  <meta charset="UTF-8"/>
+  <html>
+    <title>Virtual Nau</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="bodyvend.css">
+  <head>
+  </head>
+  <body>
+    <h2>¿Qué desea hacer?</h2>
+    <button id="Pedido">Ingresar Pedido</button>
+    <div id="Modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Formulario</p>
+      </div>
+    
+    </div>
+    
+    <script>
+    var modal = document.getElementById("Modal");
+    var btn = document.getElementById("Pedido");
+    var span = document.getElementsByClassName("close")[0];
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    </script>
+
+<button id="Stock">Stock de materia prima</button>
+<div id="Modal2" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Sumar al stock de materia prima</p>
+  </div>
+
+</div>
+
+<script>
+var modal = document.getElementById("Modal2");
+var btn = document.getElementById("Stock");
+var span = document.getElementsByClassName("close")[0];
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+span.onclick = function() {
+  modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+<button id="Visualizar">Visualizar materia prima</button>
+<div id="Modal3" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Marcar articulos a hacer en el día</p>
+    <p>Marcar pedido como SUSpendido</p>
+  </div>
+
+</div>
+
+<script>
+var modal = document.getElementById("Modal3");
+var btn = document.getElementById("Visualizar");
+var span = document.getElementsByClassName("close")[0];
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+span.onclick = function() {
+  modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+    
+        
+</html>
