@@ -53,10 +53,10 @@ app.post('/regWorkshop', (req, res) => {
 
 
 app.post('/newTask', (req, res) => {
-  const { id, article, description, quantity, packages, cutDate, fabrics, colors, responsable, generalFeatures } = req.body;
+  const { id, article, description, quantity, packages, cutDate, fabrics, colors, responsible, generalFeatures } = req.body;
   db.query(
-    'INSERT INTO tasks (id, article_id, article_description, quantity, packages, cutDate, fabrics, colors, responsable, generalFeatures, state, paid) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
-    [id, article, description, quantity, packages, cutDate, fabrics, colors, responsable, generalFeatures, 'toAssign', 0],
+    'INSERT INTO tasks (id, article_id, article_description, quantity, packages, cutDate, fabrics, colors, responsible, generalFeatures, state, paid) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
+    [id, article, description, quantity, packages, cutDate, fabrics, colors, responsible, generalFeatures, 'toAssign', 0],
     (err, result) => {
       if (err)
         console.log(err);
