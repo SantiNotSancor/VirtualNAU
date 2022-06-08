@@ -12,7 +12,7 @@ import moment from 'moment';
 const initialState = {
     responsable: '',
     date: moment(new Date()).format("DD/MM/YYYY"),
-    materials: [],//Una lista que tendrá objetos de la forma {id, quantity} (descripción y nombre están guardados en una tabla)
+    materials: [{id: '', quantity: ''}],//Una lista que tendrá objetos de la forma {id, quantity} (descripción y nombre están guardados en una tabla)
     materialsData: []//Tabla que va a contener todos los datos de toda la materia prima, para hacer las conversiones entre id, descripción y nombre y cantidad, metros y peso
 }
 
@@ -27,29 +27,35 @@ export class AddStock extends Component {
         this.setState({ materialsData: aux });
     }
 
-    addMaterial(value, property) {
-        let aux = {id: '', quantity: ''};
-        aux[property] = value;
-        this.setState({materials: [...this.state.materials, aux]})//Agrega un objeto al final de la lista. Sus propiedades serán los parámetros
+    addMaterial(material) {
+        console.log('addMaterial');
+        let aux = this.state.materials;
+        aux[aux.length - 1] = material;
+        this.setState({materials: [...this.state.materials, {id: '', quantity: ''}]})//Agrega un objeto al final de la lista. Sus propiedades serán los parámetros
     }
 
     removeMaterial(i) {
+        console.log('removeMaterial');
         let materials = this.state.materials;
+        console.log(materials[i]);
         materials.splice(i, 1);
+        console.log(materials[i]);
         this.setState({ materials });
     }
 
-    changeMaterial(i, value, property) {
-        console.log(value);
-        console.log(property);
+    changeMaterial(i, material) {
+        console.log('changeMaterial');
 
         let materials = this.state.materials;
-        materials[i][property] = value;
+        materials[i] = material;
         this.setState({ materials });
     }
     
-    post() {//TODO:
-        console.log('hi');
+    post() {//TODO: Se debe enviar materials (exceptuando el último elemento, que está vacío) a la base de datos
+        //let materials = this.state.materials;
+        console.log(this.state);
+        // materials.pop();
+        // console.log(materials);
     }
 
     myForm() {
@@ -76,13 +82,11 @@ export class AddStock extends Component {
                         this.state.materials.map((material, index) =>
 //Debería tomar la fila dada por Row y agregarsela a la lista de materias primas que posee el componente. De estar esta
 //ya ingresada (en caso de una modificación), reemplazarle.
-                        <Row material={material} index={index} remove={i => this.removeMaterial(i)} materialsData={this.state.materialsData}
-                            onChange={(e, property) => this.changeMaterial(index, e, property)} />
+                        <Row material={material} key={index} index={index} remove={i => this.removeMaterial(i)} materialsData={this.state.materialsData}
+                            isLast={this.state.materials.length === index + 1} onChange={(this.state.materials.length !== index + 1)?
+                                (e, property) => this.changeMaterial(index, e, property) :
+                                (value, property) => this.addMaterial(value, property)} />
                         )}
-                        <Row material={{id: '', quantity: ''}} onChange={(value, property) => {
-                            console.log('hi');
-                            this.addMaterial(value, property);
-                        }} materialsData={this.state.materialsData} />
                     </tbody>
                 </Table>
             </Form>
@@ -97,14 +101,23 @@ export class AddStock extends Component {
     }
 }
 
-export const Row = ({ material, index, onChange, remove, materialsData }) => {
+export const Row = ({ material, index, onChange, remove, isLast, materialsData }) => {
 
+    const [used, setUsed] = useState(false);//Verdadero si ya se inicializó
     const [input, setInput] = useState({ id: material.id, name: '', description: '', quantity: material.quantity, weight: '', meters: '' });
 
     useEffect(() => {
-        onChange(input.id, 'id');
-        onChange(input.quantity, 'quantity');
+        console.log('hi');
+        if(!used) 
+            setUsed(true);//Evita que se use al inicializar el objeto, esquivando un bucle infinito que agregue materiales
+        else
+            onChange(input);
     }, [input]);
+
+    const myFun = () => {//Se hace el reseteo nada más
+        setInput({ id: '', name: '', description: '', quantity: '', weight: '', meters: '' });
+        remove(index);
+    };
 
     return (
         <tr key={index}>{/*Muestra el primero*/}
@@ -153,68 +166,7 @@ export const Row = ({ material, index, onChange, remove, materialsData }) => {
                     setInput({ ...aux });
                 }} />
             </td>
-            {remove? <td><Button onClick={remove.bind(this, index)}>X</Button></td> : <></>}
+            {!isLast? <td><Button onClick={myFun}>X</Button></td> : <></>}
         </tr>
     );
 }
-
-// import React from "react";
-// import './styles.css'
-
-// class App extends React.Component {
-//   constructor(props) {
-//     super(props)
-//     this.state = { 
-//        materials: [{ name: "", email : "" }]
-//      };
-//     this.handleSubmit = this.handleSubmit.bind(this)
-//   }
-  
-//   handleChange(i, e) {
-//     let materials = this.state.materials;
-//     materials[i][e.target.name] = e.target.value;
-//     this.setState({ materials });
-//   }
-
-//   addFormFields() {
-//     this.setState(({
-//       materials: [...this.state.materials, { name: "", email: "" }]
-//     }))
-//   }
-
-//   removeFormFields(i) {
-//     let materials = this.state.materials;
-//     materials.splice(i, 1);
-//     this.setState({ materials });
-//   }
-
-//   handleSubmit(event) {
-//     event.preventDefault();
-//     alert(JSON.stringify(this.state.materials));
-//   }
-
-//   render() {
-
-//     return (
-//         <form  onSubmit={this.handleSubmit}>
-//           {this.state.materials.map((element, index) => (
-//             <div className="form-inline" key={index}>
-//               <label>Name</label>
-//               <input type="text" name="name" value={element.name || ""} onChange={e => this.handleChange(index, e)} />
-//               <label>Email</label>
-//               <input type="text" name="email" value={element.email || ""} onChange={e => this.handleChange(index, e)} />
-//               {
-//                 index ? 
-//                   <button type="button"  className="button remove" onClick={() => this.removeFormFields(index)}>Remove</button> 
-//                 : null
-//               }
-//             </div>
-//           ))}
-//           <div className="button-section">
-//               <button className="button add" type="button" onClick={() => this.addFormFields()}>Add</button>
-//               <button className="button submit" type="submit">Submit</button>
-//           </div>
-//       </form>
-//     );
-//   }
-// }

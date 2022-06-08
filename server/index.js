@@ -14,7 +14,7 @@ const db = mysql.createConnection({
   user: 'root',
   host: '127.0.0.1',
   password: '',
-  database: 'database_factory'
+  database: 'virtualnau'
 });
 
 db.connect(function (err) {

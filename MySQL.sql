@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS database_factory;
+CREATE DATABASE IF NOT EXISTS virtualnau;
   
-USE database_factory;
+USE virtualnau;
 
 CREATE TABLE IF NOT EXISTS users(
     id INT(2) UNSIGNED NOT NULL UNIQUE,
