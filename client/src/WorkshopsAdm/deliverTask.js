@@ -124,10 +124,10 @@ export class DeliverTaskButton extends Component {
             <>
                 <ModalOpener buttonText="Recibir tarea" children={this.myForm()} logo={image} className="title"
                     footer={{ label: 'Imprimir', func: this.print, show: !!document.getElementById("taskTable") }}
-                    title="Ingreso de tarea" post={this.post} error={this.state.error} />
+                    title="Ingreso de tarea" post={this.post} error={this.state.error} handleClose={this.resetState} />
                 {/*Crea un botón que abre a un modal en el que aparecerá lo devuelto en this.myForm*/}
 
-                <ModalPrototype title="Calificar" show={this.state.showObsModal} post={this.sendObs} handleClose={this.sendObs}>
+                <ModalPrototype title="Calificar" show={this.state.showObsModal} post={this.sendObs} handleClose={(this.sendObs)}>
                     <>
                         <Request toShow="observation" onChange={(e) => this.setState({ observation: e.target.value })} />
                         <Request toShow="calification" onChange={(e) => this.setState({ calification: e.target.value })} />
@@ -150,6 +150,17 @@ export const Input = ({ onChange, name }) => {
     //const [actualAccount, setActualAccount] = useState('');//Dinero que le fue pagado al taller anteriormente (la cuenta corriente)
     const [account, setAccount] = useState('');//Dinero que le fue pagado al taller anteriormente (la cuenta corriente)
     const [quantityBackUp, setQuantityBackUp] = useState('');//Una variable auxiliar para recordar la cantidad, de esta forma podremos saber cuándo cambia
+
+    useEffect(() => {
+        if (name === '')
+            return;
+        Axios.post('http://localhost:3307/getUnpaidTasks', { name }).then((response) => {
+            if (response.data.length === 0)
+                return;
+            setTasks(response.data);
+        });
+        console.log('update tasks');
+    }, [name]);
 
     useEffect(() => {//Cuando selectedTask cambia...
         setInput({ quantity: 0, weight: 0, money: 0, threads: 0 });//Resetear los valores de Input (porque el usuario no ingresó nada)
@@ -257,14 +268,6 @@ export const Input = ({ onChange, name }) => {
         return today > deadline;
     }
 
-    if (name !== '') {
-        Axios.post('http://localhost:3307/getUnpaidTasks', { name }).then((response) => {
-            if (response.data.length === 0)
-                return;
-            setTasks(response.data);
-        });
-    }
-
     return (
         <>
             <div style={{ 'justifyContent': 'space-between', 'display': 'flex', 'alignItems': 'baseline' }}>
@@ -273,7 +276,7 @@ export const Input = ({ onChange, name }) => {
                     {(selectedTask === '') ? null : selectedTask.deadline}
                 </h4>
             </div>
-            {title === 'Elegir tarea' ? <></> :
+            {title === 'Elegir tarea' ? null :
                 <>
                     <Form.Check onChange={() => {
                         setRefund(!refund);

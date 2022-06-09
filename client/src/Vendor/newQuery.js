@@ -8,9 +8,9 @@ import Form from 'react-bootstrap/Form';
 //import image from './Images/newQuery.svg';
 
 const initialState = {
-    customer : '', //Añade cliente  
-    observation : '',
-    query : [{id:'', description:'', quantity:'', colour:'', toDeliver:''}]
+    customer : '',                                                              //Añade cliente  
+    observation : '',                                                           //Añade observaciones
+    query : [{id:'', description:'', quantity:'', colour:'', toDeliver:''}]     //Lista de objetos pedido
 }
 
 export class NewQuery extends Component {
@@ -85,7 +85,7 @@ export class NewQuery extends Component {
                                     }}/>
                                 </td>
                             </tr>);
-                            //TO.DO la creacion de nuevas filas
+                            //TODO: la creacion de nuevas filas
                         }
                         )}
                     </tbody>
@@ -94,7 +94,7 @@ export class NewQuery extends Component {
         );
     }
 
-    // post = () => {      TO.DO el post de los datos al tocar el boton
+    // post = () => {      TODO: el post de los datos al tocar el boton
     //     return(
 
     //     );

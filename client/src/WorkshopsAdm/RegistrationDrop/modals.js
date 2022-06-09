@@ -92,84 +92,84 @@ ModalWork.propTypes = {
     modify: PropTypes.string.isRequired //'reg' Alta, 'drop' baja y 'update' actualizar
 }
 
-// export const ModalArt = ({ handleClose, show, modify }) => {//Se encargará de los forms para dar de alta/baja a los artículos
-//     const [error, setError] = useState(false);
-//     const [id, setId] = useState('');
-//     const [description, setDescription] = useState('');
+export const ModalArt = ({ handleClose, show, modify }) => {//Se encargará de los forms para dar de alta/baja a los artículos
+    const [error, setError] = useState(false);
+    const [id, setId] = useState('');
+    const [description, setDescription] = useState('');
 
-//     const myHandleClose = () => {
-//         handleClose();
-//         setId('');
-//         setDescription('');
-//         setError(false);
-//     }
+    const myHandleClose = () => {
+        handleClose();
+        setId('');
+        setDescription('');
+        setError(false);
+    }
 
-//     const post = () => {
-//         if (modify === 'reg')
-//             Axios.post('http://localhost:3307/getDescriptionWhere', { id }).then((response) => {
-//                 setError(response.data.length !== 0);
-//                 if (response.data.length === 0)
-//                     Axios.post('http://localhost:3307/regArticle', { id, description });
-//             });
-//         if (modify === 'drop')
-//             Axios.delete(`http://localhost:3307/dropArticle/${id}`).then(() => console.log('hi'));
-//         if (modify === 'update')
-//             Axios.put('http://localhost:3307/updateArticle', { id, description });
-//         myHandleClose();
-//     }
+    const post = () => {
+        if (modify === 'reg')
+            Axios.post('http://localhost:3307/getDescriptionWhere', { id }).then((response) => {
+                setError(response.data.length !== 0);
+                if (response.data.length === 0)
+                    Axios.post('http://localhost:3307/regArticle', { id, description });
+            });
+        if (modify === 'drop')
+            Axios.delete(`http://localhost:3307/dropArticle/${id}`).then(() => console.log('hi'));
+        if (modify === 'update')
+            Axios.put('http://localhost:3307/updateArticle', { id, description });
+        myHandleClose();
+    }
 
-//     const myForm = () => {
-//         if (modify === 'reg') {//de ser true, se está dando el alta, de lo contrario, la baja
-//             return (
-//                 <Form>
-//                     <Request toShow="regArticle" onChange={(event) => {
-//                         setId(event.target.value);
-//                     }} />
-//                     {error ? <em>Este número de artículo ya fue ingresado, verifique si ya está dado de alta o pruebe otro número</em> : <></>}
+    const myForm = () => {
+        if (modify === 'reg') {//de ser true, se está dando el alta, de lo contrario, la baja
+            return (
+                <Form>
+                    <Request toShow="regArticle" onChange={(event) => {
+                        setId(event.target.value);
+                    }} />
+                    {error ? <em>Este número de artículo ya fue ingresado, verifique si ya está dado de alta o pruebe otro número</em> : <></>}
 
-//                     <Request toShow="description" onChange={(event) => {
-//                         setDescription(event.target.value);
-//                     }} />
-//                 </Form>
-//             );
-//         }
-//         if(modify === 'drop')
-//             return (
-//                 <Form>
-//                     <Request toShow="article" onChange={(event) => {
-//                         setId(event);
-//                     }} />
-//                 </Form>
-//             );
-//         if(modify === 'update')
-//             return(
-//                 <Form>
-//                     <Request toShow="article" onChange={(event) => {
-//                         setId(event);
-//                     }} />
+                    <Request toShow="description" onChange={(event) => {
+                        setDescription(event.target.value);
+                    }} />
+                </Form>
+            );
+        }
+        if(modify === 'drop')
+            return (
+                <Form>
+                    <Request toShow="article" onChange={(event) => {
+                        setId(event);
+                    }} />
+                </Form>
+            );
+        if(modify === 'update')
+            return(
+                <Form>
+                    <Request toShow="article" onChange={(event) => {
+                        setId(event);
+                    }} />
 
-//                     <Request toShow="description" onChange={(event) => {
-//                         setDescription(event.target.value);
-//                     }} />
-//                 </Form>
-//             );
-//     }
-//     let title;
-//     if (modify === 'reg')
-//         title = 'Alta';
-//     if (modify === 'drop')
-//         title = 'Baja';
-//     if (modify === 'update')
-//         title = 'Actualizar';
-//     return (
-//         <ModalPrototype show={show} handleClose={myHandleClose} children={myForm()}
-//             title={title + ' de artículo'} post={post} />//El modal debe mostrar el form especificado en Article
-//     );
+                    <Request toShow="description" onChange={(event) => {
+                        setDescription(event.target.value);
+                    }} />
+                </Form>
+            );
+    }
+    let title;
+    if (modify === 'reg')
+        title = 'Alta';
+    if (modify === 'drop')
+        title = 'Baja';
+    if (modify === 'update')
+        title = 'Actualizar';
+    return (
+        <ModalPrototype show={show} handleClose={myHandleClose} children={myForm()}
+            title={title + ' de artículo'} post={post} />//El modal debe mostrar el form especificado en Article
+    );
 
-// }
+}
 
-// ModalArt.propTypes = {
-//     handleClose: PropTypes.func.isRequired, //Función que cierra el modal
-//     show: PropTypes.bool.isRequired, //True si y sólo si se debe o no ver el modal
-//     modify: PropTypes.string.isRequired //'reg' Alta, 'drop' baja y 'update' actualizar
-// }
+ModalArt.propTypes = {
+    handleClose: PropTypes.func.isRequired, //Función que cierra el modal
+    show: PropTypes.bool.isRequired, //True si y sólo si se debe o no ver el modal
+    modify: PropTypes.string.isRequired //'reg' Alta, 'drop' baja y 'update' actualizar
+}

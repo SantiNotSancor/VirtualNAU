@@ -13,15 +13,14 @@ export default class WorkshopsAdm extends Component {
     return (
       <>
         <ul className='menu-selector'>
-
           <li><NewTaskButton /></li>
           <li><NewPaymentButton /></li>
           <li><AssignTaskButton /></li>
           <li><DeliverTaskButton /></li>
           <li><ArtWorkButton article={false} /></li>
-
+          <li><ArtWorkButton article={true} /></li>
         </ul>
-        <ShowData />
+        {/* <ShowData /> */}
       </>
     );
   }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ModalWork } from './modals';
+import { ModalArt } from './modals';
 import { ModalController } from '../../modal';
 import PropTypes from 'prop-types';
 
@@ -16,10 +17,10 @@ export class ArtWorkButton extends ModalController {
     }
 
     callModal = () => {
-        // if (this.props.article)
-        //     return (
-        //         <ModalArt handleClose={this.hideModal} show={this.state.showModal} modify={this.state.modify}/>
-        //     );
+        if (this.props.article)
+            return (
+                <ModalArt handleClose={this.hideModal} show={this.state.showModal} modify={this.state.modify}/>
+            );
         return (
             <ModalWork handleClose={this.hideModal} show={this.state.showModal} modify={this.state.modify}/>
         )

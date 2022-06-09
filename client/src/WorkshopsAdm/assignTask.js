@@ -78,6 +78,8 @@ export class AssignTaskButton extends Component {
     };
 
     myForm = () => {
+        let defaultDeadline = new Date();
+        defaultDeadline.setDate(defaultDeadline.getDate() + 7);
         Axios.post('http://localhost:3307/getTasks', { state: 'toAssign' }).then((response) => {
             this.setState({ tasks: response.data });
         });
@@ -108,7 +110,7 @@ export class AssignTaskButton extends Component {
                     this.updateError(2, error);
                 }} />
 
-                <Request toShow="deadline" handleEnter={this.handleEnter} onChange={(event, error) => {
+                <Request toShow="deadline" value={moment(defaultDeadline).format("DD/MM/YYYY")} handleEnter={this.handleEnter} onChange={(event, error) => {
                     let deadline = event.target.value, currentYear = new Date().getFullYear();
                     deadline += deadline.length < 10 ? '/' + currentYear : '';
                     this.setState({ deadline });
@@ -185,7 +187,7 @@ export class AssignTaskButton extends Component {
                 <ModalOpener buttonText='Remito' handleClose={this.resetState}
                     footer={{ label: 'Imprimir', func: this.print, show: !this.state.error }} error={this.state.error}
                     className={'title'} logo={image} title={'Asignar Tarea'} post={this.post} children={this.myForm()} />
-            //Crea un botón que abre a un modal en el que aparecerá lo devuelto en this.myForm
+            {/* Crea un botón que abre a un modal en el que aparecerá lo devuelto en this.myForm */}
                 {this.toPrint()}
             </>
         );
