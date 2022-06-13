@@ -125,13 +125,10 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
             label = 'Hilos';
             placeholder = 'Ingrese la cantidad de hilos';
             break;
-
-            //CLIENTES
-            case 'customerName':
-                label = 'Nombre del cliente';
-                placeholder = 'Ingrese el nombre del/la cliente';
-                break;
-
+        case 'customerName':
+            label = 'Nombre del cliente';
+            placeholder = 'Ingrese el nombre del/la cliente';
+            break;
         default:
             console.error("ERROR, HA INGRESADO EL toShow " + toShow + " EN EL COMPONENTE TEXTINPUT");
     }
@@ -172,13 +169,48 @@ Request.propTypes = {
     handleEnter: PropTypes.func
 }
 
+export const RawResourceRequest = ({ placeholder, onChange, handleEnter }) => {
+    const [rawResource, setRawResource] = useState([]);
+    const [inicialized, setInicialized] = useState(false);
+    
+    const getList = () => {//TODO: MICHAT Obtener una lista con el formato id: nombre (descripción) de todas las materias primas
+        if(inicialized)
+            return
+        // Axios.get('http://localhost:3307/getArticle').then((response) => {
+        //     setArticle(response.data.map(article => article.id + ': ' + article.description));
+        // })
+        setRawResource(['15: Cierre (Marca SanCor)', '4: Pasador (Amarillo)', '6: Cable (De cobre)']);//Porivisional para probar las funcionalidades
+        setInicialized(true);
+    }
+
+    useEffect(getList);
+
+    const myOnChange = onChange;//TODO: Aplicar "error"
+
+    return (
+        <Autocomplete suggestions={rawResource} onChange={myOnChange} handleEnter={handleEnter}
+            placeholder={placeholder} updateList={getList} />
+    );
+}
+RawResourceRequest.propTypes = {
+    placeholder: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    handleEnter: PropTypes.func
+}
+
 const ArticleRequest = ({ placeholder, onChange, handleEnter }) => {
     const [articles, setArticles] = useState([]);
+    const [inicialized, setInicialized] = useState(false);
+
+    useEffect(getList);
 
     const getList = () => {
+        if(inicialized)
+            return;
         Axios.get('http://localhost:3307/getArticles').then((response) => {
             setArticles(response.data.map(article => article.id + ': ' + article.description));
-        })
+        });
+        setInicialized(false);
     }
     const myOnChange = (event, error) => {
         if (event.indexOf(':') > 0)
@@ -186,7 +218,6 @@ const ArticleRequest = ({ placeholder, onChange, handleEnter }) => {
         onChange(event, error);
     }
 
-    getList();
     return (
         <Autocomplete suggestions={articles} onChange={myOnChange} handleEnter={handleEnter}
             placeholder={placeholder} updateList={getList} />
@@ -201,14 +232,16 @@ ArticleRequest.propTypes = {
 const NameRequest = ({ label, placeholder, onChange, handleEnter }) => {
 
     const [list, setList] = useState([]);
+    const [inicialized, setInicialized] = useState(false);
+    useEffect(getList); 
 
-    useEffect(() => {
-        getList();
-    }, []);
     const getList = () => {
+        if(inicialized)
+            return;
         Axios.get('http://localhost:3307/getNames').then((response) => {
             setList(response.data);
         });
+        setInicialized(false);
     }
     return (
         <Form.Group className="mb-3">
