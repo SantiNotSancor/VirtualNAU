@@ -43,11 +43,11 @@ CREATE TABLE IF NOT EXISTS tasks(
     weight DECIMAL(5,1) UNSIGNED,
     price DECIMAL(5,1) UNSIGNED,
     threads INT(2),
+    paid BOOL,
     /*A asignar en entrada*/
     calification INT(2),
     observations TEXT(255),
     faulty INT(2),
-    paid BOOL,
     PRIMARY KEY(id)
 );
 
@@ -75,12 +75,20 @@ CREATE TABLE IF NOT EXISTS taskCount(
     count INT(3) UNSIGNED NOT NULL,
     PRIMARY KEY(id)
 );
-INSERT INTO users (name, password) VALUES ('Gerente','123')
-INSERT INTO users (name, password) VALUES ('Vendedor','765')
-INSERT INTO users (name, password) VALUES ('Producción','543')
-INSERT INTO users (name, password) VALUES ('Administrador de talleres','987')
-INSERT INTO users (name, password) VALUES ('Expedición','876')
-INSERT INTO articles ()
+INSERT INTO users (name, password) VALUES ('Gerente','123');
+INSERT INTO users (name, password) VALUES ('Vendedor','765');
+INSERT INTO users (name, password) VALUES ('Producción','543');
+INSERT INTO users (name, password) VALUES ('Administrador de talleres','987');
+INSERT INTO users (name, password) VALUES ('Expedición','876');
+INSERT INTO articles (description) VALUES ('');
+INSERT INTO workshops (name, contact, money) VALUES ('','','');
+INSERT INTO payments (name, date, money) VALUES ('','','');
+INSERT INTO taskcount (id, count) VALUES ('0', '0');
+INSERT INTO tasks (article_id, article_description, quantity, packages, cutDate, fabrics, colors, responsible, generalFeatures, state) VALUES ('','','','','','','','','','');
+INSERT INTO tasks (article_id, article_description, quantity, packages, cutDate, fabrics, colors, responsible, generalFeatures, state, weight, price, threads, paid) VALUES ('','','','','','','','','','','','','','');
+INSERT INTO tasks (article_id, article_description, quantity, packages, cutDate, fabrics, colors, responsible, generalFeatures, state, weight, price, threads, paid, calification, observations, faulty) VALUES ('','','','','','','','','','','','','','','','','');
+INSERT INTO parts (task, date, threads, quantity, weight, money) VALUES ('','','','','','');
+
 
 SELECT * FROM users;
 SELECT * FROM articles;
