@@ -43,11 +43,11 @@ CREATE TABLE IF NOT EXISTS tasks(
     weight DECIMAL(5,1) UNSIGNED,
     price DECIMAL(5,1) UNSIGNED,
     threads INT(2),
+    paid BOOL,
     /*A asignar en entrada*/
     calification INT(2),
     observations TEXT(255),
     faulty INT(2),
-    paid BOOL,
     PRIMARY KEY(id)
 );
 
@@ -75,6 +75,30 @@ CREATE TABLE IF NOT EXISTS taskCount(
     count INT(3) UNSIGNED NOT NULL,
     PRIMARY KEY(id)
 );
+INSERT INTO users (id, name, password) VALUES (1,'Gerente','gatito');
+INSERT INTO users (id, name, password) VALUES (2,'Vendedor','ciervo');
+INSERT INTO users (id, name, password) VALUES (3,'Producción','jirafa');
+INSERT INTO users (id, name, password) VALUES (4,'Administrador de talleres','tigre');
+INSERT INTO users (id, name, password) VALUES (5,'Expedición','koala');
+INSERT INTO articles (id, description) VALUES (343,'Media');
+INSERT INTO articles (id, description) VALUES (567,'Mochila');
+INSERT INTO articles (id, description) VALUES (222,'Remera');
+INSERT INTO articles (id, description) VALUES (258,'Pantalon');
+INSERT INTO articles (id, description) VALUES (198,'Gorro');
+INSERT INTO workshops (id, name, contact, money) VALUES (1,'Rogelioshop','1141617737',30000);
+INSERT INTO workshops (id, name, contact, money) VALUES (2,'Valentinshop','1145893211',34000);
+INSERT INTO workshops (id, name, contact, money) VALUES (3,'Lodeloshop','1176543219',38000);
+INSERT INTO payments (id, name, date, money) VALUES (598,'Rogelioshop','2022/6/16',5000);
+INSERT INTO payments (id, name, date, money) VALUES (456,'Rogelioshop','2022/6/17',6000);
+INSERT INTO payments (id, name, date, money) VALUES (764,'Valentinshop','2022/6/22',3000);
+INSERT INTO payments (id, name, date, money) VALUES (123,'Lodeloshop','2022/6/14',2500);
+INSERT INTO payments (id, name, date, money) VALUES (789,'Lodeloshop','2022/6/29',10000);
+INSERT INTO taskcount (id, count) VALUES (0,0);
+INSERT INTO tasks (id, article_id, article_description, quantity, packages, cutDate, fabrics, colors, responsible, generalFeatures, state) VALUES (20,343,'Media',200,10,'2022/6/20','Gagas.inc','Azul','Vendedor','Tamaño x diseño x','Pendiente');
+INSERT INTO tasks (id, article_id, article_description, quantity, packages, cutDate, fabrics, colors, responsible, generalFeatures, state, exitDate, deadline, name, weight, price, threads, paid) VALUES (30,567,'Mochila',55,5,'2022/6/22','Gagos.inc','Rojo','Vendedor','Tamaño x diseño x','Pendiente','2022/6/28','2022/6/30','Ramiro',0,9,750,10,1);
+INSERT INTO tasks (id, article_id, article_description, quantity, packages, cutDate, fabrics, colors, responsible, generalFeatures, state, exitDate, deadline, name, weight, price, threads, paid, calification, observations, faulty) VALUES (40,222,'Remera',80,7,'2022/6/24','Gagis.inc','Verde','Vendedor','Tamaño x diseño x','Pendiente','2022/6/30','2022/2/7','Josefina',0,10,2200,30,0,10,'Altas remeras',2);
+INSERT INTO parts (id, task, date, threads, quantity, weight, money) VALUES (20,'Lodeloshop','2022/6/30',10,100,0,10,1500);
+
 
 SELECT * FROM users;
 SELECT * FROM articles;
