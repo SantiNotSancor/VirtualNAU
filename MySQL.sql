@@ -75,6 +75,12 @@ CREATE TABLE IF NOT EXISTS taskCount(
     count INT(3) UNSIGNED NOT NULL,
     PRIMARY KEY(id)
 );
+INSERT INTO users (name, password) VALUES ('Gerente','123')
+INSERT INTO users (name, password) VALUES ('Vendedor','765')
+INSERT INTO users (name, password) VALUES ('Producción','543')
+INSERT INTO users (name, password) VALUES ('Administrador de talleres','987')
+INSERT INTO users (name, password) VALUES ('Expedición','876')
+INSERT INTO articles ()
 
 SELECT * FROM users;
 SELECT * FROM articles;
