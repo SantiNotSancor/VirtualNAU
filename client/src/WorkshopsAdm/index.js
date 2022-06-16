@@ -20,7 +20,7 @@ export default class WorkshopsAdm extends Component {
           <li><ArtWorkButton article={false} /></li>
           <li><ArtWorkButton article={true} /></li>
         </ul>
-        {/* <ShowData /> */}
+        <ShowData />
       </>
     );
   }
