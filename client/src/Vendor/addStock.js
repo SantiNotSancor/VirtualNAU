@@ -77,7 +77,7 @@ export class AddStock extends Component {
                     </thead>
                     <tbody>
                         {!this.state.materials? null :
-                        this.state.materials.map((material, index) =>{ console.log('update');
+                        this.state.materials.map((material, index) => {
 //Debería tomar la fila dada por Row y agregarsela a la lista de materias primas que posee el componente. De estar esta
 //ya ingresada (en caso de una modificación), reemplazarle.
                         return <Row key={index} index={index} remove={i => this.removeMaterial(i)} materialsData={this.state.materialsData}
@@ -90,7 +90,6 @@ export class AddStock extends Component {
             </Form>
         );
     }
-
     render() {
         return (
             <ModalOpener buttonText='Añadir stock' handleClose={this.resetState}
@@ -105,32 +104,54 @@ export const Row = ({ index, onChange, remove, isLast, materialsData }) => {
     const [convertion, setConvertion] = useState({});
 
     useEffect(() => {
-        if(!input.id)
-            return;
-        console.log('trying');
-        materialsData.map((material) => {
-            if(Number(material.id) === Number(input.id))
-                setConvertion(material)
+        let aux;
+        if(!input.id){
+            setConvertion({});
+            aux = {}
+            // const properties = Object.keys(input);
+            // properties.map((e) => {
+            //     if(e === 'input')
+            //         return;
+            //     input[e] = (input[e] === '-') ? '' : input[e]; 
+            // });
+        }
+        else{
+            materialsData.map((material) => {
+                if(Number(material.id) === Number(input.id)){
+                    setConvertion(material)
+                    aux = material;                    
+                }
             });
+        }
+        if ((input.id && !aux.weight) || (!input.id && aux.weight))
+            input.weight = '-'
+        else
+            if (input.weight === '-')
+                input.weight = '';
+        if ((input.id && !aux.meters) || (!input.id && aux.meters))
+                input.meters = '-'
+            else
+                if (input.meters === '-')
+                    input.meters = '';
+        console.log('trying with id ' + input.id);
     }, [input.id]);
 
     const changeInput = (newInput) => {
         let aux = newInput;
-        if(convertion.id && (!convertion.weight || !(aux.quantity || aux.meters)))
-            aux.weight = '-';
-        if(convertion.id && (!convertion.meters || !(aux.quantity || aux.weight)))
-            aux.meters = '-';
-        if(newInput.quantity !== input.quantity && newInput.quantity){//Si cambió la cantidad...
-            aux.weight = newInput.quantity * convertion.weight;
-            aux.meters = newInput.quantity * convertion.meters;
-        }
-        if(newInput.weight !== input.weight && newInput.weight && convertion.weight){//Si cambió el peso...
-            aux.quantity = newInput.weight / convertion.weight;
-            aux.meters = aux.quantity * convertion.meters;
-        }
-        if(newInput.meters !== input.meters && newInput.meters && convertion.meters){//Si cambió la longitud
-            aux.quantity = newInput.meters / convertion.meters;
-            aux.weight = aux.quantity * convertion.weight;
+        console.log(convertion);
+        if(convertion) {
+            if(newInput.quantity !== input.quantity && newInput.quantity){//Si cambió la cantidad...
+                aux.weight = newInput.quantity * convertion.weight;
+                aux.meters = newInput.quantity * convertion.meters;
+            }
+            if(newInput.weight !== input.weight && newInput.weight && convertion.weight){//Si cambió el peso...
+                aux.quantity = newInput.weight / convertion.weight;
+                aux.meters = aux.quantity * convertion.meters;
+            }
+            if(newInput.meters !== input.meters && newInput.meters && convertion.meters){//Si cambió la longitud
+                aux.quantity = newInput.meters / convertion.meters;
+                aux.weight = aux.quantity * convertion.weight;
+            }
         }
         onChange(aux);
         setInput(aux);
