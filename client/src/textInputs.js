@@ -168,34 +168,182 @@ Request.propTypes = {
     value: PropTypes.string,
     handleEnter: PropTypes.func
 }
+export class RawResourceRequest extends Component {
+    static propTypes = {
+        onChange: PropTypes.func.isRequired,
+        handleEnter: PropTypes.func
+    };
 
-export const RawResourceRequest = ({ placeholder, onChange, handleEnter }) => {
-    const [rawResource, setRawResource] = useState([]);
-    const [inicialized, setInicialized] = useState(false);
-    
-    const getList = () => {//TODO: MICHAT Obtener una lista con el formato id: nombre (descripción) de todas las materias primas
-        if(inicialized)
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            // The active selection's index
+            activeSuggestion: 0,
+            // The suggestions that match the user's input
+            filteredSuggestions: [],
+            // Whether or not the suggestion list is shown
+            showSuggestions: false,
+            // What the user has entered
+            userInput: "",
+
+            
+            showModal: false,
+            suggestions: [],
+            inicialized: false
+
+        };
+    }
+
+    componentDidMount = () => {//TODO: MICHAT Obtener una lista con el formato id: nombre (descripción) de todas las materias primas
+        if(this.inicialized)
             return
         // Axios.get('http://localhost:3307/getArticle').then((response) => {
         //     setArticle(response.data.map(article => article.id + ': ' + article.description));
         // })
-        setRawResource(['15: Cierre (Marca SanCor)', '4: Pasador (Amarillo)', '6: Cable (De cobre)']);//Porivisional para probar las funcionalidades
-        setInicialized(true);
+        this.setState({suggestions: ['15: Cierre (Marca SanCor)', '4: Pasador (Amarillo)', '6: Cable (De cobre)']});//Porivisional para probar las funcionalidades
+        this.setState({inicialized: true});
     }
 
-    useEffect(getList);
+    updateList = () => {//TODO: MICHAT Obtener una lista con el formato id: nombre (descripción) de todas las materias primas
+        if(this.inicialized)
+            return
+        // Axios.get('http://localhost:3307/getArticle').then((response) => {
+        //     setArticle(response.data.map(article => article.id + ': ' + article.description));
+        // })
+        this.setState({suggestions: ['15: Cierre (Marca SanCor)', '4: Pasador (Amarillo)', '6: Cable (De cobre)']});//Porivisional para probar las funcionalidades
+        this.setState({inicialized: true});
+    }
 
-    const myOnChange = onChange;//TODO: Aplicar "error"
+    clearText = () => {
+        this.setState({activeSuggestion: 0, filteredSuggestions: [], showSuggestions: false,
+            userInput: "", showModal: false})
+    }
 
-    return (
-        <Autocomplete suggestions={rawResource} onChange={myOnChange} handleEnter={handleEnter}
-            placeholder={placeholder} updateList={getList} />
-    );
-}
-RawResourceRequest.propTypes = {
-    placeholder: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-    handleEnter: PropTypes.func
+    onChange = e => {
+        const { suggestions } = this.state;
+        const userInput = e.currentTarget.value;
+
+        // Filter our suggestions that don't contain the user's input
+        const filteredSuggestions = suggestions.filter(
+            suggestion =>
+                suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+        );
+
+        this.setState({
+            activeSuggestion: 0,
+            filteredSuggestions,
+            showSuggestions: true,
+            userInput
+        });
+        this.props.onChange(userInput, suggestions.indexOf(userInput) < 0);
+    };
+
+    onClick = e => {
+        let userInput = e.currentTarget.innerText;
+        this.setState({
+            activeSuggestion: 0,
+            filteredSuggestions: [],
+            showSuggestions: false,
+            userInput
+        });
+        this.props.onChange(userInput, this.state.suggestions.indexOf(userInput) < 0);
+    };
+
+    myOnKeyDown = e => {
+        const { activeSuggestion, filteredSuggestions, showSuggestions, userInput } = this.state;
+        // User pressed the enter key
+        if (e.key.toLowerCase() === 'enter') {
+            if (showSuggestions){
+                this.setState({
+                    activeSuggestion: 0,
+                    showSuggestions: false,
+                    userInput: filteredSuggestions[activeSuggestion]
+                });
+                this.props.onChange(filteredSuggestions[activeSuggestion],
+                    this.state.suggestions.indexOf(userInput) < 0);
+            }
+            else
+                this.props.handleEnter(e);
+        }
+        // User pressed the up arrow
+        if (e.key.toLowerCase() === 'arrowup')
+            if (activeSuggestion !== 0)
+                this.setState({ activeSuggestion: activeSuggestion - 1 });
+        // User pressed the down arrow
+        if (e.key.toLowerCase() === 'arrowdown')
+            if (activeSuggestion !== filteredSuggestions.length - 1)
+                this.setState({ activeSuggestion: activeSuggestion + 1 });
+    };
+
+    render() {
+        const {
+            onChange,
+            onClick,
+            myOnKeyDown,
+            state: {
+                activeSuggestion,
+                filteredSuggestions,
+                showSuggestions,
+                userInput
+            }
+        } = this;
+
+        let suggestionsListComponent;
+
+        if (showSuggestions && userInput) {
+            if (filteredSuggestions.length) {
+                suggestionsListComponent = (
+                    <ul className="suggestions">
+                        {filteredSuggestions.map((suggestion, index) => {
+                            let className;
+
+                            // Flag the active suggestion with a class
+                            if (index === activeSuggestion)
+                                className = "suggestion-active";
+
+                            return (
+                                <li className={className} key={suggestion} onClick={onClick} onMouseEnter={e =>
+                                    this.setState({ activeSuggestion: index })}>
+                                    {suggestion}
+                                </li>
+                            );
+                        })}
+                    </ul>
+                );
+            } else {
+                suggestionsListComponent = (
+                    <div className="no-suggestions">
+                        <em>No se ha encontrado ninguna opción</em>
+                        <Button onClick={() => {
+                            this.setState({
+                                showModal: true
+                            })
+                        }}>Ingresar</Button>
+                    </div>
+                );
+            }
+        }
+
+        if (!this.state.showModal)
+            return (
+                <Fragment>
+                    <FormControl
+                        type="text"
+                        onChange={onChange}
+                        onKeyDown={myOnKeyDown}
+                        value={userInput}
+                    />
+                    {suggestionsListComponent}
+                </Fragment>
+            );
+        else
+            return (<ModalWork handleClose={() => {
+                this.setState({ showModal: false });
+                this.updateList();
+            }}
+                show={this.state.showModal} registration={true} />);
+    }
 }
 
 const ArticleRequest = ({ placeholder, onChange, handleEnter }) => {
@@ -276,6 +424,11 @@ class Autocomplete extends Component {
             userInput: "",
             showModal: false
         };
+    }
+
+    clearText = () => {
+        this.setState({activeSuggestion: 0, filteredSuggestions: [], showSuggestions: false,
+            userInput: "", showModal: false})
     }
 
     onChange = e => {
