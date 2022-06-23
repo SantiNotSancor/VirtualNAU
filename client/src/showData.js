@@ -108,11 +108,13 @@ export class ShowData extends Component {
                 titles.push(header);
             });
             this.setState({ titles, table, data: e });
+            this.table(titles);
         });
     }
 
     header = (name, index) => {
-        return (<th key={index}>{name}</th>);}
+        return (<th key={index}>{name}</th>);
+    }
     
     table = (titles) => {
         let filters = [];
@@ -158,13 +160,13 @@ export class ShowData extends Component {
                     filters.push('');
                     break;
                 }
-                filterInputs.push('');
+            filterInputs.push('');
             })
-            this.setState({filters, filterInputs});
-        }
+        this.setState({filters, filterInputs});
+    }
 
     compareTable = () => {//Le asigna a actualTable una versión filtrada de table 
-        //TODO:     
+        //TODO:     Revisar las llamadas a compareTable
         const {table, filterInputs} = this.state;
         let actualTable = table;
         console.log(table);//['', 'an']
@@ -184,11 +186,10 @@ export class ShowData extends Component {
         })
         //Filtrar actualTable
         this.setState({actualTable});
-
     }
 
     render() {
-        const {actualTable, titles, table} = this.state, data = { 'articles': 'Artículos', 'workshops': 'Talleres', 'payments': 'Pagos', 'tasks': 'Tareas' };
+        const {actualTable, titles, table} = this.state, data = { 'articles': 'Artículos', 'workshops': 'Talleres', 'payments': 'Pagos', 'tasks': 'Tareas'};
         let title = 'Elegir datos a mostrar', dropdownList = [];
         for (const key in data)
             dropdownList.push(key);
@@ -204,11 +205,11 @@ export class ShowData extends Component {
                     <Table striped bordered>
                         <thead>
                             <tr>
-                                {titles.map((title, i) => this.header(title, i))}
+                                {
+                                titles.map((title, i) => this.header(title, i))}
                             </tr>
                         </thead>
                         <tbody>
-                            {table.map((row, i) => this.table(row, i, titles))}
                             <tr>
                             {this.state.filters.map((filter, i) => {
                                 switch (filter) {
@@ -261,7 +262,7 @@ export class ShowData extends Component {
                                 }
                             })}
                             </tr>
-                            {actualTable.map((row, i) => this.table(row, i, titles))}
+                            {/* {actualTable.map((row, i) => this.table(row, i, titles))} */}
                         </tbody>
                     </Table>
                     : null}

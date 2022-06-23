@@ -95,10 +95,6 @@ INSERT INTO payments (id, name, date, money) VALUES (123,'Lodeloshop','2022/6/14
 INSERT INTO payments (id, name, date, money) VALUES (789,'Lodeloshop','2022/6/29',10000);
 INSERT INTO taskcount (id, count) VALUES (0,0);
 INSERT INTO tasks (id, article_id, article_description, quantity, packages, cutDate, fabrics, colors, responsible, generalFeatures, state) VALUES (20,343,'Media',200,10,'2022/6/20','Gagas.inc','Azul','Vendedor','Tamaño x diseño x','Pendiente');
-INSERT INTO tasks (id, article_id, article_description, quantity, packages, cutDate, fabrics, colors, responsible, generalFeatures, state, exitDate, deadline, name, weight, price, threads, paid) VALUES (30,567,'Mochila',55,5,'2022/6/22','Gagos.inc','Rojo','Vendedor','Tamaño x diseño x','Pendiente','2022/6/28','2022/6/30','Ramiro',0,9,750,10,1);
-INSERT INTO tasks (id, article_id, article_description, quantity, packages, cutDate, fabrics, colors, responsible, generalFeatures, state, exitDate, deadline, name, weight, price, threads, paid, calification, observations, faulty) VALUES (40,222,'Remera',80,7,'2022/6/24','Gagis.inc','Verde','Vendedor','Tamaño x diseño x','Pendiente','2022/6/30','2022/2/7','Josefina',0,10,2200,30,0,10,'Altas remeras',2);
-INSERT INTO parts (id, task, date, threads, quantity, weight, money) VALUES (20,'Lodeloshop','2022/6/30',10,100,0,10,1500);
-
 
 SELECT * FROM users;
 SELECT * FROM articles;
