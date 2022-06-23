@@ -78,9 +78,10 @@ export class AddStock extends Component {
                     <tbody>
                         {!this.state.materials? null :
                         this.state.materials.map((material, index) => {
+                            console.log('update')
 //Debería tomar la fila dada por Row y agregarsela a la lista de materias primas que posee el componente. De estar esta
 //ya ingresada (en caso de una modificación), reemplazarle.
-                        return <Row key={index} index={index} remove={i => this.removeMaterial(i)} materialsData={this.state.materialsData}
+                        return <Row key={index} index={index} material={material} remove={i => this.removeMaterial(i)} materialsData={this.state.materialsData}
                             isLast={this.state.materials.length === index + 1} onChange={(this.state.materials.length !== index + 1)?
                                 (material) => this.changeMaterial(index, material) :
                                 (material) => this.addMaterial(material)} />
@@ -98,9 +99,9 @@ export class AddStock extends Component {
     }
 }
 
-export const Row = ({ index, onChange, remove, isLast, materialsData }) => {
+export const Row = ({ material, index, onChange, remove, isLast, materialsData }) => {
 
-    const [input, setInput] = useState({ id: '', quantity: '', weight: '', meters: '' });
+    const [input, setInput] = useState(material);
     const [convertion, setConvertion] = useState({});
 
     useEffect(() => {
@@ -108,12 +109,6 @@ export const Row = ({ index, onChange, remove, isLast, materialsData }) => {
         if(!input.id){
             setConvertion({});
             aux = {}
-            // const properties = Object.keys(input);
-            // properties.map((e) => {
-            //     if(e === 'input')
-            //         return;
-            //     input[e] = (input[e] === '-') ? '' : input[e]; 
-            // });
         }
         else{
             materialsData.map((material) => {
@@ -123,23 +118,29 @@ export const Row = ({ index, onChange, remove, isLast, materialsData }) => {
                 }
             });
         }
-        if ((input.id && !aux.weight) || (!input.id && aux.weight))
-            input.weight = '-'
-        else
-            if (input.weight === '-')
-                input.weight = '';
-        if ((input.id && !aux.meters) || (!input.id && aux.meters))
-                input.meters = '-'
-            else
-                if (input.meters === '-')
-                    input.meters = '';
+        // if ((input.id && !aux.weight) || (!input.id && aux.weight))
+        //     input.weight = '-'
+        // else
+        //     if (input.weight === '-')
+        //         input.weight = '';
+        // if ((input.id && !aux.meters) || (!input.id && aux.meters))
+        //         input.meters = '-'
+        //     else
+        //         if (input.meters === '-')
+        //             input.meters = '';
+        if(aux.meters === 0)
+            input.meters = '-';
+        if(aux.weight === 0)
+            input.weight = '-';
         console.log('trying with id ' + input.id);
     }, [input.id]);
+
+
 
     const changeInput = (newInput) => {
         let aux = newInput;
         console.log(convertion);
-        if(convertion) {
+        if(convertion && convertion !== {}) {
             if(newInput.quantity !== input.quantity && newInput.quantity){//Si cambió la cantidad...
                 aux.weight = newInput.quantity * convertion.weight;
                 aux.meters = newInput.quantity * convertion.meters;
@@ -153,15 +154,22 @@ export const Row = ({ index, onChange, remove, isLast, materialsData }) => {
                 aux.weight = aux.quantity * convertion.weight;
             }
         }
+        if(convertion.meters === 0)
+            aux.meters = '-';
+        if(convertion.weight === 0)
+            aux.weight = '-';
+        if(isNaN(aux.meters))
+            aux.meters = '';
+        if(isNaN(aux.weight))
+            aux.weight = '';
+        console.log(aux)
         onChange(aux);
         setInput(aux);
     }
 
-    const myFun = () => {
+    const myRemove = () => {
         console.log(input);
         remove(index);
-        setInput({ id: '', quantity: '', weight: '', meters: '' });
-        console.log(index);
     };
 
     return (
@@ -204,7 +212,7 @@ export const Row = ({ index, onChange, remove, isLast, materialsData }) => {
                     changeInput({ ...aux });
                 }} />
             </td>
-            {!isLast? <td><Button onClick={myFun}>X</Button></td> : <></>}
+            {!isLast? <td><Button onClick={myRemove}>X</Button></td> : <></>}
         </tr>
     );
 }
