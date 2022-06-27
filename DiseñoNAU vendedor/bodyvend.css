@@ -24,19 +24,16 @@ h2{
   position: relative;
   left: 12%;
   border: none;
-  border-radius: 3px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.226);
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  outline: none;
   font-family: 'Roboto', sans-serif;
   letter-spacing: 1.5px;
+  opacity: 0.6;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.glow-button:hover {
-  color: rgba(255, 255, 255, 0.301);
-  box-shadow: 0 5px 10px rgba(116, 91, 150, 0.527);
-}
+.button:hover {opacity: 1}
 
 .button2{
   background-image: linear-gradient(to right, #5b00ee 0%, #650ef0 100%);
@@ -47,18 +44,17 @@ h2{
   left: 5%;
   border: none;
   border-radius: 3px;
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  outline: none;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.226);
   font-family: 'Roboto', sans-serif;
   letter-spacing: 1px;
+  opacity: 0.6;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.glow-button:hover {
-  color: rgba(255, 255, 255, 1);
-  box-shadow: 0 5px 10px rgba(116, 91, 150, 0.527);
-}  
+.button:hover {opacity: 1}
 
 
 .button3{
@@ -70,19 +66,17 @@ h2{
   left: 10%;
   border: none;
   border-radius: 3px;
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  outline: none;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.226);
   font-family: 'Roboto', sans-serif;
   letter-spacing: 1.5px;
+  opacity: 0.6;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.glow-button:hover {
-  color: rgba(255, 255, 255, 1);
-  box-shadow: 0 5px 10px rgba(116, 91, 150, 0.527);
-}
-
+.button:hover {opacity: 1}
 
 
 .card {
@@ -113,6 +107,5 @@ img {
 .container {
   padding: 5%;
 }
-
 
 
