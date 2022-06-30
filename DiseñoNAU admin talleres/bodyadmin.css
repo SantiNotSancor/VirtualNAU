@@ -2,7 +2,7 @@
 body
 {
 background-color: #20154D;
-background-image: url("wave2.png");
+background-image: url("wave4.png");
 background-repeat: no-repeat;
 
 }
@@ -81,6 +81,14 @@ button:hover {opacity: 1}
 
 button:hover {opacity: 1}
 
+p{
+  color: white;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 3px;
+  font-size: 1.5vw;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.651);
+}
 .button4{
   background-image: linear-gradient(to right, #5b00ee 0%, #650ef0 100%);
   color:rgb(255, 255, 255);
@@ -89,7 +97,7 @@ button:hover {opacity: 1}
   position: relative;
   margin: 1%;
   left: 0.5%;
-  top: 2vw;
+  bottom: 4.5vw;
   border: none;
   border-radius: 3px;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.226);
@@ -112,7 +120,7 @@ button:hover {opacity: 1}
   padding: 5%;
   position: relative;
   left: 0.2%;
-  top: 2vw;
+  bottom: 4.5vw;
   border: none;
   border-radius: 3px;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.226);
@@ -134,7 +142,7 @@ button:hover {opacity: 1}
   padding: 5%;
   position: relative;
   left: 0.2%;
-  top: 2vw;
+  bottom: 4.5vw;
   border: none;
   border-radius: 3px;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.226);
