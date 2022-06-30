@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import ReactToPrint from "react-to-print";
 import './modal.css'
 
 export class ModalController extends Component {//Debe ser extendida por el elemento que va a abrir el modal
@@ -25,20 +26,18 @@ export class ModalPrototype extends Component {//Debe ser invocada para crear el
     render() {
         return (
             <Modal show={this.props.show} dialogClassName="modal-dialog">
-                <Modal.Header >
+                <Modal.Header>
                     <Modal.Title>{this.props.title}</Modal.Title>
                 </Modal.Header>
 
-                <Modal.Body >
+                <Modal.Body>
                     {this.props.children}
                 </Modal.Body>
 
-                <Modal.Footer >
+                <Modal.Footer>
                     {(this.props.footer && this.props.footer.show)?
-                    <Button variant="primary" type="submit" onClick={() => {
-                        this.props.footer.func();
-                        //this.props.post();
-                    }}>{this.props.footer.label}</Button> : <></>}
+                    <ReactToPrint trigger={() => <Button>Imprimir</Button>}
+                        content={() => this.props.footer.content}/> : <></>}
                     <Button variant="primary" type="submit" onClick={() => {
                         this.props.post();//Se cierra desde post si todo está en orden
                     }}>Confirmar</Button>
@@ -55,5 +54,5 @@ ModalPrototype.propTypes = {
     show: PropTypes.bool.isRequired,//Boolean que especifica si se debe o no mostrar el modal
     handleClose: PropTypes.func.isRequired,//Función que cerrará el modal al presionar el botón
     children: PropTypes.element.isRequired,//Hijo que aparecerá en el modal
-    footer: PropTypes.object
+    footer: PropTypes.object//Tiene a show y a content (lo que se debe imprimir)
 }

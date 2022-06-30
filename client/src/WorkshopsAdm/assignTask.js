@@ -7,6 +7,9 @@ import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
 import moment from 'moment';
 
+import Button from 'react-bootstrap/Button';
+import ReactToPrint from "react-to-print";
+
 const initialState = {
     name: '',
     task: '',
@@ -30,6 +33,7 @@ const initialState = {
 export class AssignTaskButton extends Component {
     state = initialState;
     form = React.createRef();
+    toPrint = React.createRef();
 
     resetState = () => {
         this.setState(initialState);
@@ -80,6 +84,9 @@ export class AssignTaskButton extends Component {
     myForm = () => {
         let defaultDeadline = new Date();
         defaultDeadline.setDate(defaultDeadline.getDate() + 7);
+        defaultDeadline = moment(defaultDeadline).format("DD/MM/YYYY")
+        // if(!this.state.deadline)
+        //     this.setState({deadline: defaultDeadline});
         Axios.post('http://localhost:3307/getTasks', { state: 'toAssign' }).then((response) => {
             this.setState({ tasks: response.data });
         });
@@ -94,7 +101,7 @@ export class AssignTaskButton extends Component {
                     : null}
 
                 <TaskRequest setSelectedTask={(e) => {
-                    this.setState({ selectedTask: e });
+                    this.setState({ selectedTask: e, quantity: e.quantity });
                     this.updateError(0, !!e);
                     this.handleEnter({ key: 'enter' });
                 }} tasks={this.state.tasks} handleEnter={this.handleEnter}
@@ -110,10 +117,11 @@ export class AssignTaskButton extends Component {
                     this.updateError(2, error);
                 }} />
 
-                <Request toShow="deadline" value={moment(defaultDeadline).format("DD/MM/YYYY")} handleEnter={this.handleEnter} onChange={(event, error) => {
+                <Request toShow="deadline" value={this.state.deadline} handleEnter={this.handleEnter} onChange={(event, error) => {
                     let deadline = event.target.value, currentYear = new Date().getFullYear();
-                    deadline += deadline.length < 10 ? '/' + currentYear : '';
+                    //deadline += deadline.length < 10 ? '/' + currentYear : '';
                     this.setState({ deadline });
+                    console.log('hi');
                     this.updateError(3, error);
                 }} />
 
@@ -127,38 +135,6 @@ export class AssignTaskButton extends Component {
                     this.updateError(5, error);
                 }} />
             </Form>
-        );
-    }
-
-    toPrint = () => {
-        const { showPrint, date, quantity, weight, threads, price } = this.state;
-        if (!showPrint)
-            return null;
-        return (
-            <div id="toPrint">
-                <Table striped bordered>
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Cantidad</th>
-                            <th>Peso</th>
-                            <th>Hilos</th>
-                            <th>Precio por unidad</th>
-                            <th>Dinero</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style={{ 'backgroundColor': 'green' }}>{/*Muestra el primero*/}
-                            <td>{date}</td>
-                            <td>{quantity}</td>
-                            <td>{weight}</td>
-                            <td>{threads}</td>
-                            <td>{'$' + price}</td>
-                            <td>{'$' + price * quantity}</td>
-                        </tr>
-                    </tbody>
-                </Table>
-            </div>
         );
     }
 
@@ -182,14 +158,55 @@ export class AssignTaskButton extends Component {
     }
 
     render() {
+        let {selectedTask, deadline, quantity, weight, threads, price} = this.state;
+        let description = selectedTask ? selectedTask.article_description : '';
         return (
             <>
+
+                {/* component to be printed */}
+                <div style={{ display: "none" }}>
+                    <ComponentToPrint ref={(el) => (this.toPrint = el)} data={{deadline, description, quantity, weight, threads, price}}/>
+                </div>
                 <ModalOpener buttonText='Remito' handleClose={this.resetState}
-                    footer={{ label: 'Imprimir', func: this.print, show: !this.state.error }} error={this.state.error}
+                    footer={{ content: this.toPrint, show: !this.state.error }} error={this.state.error}
                     className={'title'} logo={image} title={'Asignar Tarea'} post={this.post} children={this.myForm()} />
             {/* Crea un botón que abre a un modal en el que aparecerá lo devuelto en this.myForm */}
-                {this.toPrint()}
             </>
         );
     }
+}
+
+class ComponentToPrint extends React.Component {
+    render(){
+        const { data } = this.props;
+        return (
+            <div id="toPrint">
+                <Table striped bordered>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Descripción de artículo</th>
+                            <th>Cantidad</th>
+                            <th>Peso</th>
+                            <th>Hilos</th>
+                            <th>Precio por unidad</th>
+                            <th>Dinero</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style={{ 'backgroundColor': 'green' }}>{/*Muestra el primero*/}
+                            <td>{data.deadline}</td>
+                            <td>{data.description}</td>
+                            <td>{data.quantity}</td>
+                            <td>{data.weight}</td>
+                            <td>{data.threads}</td>
+                            <td>{'$' + data.price}</td>
+                            <td>{'$' + data.price * data.quantity}</td>
+                        </tr>
+                    </tbody>
+                </Table>
+            </div>
+        );
+    }
+
 }

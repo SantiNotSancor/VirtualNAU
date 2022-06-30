@@ -350,8 +350,6 @@ const ArticleRequest = ({ placeholder, onChange, handleEnter }) => {
     const [articles, setArticles] = useState([]);
     const [inicialized, setInicialized] = useState(false);
 
-    useEffect(getList);
-
     const getList = () => {
         if(inicialized)
             return;
@@ -360,6 +358,9 @@ const ArticleRequest = ({ placeholder, onChange, handleEnter }) => {
         });
         setInicialized(false);
     }
+
+    useEffect(getList);
+
     const myOnChange = (event, error) => {
         if (event.indexOf(':') > 0)
             event = event.substr(0, event.indexOf(':'));
@@ -381,16 +382,18 @@ const NameRequest = ({ label, placeholder, onChange, handleEnter }) => {
 
     const [list, setList] = useState([]);
     const [inicialized, setInicialized] = useState(false);
-    useEffect(getList); 
-
+    
     const getList = () => {
         if(inicialized)
-            return;
+        return;
         Axios.get('http://localhost:3307/getNames').then((response) => {
             setList(response.data);
         });
         setInicialized(false);
     }
+    
+    useEffect(getList);
+     
     return (
         <Form.Group className="mb-3">
             <Form.Label>{label}</Form.Label>
