@@ -82,70 +82,75 @@ button:hover {opacity: 1}
 button:hover {opacity: 1}
 
 .button4{
-    background-image: linear-gradient(to right, #5b00ee 0%, #650ef0 100%);
-    color:rgb(255, 255, 255);
-    margin: 1%;
-    padding: 5%;
-    position: relative;
-    left: 10%;
-    border: none;
-    border-radius: 3px;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.226);
-    font-family: 'Roboto', sans-serif;
-    letter-spacing: 1.5px;
-    opacity: 0.6;
-    transition: 0.3s;
-    display: inline-block;
-    text-decoration: none;
-    cursor: pointer;
-  }
+  background-image: linear-gradient(to right, #5b00ee 0%, #650ef0 100%);
+  color:rgb(255, 255, 255);
   
-  button:hover {opacity: 1}
-  
-  .button5{
-    background-image: linear-gradient(to right, #5b00ee 0%, #650ef0 100%);
-    color:rgb(255, 255, 255);
-    margin: 1%;
-    padding: 5%;
-    position: relative;
-    left: 10%;
-    border: none;
-    border-radius: 3px;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.226);
-    font-family: 'Roboto', sans-serif;
-    letter-spacing: 1.5px;
-    opacity: 0.6;
-    transition: 0.3s;
-    display: inline-block;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
-  button:hover {opacity: 1}
-  
-  .button6{
-    background-image: linear-gradient(to right, #5b00ee 0%, #650ef0 100%);
-    color:rgb(255, 255, 255);
-    margin: 1%;
-    padding: 5%;
-    position: relative;
-    left: 10%;
-    border: none;
-    border-radius: 3px;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.226);
-    font-family: 'Roboto', sans-serif;
-    letter-spacing: 1.5px;
-    opacity: 0.6;
-    transition: 0.3s;
-    display: inline-block;
-    text-decoration: none;
-    cursor: pointer;
-  
-  }
-  
-  button:hover {opacity: 1}
-  
+  padding: 5%;
+  position: relative;
+  margin: 1%;
+  left: 0.5%;
+  top: 2vw;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.226);
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 1.5px;
+  opacity: 0.6;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
 
+}
+
+button:hover {opacity: 1}
+
+.button5{
+  background-image: linear-gradient(to right, #5b00ee 0%, #650ef0 100%);
+  color:rgb(255, 255, 255);
+  margin: 1%;
+  padding: 5%;
+  position: relative;
+  left: 0.2%;
+  top: 2vw;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.226);
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 1.5px;
+  opacity: 0.6;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button:hover {opacity: 1}
+
+.button6{
+  background-image: linear-gradient(to right, #5b00ee 0%, #650ef0 100%);
+  color:rgb(255, 255, 255);
+  margin: 1%;
+  padding: 5%;
+  position: relative;
+  left: 0.2%;
+  top: 2vw;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.226);
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 1.5px;
+  opacity: 0.6;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+
+}
+
+button:hover {opacity: 1}
+
+  
 .card {
   float: left;
   color: white;
@@ -158,17 +163,22 @@ button:hover {opacity: 1}
   background-image: linear-gradient(  #47257e 0%, #251958 100%);
 }
 
+.card2 {
+  float: left;
+  color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.452);
+  transition: 0.3s;
+  width: 22%;
+  height: 31.3vw;
+  margin: 1.5%;
+  border-radius: 10px;
+  background-image: linear-gradient(  #47257e 0%, #251958 100%);
+}
+
+
 div.gallery:hover 
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-img {
-  border-radius: 5px 5px 0 0;
-  max-width: 80%;
-  max-height: 80%;
-  position: relative;
-  left: 10%;
 }
 
 .container {
