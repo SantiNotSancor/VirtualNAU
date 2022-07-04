@@ -76,7 +76,7 @@ app.get('/getNames', (req, res) => {
 
 app.post('/getPassword', (req, res) => {
   const user = req.body.user;
-  db.query("SELECT password FROM users WHERE user = ?", [user], (err, result) => {
+  db.query("SELECT password FROM users WHERE name = ?", [user], (err, result) => {
     if (err)
       console.log(err);
     else

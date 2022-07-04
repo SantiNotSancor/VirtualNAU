@@ -9,12 +9,14 @@ export default class Vendor extends Component {
 
   render() {
     return (
-        <ul className='menu-selector'>
-            <AddStock />
-            <NewQuery />
-            {/*<TickSuspended />
-            <TickToDo /> */}
-        </ul>
+        <>
+          <ul className='menu-selector'>
+              <AddStock />
+              <NewQuery />
+              {/*<TickSuspended />
+              <TickToDo /> */}
+          </ul>
+        </>
     );
   }
 }

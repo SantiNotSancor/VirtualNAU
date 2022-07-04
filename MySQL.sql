@@ -75,11 +75,11 @@ CREATE TABLE IF NOT EXISTS taskCount(
     count INT(3) UNSIGNED NOT NULL,
     PRIMARY KEY(id)
 );
-INSERT INTO users (id, name, password) VALUES (1,'Gerente','gatito');
-INSERT INTO users (id, name, password) VALUES (2,'Vendedor','ciervo');
-INSERT INTO users (id, name, password) VALUES (3,'Producción','jirafa');
-INSERT INTO users (id, name, password) VALUES (4,'Administrador de talleres','tigre');
-INSERT INTO users (id, name, password) VALUES (5,'Expedición','koala');
+INSERT INTO users (id, name, password) VALUES (1,'manager','gatito');
+INSERT INTO users (id, name, password) VALUES (2,'vendor','ciervo');
+INSERT INTO users (id, name, password) VALUES (3,'production','jirafa');
+INSERT INTO users (id, name, password) VALUES (4,'workshops','tigre');
+INSERT INTO users (id, name, password) VALUES (5,'expedition','koala');
 INSERT INTO articles (id, description) VALUES (343,'Media');
 INSERT INTO articles (id, description) VALUES (567,'Mochila');
 INSERT INTO articles (id, description) VALUES (222,'Remera');
