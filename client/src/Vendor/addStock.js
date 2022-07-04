@@ -7,7 +7,8 @@ import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import moment from 'moment';
-import logo1 from 'http://www.w3.org/2000/svg';
+import './Images/bodyvend.css';
+import addStockLogo from './Images/addStock.gif'
 //import image from './Images/addStock.svg';
 
 const initialState = {
@@ -95,7 +96,7 @@ export class AddStock extends Component {
     render() {
         return (
             <ModalOpener buttonText='Añadir stock' handleClose={this.resetState}
-                className={'title'} /*logo={image}*/ title={'Añadir stock'} post={this.post} children={this.myForm()} />
+                className='button1' logo={addStockLogo}     title='Añadir stock' post={this.post} children={this.myForm()} />
         );
     }
 }
@@ -174,8 +175,6 @@ export const Row = ({ material, index, onChange, remove, isLast, materialsData }
     };
 
     return (
-        <>
-            <img src={logo1}/>
             <tr key={index}>
                 {/* TODO: handleEnter */}
                 <td><RawResourceRequest placeholder="" handleEnter={()=>console.log('hi')}//TODO: No se borra cuando se elimina (porque no tiene value, sino onChange)
@@ -217,6 +216,5 @@ export const Row = ({ material, index, onChange, remove, isLast, materialsData }
                 </td>
                 {!isLast? <td><Button onClick={myRemove}>X</Button></td> : <></>}
             </tr>
-        </>
     );
 }
