@@ -96,7 +96,7 @@ export class AddStock extends Component {
     render() {
         return (
             <ModalOpener buttonText='Añadir stock' handleClose={this.resetState}
-                className='card' logo={addStockLogo}     title='Añadir stock' post={this.post} children={this.myForm()} />
+                className='button1' logo={addStockLogo}     title='Añadir stock' post={this.post} children={this.myForm()} />
         );
     }
 }
