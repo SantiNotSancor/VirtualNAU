@@ -3,7 +3,7 @@ import {AddStock} from './addStock';
 import {NewQuery} from './newQuery';
 // import {TickSuspended} from './tickSuspended';
 // import {TickToDos} from './tickToDos';
-import '../styles.css';
+import './vend_design/bodyvend.css';
 
 export default class Vendor extends Component {
 

@@ -7,6 +7,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import moment from 'moment';
+import logo1 from 'http://www.w3.org/2000/svg';
 //import image from './Images/addStock.svg';
 
 const initialState = {
@@ -173,46 +174,49 @@ export const Row = ({ material, index, onChange, remove, isLast, materialsData }
     };
 
     return (
-        <tr key={index}>
-            {/* TODO: handleEnter */}
-            <td><RawResourceRequest placeholder="" handleEnter={()=>console.log('hi')}//TODO: No se borra cuando se elimina (porque no tiene value, sino onChange)
-                onChange={(e) => {
-                    let aux = { ...input };
-                    if (e.indexOf(':') > 0)
-                        aux.id = e.substr(0, e.indexOf(':'));
-                    else
-                        aux.id = '';
-                    changeInput({ ...aux });
-                }} />
-            </td>
-            <td><FormControl value={input.quantity}//Cantidad
-                onChange={(e) => {
-                    if (isNaN(e.target.value) || e.target.value < 0)
-                        return;
-                    let aux = { ...input };
-                    aux.quantity = e.target.value;
-                    changeInput({ ...aux });
-                }} />
-            </td>
-            <td><FormControl value={input.weight}//Peso
-                onChange={(e) => {
-                    if (isNaN(e.target.value) || e.target.value < 0)
-                        return;
-                    let aux = { ...input };
-                    aux.weight = e.target.value;
-                    changeInput({ ...aux });
-                }} />
-            </td>
-            <td><FormControl value={input.meters}//Metros
-                onChange={(e) => {
-                    if (isNaN(e.target.value) || e.target.value < 0)
-                        return;
-                    let aux = { ...input };
-                    aux.meters = e.target.value;
-                    changeInput({ ...aux });
-                }} />
-            </td>
-            {!isLast? <td><Button onClick={myRemove}>X</Button></td> : <></>}
-        </tr>
+        <>
+            <img src={logo1}/>
+            <tr key={index}>
+                {/* TODO: handleEnter */}
+                <td><RawResourceRequest placeholder="" handleEnter={()=>console.log('hi')}//TODO: No se borra cuando se elimina (porque no tiene value, sino onChange)
+                    onChange={(e) => {
+                        let aux = { ...input };
+                        if (e.indexOf(':') > 0)
+                            aux.id = e.substr(0, e.indexOf(':'));
+                        else
+                            aux.id = '';
+                        changeInput({ ...aux });
+                    }} />
+                </td>
+                <td><FormControl value={input.quantity}//Cantidad
+                    onChange={(e) => {
+                        if (isNaN(e.target.value) || e.target.value < 0)
+                            return;
+                        let aux = { ...input };
+                        aux.quantity = e.target.value;
+                        changeInput({ ...aux });
+                    }} />
+                </td>
+                <td><FormControl value={input.weight}//Peso
+                    onChange={(e) => {
+                        if (isNaN(e.target.value) || e.target.value < 0)
+                            return;
+                        let aux = { ...input };
+                        aux.weight = e.target.value;
+                        changeInput({ ...aux });
+                    }} />
+                </td>
+                <td><FormControl value={input.meters}//Metros
+                    onChange={(e) => {
+                        if (isNaN(e.target.value) || e.target.value < 0)
+                            return;
+                        let aux = { ...input };
+                        aux.meters = e.target.value;
+                        changeInput({ ...aux });
+                    }} />
+                </td>
+                {!isLast? <td><Button onClick={myRemove}>X</Button></td> : <></>}
+            </tr>
+        </>
     );
 }
