@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
-import {AddStock} from './addStock';
-import {NewQuery} from './newQuery';
-// import {TickSuspended} from './tickSuspended';
-// import {TickToDos} from './tickToDos';
-import './vend_design/bodyvend.css';
+    import React, { Component } from 'react';
+    import {AddStock} from './addStock';
+    import {NewQuery} from './newQuery';
+    // import {TickSuspended} from './tickSuspended';
+    // import {TickToDos} from './tickToDos';
+    import './Images/bodyvend.css';
 
-export default class Vendor extends Component {
+    export default class Vendor extends Component {
 
-  render() {
-    return (
-        <ul className='menu-selector'>
+      render() {
+        return (
+          <div className='body'>
             <AddStock />
             <NewQuery />
             {/*<TickSuspended />
             <TickToDo /> */}
-        </ul>
-    );
-  }
-}
+          </div>
+        );
+      }
+    }
