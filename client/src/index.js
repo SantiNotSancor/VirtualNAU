@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Login from './Login/index';
-import Vendor from './Vendor/index';
+import Vendor from './Vendor/indexVendor';
 import WorkshopsAdm from './WorkshopsAdm/index';
-import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap.css';
 
 
 ReactDOM.render(
-  <Login />,
-  //<Vendor />,
+  //<Login />,
+  <Vendor />,
   //<WorkshopsAdm />,
   document.getElementById('root')
 );

@@ -7,7 +7,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import moment from 'moment';
-import './Images/bodyvend.css';
+import './indexVendor.css';
 import addStockLogo from './Images/addStock.gif'
 //import image from './Images/addStock.svg';
 
@@ -95,8 +95,8 @@ export class AddStock extends Component {
     }
     render() {
         return (
-            <ModalOpener buttonText='Añadir stock' handleClose={this.resetState}
-                className='button1' logo={addStockLogo}     title='Añadir stock' post={this.post} children={this.myForm()} />
+                <ModalOpener buttonText='Añadir stock' handleClose={this.resetState}
+                className='button1' logo={addStockLogo} title='Añadir stock' post={this.post} children={this.myForm()} />
         );
     }
 }
@@ -136,8 +136,6 @@ export const Row = ({ material, index, onChange, remove, isLast, materialsData }
             input.weight = '-';
         console.log('trying with id ' + input.id);
     }, [input.id]);
-
-
 
     const changeInput = (newInput) => {
         let aux = newInput;

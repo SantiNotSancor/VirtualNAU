@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Axios from "axios";
-import './bodylogin.css';
+//import './bodylogin.css';
 import logo from './nau.png';
 import { 
     BrowserRouter as Router,
@@ -8,7 +8,7 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import Vendor from '../Vendor/index';
+import Vendor from '../Vendor/indexVendor';
 
 const initialState = {
     password: "",
