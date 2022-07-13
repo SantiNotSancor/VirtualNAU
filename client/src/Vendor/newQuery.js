@@ -5,7 +5,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import Table from 'react-bootstrap/Table';
 import Axios from 'axios';
 import Form from 'react-bootstrap/Form';
-//import image from './Images/newQuery.svg';
+import newQueryLogo from './Images/newQuery.gif';
 
 const initialState = {
     customer : '',                                                              //Añade cliente  
@@ -103,7 +103,7 @@ export class NewQuery extends Component {
     render() {
         return (
             <ModalOpener buttonText='Nuevo pedido' handleClose={this.resetState}
-                className='button2' /*logo={image}*/ title={'Nuevo pedido'} post={this.post} children={this.myForm()} />
+                buttonClassName='buttonVendor1' imageClassName='imgVendor' logo={newQueryLogo} title={'Nuevo pedido'} post={this.post} children={this.myForm()} />
             
         );
     }

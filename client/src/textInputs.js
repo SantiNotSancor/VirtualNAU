@@ -10,7 +10,7 @@ import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { ModalArt, ModalWork } from './WorkshopsAdm/RegistrationDrop/modals'
-// import './autocomplete.css';
+//import './textInputs.css';
 
 export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//Pedirá un dato con un input tipo text
 

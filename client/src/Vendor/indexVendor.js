@@ -11,10 +11,11 @@ export default class Vendor extends Component {
     return (
       <>
       {/* <div style={{ backgroundImage: `url(${background})` }}></div> */}
-        <style>{'body {background-color: #20154D;'+{backgroundImage: `url(/Images/wave2.png)`}+'; background-repeat: no-repeat;}, html'}</style>
-        <h2>¿Qué desea hacer?</h2>
+        <style>{'body {background-color: #20154D; background-Image: url(http://localhost:3000/static/media/wave2.7146032980f03c6a0d0e.png); background-repeat: no-repeat;'}</style>
+        <h2 className='indexVendorh2'>¿Qué desea hacer?</h2>
+        <div className='card'><NewQuery /></div>
         <div className='card'><AddStock /></div>
-        {/* <div className={indexVendor.card}><NewQuery /></div> */}
+        {/* <div className='card'><ViewQuery /></div> */}
         {/*<TickSuspended />
         <TickToDo /> */}
       </>
