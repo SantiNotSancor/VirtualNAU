@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+body
+{
+background-color: #20154D;
+background-repeat: no-repeat;
+font-family: 'Poppins', sans-serif;
+}
+
+h1{
+    color:white;
+}
+input{
+display: inline-block;
+width: 20%;
+border-bottom: 1px solid #9e9e9e;
+height: 3rem;
+width: 60%
+}
+
+.input-cart{border-top:3px solid #a160ad;margin-top:2%;margin-bottom:50%;}
+
+div{
+
+    background-color: white;
+    width: 50%;
+}
