@@ -9,20 +9,22 @@
       <link rel="stylesheet" href="bodynuevoped.css">
 <body>
 
-  <h1> Nuevo pedido</h1>
   <div class="input-cart col s12 m10 push-m1 z-depth-2 grey lighten-5">
+    <h1> Nuevo pedido</h1>
   <form>
-    <input type="text" id="user" name="username" placeholder="Ingrese nombre del cliente">
-    <input type="text" id="observaciones" placeholder="Ingrese observaciones si las hay">
-    <input type="text" id="id" placeholder="Ingrese ID">
+    <input type="text" id="user" name="username" placeholder="Nombre del cliente">
+    <input type="text" id="observaciones" placeholder="Observaciones (opcional)">
+    <input type="text" id="id" placeholder="ID">
     <input type="text" id="descripcion" placeholder="Descripción">
-    <input type="text" id="color" placeholder="Color">
-    <input type="checkbox" id="entregar" name="Entregar" value="entregar">
-    <label for="entregar"> Entregar</label>
   </form>
+  <input type="text" id="color" placeholder="Color"><br>
+  <input class="casilla" type="checkbox" id="entregar" name="Entregar" value="entregar">
+  <label class="entregar" for="entregar"> Entregar</label>
 
-  <button type="submit" name="login" class="btn waves-effect waves-light blue right">Confirmar</button>
-  <br><button>Cancelar</button></br>
+  <button type="submit" name="login" class="confirmar">Confirmar</button>
+  <br><button class="cancelar">Cancelar</button></br>
+</form>
+
 </div>
 	</body>
   </html>
