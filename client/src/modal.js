@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import ReactToPrint from "react-to-print";
-//import './modal.css'
+import './modal.css'
 
 export class ModalController extends Component {//Debe ser extendida por el elemento que va a abrir el modal
 

@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import Login from './Login/loginIndex';
 import Vendor from './Vendor/indexVendor';
 import WorkshopsAdm from './WorkshopsAdm/index';
-// import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 
 ReactDOM.render(
-  <Login />,  
+  //<Login />,  
   //<Vendor />,
-  //<WorkshopsAdm />,
+  <WorkshopsAdm />,
   document.getElementById('root')
 );

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Axios from "axios";
-import './loginIndex.css';
+//import './loginIndex.css';
 import logo from './images/nau.png';
 import { 
     BrowserRouter as Router,

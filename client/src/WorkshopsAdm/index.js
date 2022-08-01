@@ -5,7 +5,7 @@ import { NewPaymentButton } from './newPayment';
 import { DeliverTaskButton } from './deliverTask';
 import { AssignTaskButton } from './assignTask';
 import { ShowData } from '../showData';
-// import '../styles.css';
+import '../styles.css';
 
 export default class WorkshopsAdm extends Component {
 
