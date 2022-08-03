@@ -5,7 +5,7 @@ import image from './Images/newTask.gif';
 import Axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import moment from 'moment';
-import './indexWorkshopAdm.css'
+import './styles.css'
 
 const initialState = {
     task: '',

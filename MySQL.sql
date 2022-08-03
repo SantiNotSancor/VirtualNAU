@@ -100,7 +100,7 @@ INSERT INTO payments (id, name, date, money) VALUES (456,'Rogelioshop','2022/6/1
 INSERT INTO payments (id, name, date, money) VALUES (764,'Valentinshop','2022/6/22',3000);
 INSERT INTO payments (id, name, date, money) VALUES (123,'Lodeloshop','2022/6/14',2500);
 INSERT INTO payments (id, name, date, money) VALUES (789,'Lodeloshop','2022/6/29',10000);
-INSERT INTO tasks (id, article_id, article_description, quantity, packages, cutDate, fabrics, colors, responsible, generalFeatures, state) VALUES (1,343,'Media',200,10,'2022/6/20','Gagas.inc','Azul','Vendedor','Tamaño x diseño x','Pendiente');
+INSERT INTO tasks (id, article_id, article_description, quantity, packages, cutDate, fabrics, colors, responsible, generalFeatures, state) VALUES (1,343,'Media',200,10,'2022/6/20','Gagas.inc','Azul','Vendedor','Tamaño x diseño x','toAssign');
 INSERT INTO taskcount (id, count) VALUES (0,1);
 INSERT INTO customer (customerName) VALUES ('Alejandro');
 INSERT INTO customer (customerName) VALUES ('Irene');
