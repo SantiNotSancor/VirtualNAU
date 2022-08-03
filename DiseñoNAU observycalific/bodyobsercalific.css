@@ -103,11 +103,7 @@ div{
     width: 50%;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     padding: 2%;
-    height: 38vw;
-    top: 3vw;
+    height: 22vw;
+    top: 10vw;
 
-}
-
-select{
-    width: 20%;
 }
