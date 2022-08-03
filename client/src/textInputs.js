@@ -60,7 +60,7 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
             checked = async (input) => {
                 if (input === '')
                     return false
-                let response = await Axios.get('http://localhost:3307/getNames');
+                let response = await Axios.get('http://localhost:3307/getWorkshopNames');
                 response = !response.data.find(e => e.name.toLowerCase() === input.toLowerCase());
                 return response;
             };
@@ -125,9 +125,18 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
             label = 'Hilos';
             placeholder = 'Ingrese la cantidad de hilos';
             break;
+            
+        //VENDEDOR
         case 'customerName':
             label = 'Nombre del cliente';
             placeholder = 'Ingrese el nombre del/la cliente';
+            checked = async (input) => {
+                if (input === '')
+                    return false
+                let response = await Axios.get('http://localhost:3307/getCustomerName');
+                response = !response.data.find(e => e.name.toLowerCase() === input.toLowerCase());
+                return response;
+            };
             break;
         default:
             console.error("ERROR, HA INGRESADO EL toShow " + toShow + " EN EL COMPONENTE TEXTINPUT");
@@ -386,7 +395,7 @@ const NameRequest = ({ label, placeholder, onChange, handleEnter }) => {
     const getList = () => {
         if(inicialized)
         return;
-        Axios.get('http://localhost:3307/getNames').then((response) => {
+        Axios.get('http://localhost:3307/getWorkshopNames').then((response) => {
             setList(response.data);
         });
         setInicialized(false);

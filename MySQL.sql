@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS tasks(
     weight DECIMAL(5,1) UNSIGNED,
     price DECIMAL(5,1) UNSIGNED,
     threads INT(2),
-    paid BOOL,
+    paid bit,
     /*A asignar en entrada*/
     calification INT(2),
     observations TEXT(255),
@@ -75,6 +75,13 @@ CREATE TABLE IF NOT EXISTS taskCount(
     count INT(3) UNSIGNED NOT NULL,
     PRIMARY KEY(id)
 );
+
+CREATE TABLE IF NOT EXISTS customer(
+	customerId INT(3) UNSIGNED NOT NULL AUTO_INCREMENT,
+    customerName TEXT(255) NOT NULL,
+    PRIMARY KEY(customerId)
+);
+
 INSERT INTO users (id, name, password) VALUES (1,'manager','gatito');
 INSERT INTO users (id, name, password) VALUES (2,'vendor','ciervo');
 INSERT INTO users (id, name, password) VALUES (3,'production','jirafa');
@@ -95,6 +102,11 @@ INSERT INTO payments (id, name, date, money) VALUES (123,'Lodeloshop','2022/6/14
 INSERT INTO payments (id, name, date, money) VALUES (789,'Lodeloshop','2022/6/29',10000);
 INSERT INTO tasks (id, article_id, article_description, quantity, packages, cutDate, fabrics, colors, responsible, generalFeatures, state) VALUES (1,343,'Media',200,10,'2022/6/20','Gagas.inc','Azul','Vendedor','Tamaño x diseño x','Pendiente');
 INSERT INTO taskcount (id, count) VALUES (0,1);
+INSERT INTO customer (customerName) VALUES ('Alejandro');
+INSERT INTO customer (customerName) VALUES ('Irene');
+INSERT INTO customer (customerName) VALUES ('Walter');
+INSERT INTO customer (customerName) VALUES ('Mauro');
+INSERT INTO customer (customerName) VALUES ('Mortimer');
 
 
 SELECT * FROM users;
@@ -102,6 +114,6 @@ SELECT * FROM articles;
 SELECT * FROM workshops;
 SELECT * FROM payments;
 SELECT * FROM taskCount;
-
 SELECT * FROM tasks;
 SELECT * FROM parts;
+SELECT * FROM customer;

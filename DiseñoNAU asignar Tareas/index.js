@@ -50,8 +50,6 @@ app.post('/regWorkshop', (req, res) => {
   );
 });
 
-
-
 app.post('/newTask', (req, res) => {
   const { id, article, description, quantity, packages, cutDate, fabrics, colors, responsible, generalFeatures } = req.body;
   db.query(
@@ -64,7 +62,7 @@ app.post('/newTask', (req, res) => {
   );
 });
 
-app.get('/getNames', (req, res) => {
+app.get('/getWorkshopNames', (req, res) => {
   db.query("SELECT name FROM workshops", (err, result) => {
     if (err) {
       console.log(err);
@@ -84,7 +82,17 @@ app.post('/getPassword', (req, res) => {
   });
 });
 
-app.post('/getNamesWhere', (req, res) => {
+app.get('/getCustomerNames', (req, res) => {
+  const { name, article } = req.body;
+  db.query("SELECT customerName FROM customer'", [name], (err, result) => {
+    if (err)
+      console.log(err);
+    else
+      res.send(result);
+  });
+})
+
+app.post('/getWorkshopNamesWhere', (req, res) => {
   const { name } = req.body;
   db.query("SELECT id FROM workshops WHERE name = ?", [name], (err, result) => {
     if (err) {
@@ -387,8 +395,6 @@ app.post('/getPrices', (req, res) => {
       res.send(result);
   });
 })
-
-
 
 app.listen(3307, () => {
   console.log('Yey, your server is running on port 3307');

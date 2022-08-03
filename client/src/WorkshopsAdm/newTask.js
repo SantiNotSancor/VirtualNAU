@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { ModalOpener } from '../modalOpener';
 import { Request } from '../textInputs';
-import image from './Images/NewTask.svg';
+import image from './Images/newTask.gif';
 import Axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import moment from 'moment';
+import './indexWorkshopAdm.css'
 
 const initialState = {
     task: '',
@@ -119,7 +120,7 @@ export class NewTaskButton extends Component {
     render() {
         return (
             <ModalOpener buttonText='Nueva tarea' children={this.myForm()} error={this.state.error} className={'title'}
-                logo={image} title={'Creación de tarea'} post={this.post} handleClose={this.resetState} />
+                cardClassName='cardWorkshopAdm' buttonClassName='button2WorkshopAdm' logo={image} title={'Creación de tarea'} post={this.post} handleClose={this.resetState} />
             //Crea un botón que abre a un modal en el que aparecerá lo devuelto en this.myForm
         );
     }

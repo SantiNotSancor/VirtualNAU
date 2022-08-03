@@ -3,6 +3,7 @@ import { ModalWork } from './modals';
 import { ModalArt } from './modals';
 import { ModalController } from '../../modal';
 import PropTypes from 'prop-types';
+import image from '../Images/registrationDrop.gif'
 
 export class ArtWorkButton extends ModalController {
 
@@ -28,32 +29,24 @@ export class ArtWorkButton extends ModalController {
 
     render() {
         return (
-            <ul className='branched'>
-                <li className='title'>
-                    {this.props.article ? 'Artículo' : 'Taller'}
-                </li>
-                <li>
-                    <ul className='branch'>
-                        <li>
-                            <button onClick={() => this.showModal('reg')}>
-                                Alta
-                            </button>
-                        </li>
-                        <li>
-                            <button onClick={() => this.showModal('drop')}>
-                                Baja
-                            </button>
-                        </li>
-                        <li>
-                            <button onClick={() => this.showModal('update')}>
-                                Modificar
-                            </button>
-                        </li>
-                    </ul>
-                </li>
+            <div className='card2WorkshopAdm'>
+                <p className='pWorkshopAdm'>{this.props.article ? 'Artículo' : 'Actualizar datos de taller'}</p>
+                <img id='imagen_diferente' src={image}/>
+                <div className='containerWorkshopAdm'>
+                    <button className='button4WorkshopAdm' onClick={() => this.showModal('reg')}>
+                        Alta
+                    </button>
+                    <button className='button5WorkshopAdm' onClick={() => this.showModal('drop')}>
+                        Baja
+                    </button>
+                    <button className='button6WorkshopAdm' onClick={() => this.showModal('update')}>
+                        Modificar
+                    </button>
+                </div>
+
                 {this.callModal()}
                 {/*Llama al Modal encargado de los Artículos*/}
-            </ul>
+            </div>
         );
     }
 }

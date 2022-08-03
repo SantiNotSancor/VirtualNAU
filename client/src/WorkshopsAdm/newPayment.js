@@ -3,7 +3,8 @@ import { ModalOpener } from '../modalOpener';
 import { Request } from '../textInputs';
 import Axios from 'axios';
 import Form from 'react-bootstrap/Form';
-import image from './Images/NewPayment.svg';
+import image from './Images/newPayment.gif';
+import './indexWorkshopAdm.css'
 
 const initialState = {
     errors: [true, true],
@@ -78,7 +79,7 @@ export class NewPaymentButton extends Component {
     render() {
         return (
             <ModalOpener buttonText='Nuevo pago' handleClose={this.resetState} footer={{ label: 'Imprimir', func: this.print, show: !this.state.error }}
-                className={'title'} logo={image} title={'Pagar'} post={this.post} children={this.myForm()} />
+                cardClassName='cardWorkshopAdm' buttonClassName='button1WorkshopAdm' className={'title'} logo={image} title={'Pagar'} post={this.post} children={this.myForm()} />
         );
     }
 }

@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import { ModalOpener } from '../modalOpener';
 import { Request, TaskRequest } from '../textInputs';
 import Form from 'react-bootstrap/Form';
-import image from './Images/DeliverTask.svg';
+import image from './Images/deliverTask.gif';
 import moment from 'moment';
 import Axios from 'axios';
 import Table from 'react-bootstrap/Table';
@@ -122,7 +122,7 @@ export class DeliverTaskButton extends Component {
     render() {
         return (
             <>
-                <ModalOpener buttonText="Recibir tarea" children={this.myForm()} logo={image} className="title"
+                <ModalOpener buttonText="Recibir tarea" children={this.myForm()} logo={image} cardClassName='cardWorkshopAdm' buttonClassName='button3WorkshopAdm'
                     footer={{ label: 'Imprimir', func: this.print, show: !!document.getElementById("taskTable") }}
                     title="Ingreso de tarea" post={this.post} error={this.state.error} handleClose={this.resetState} />
                 {/*Crea un botón que abre a un modal en el que aparecerá lo devuelto en this.myForm*/}

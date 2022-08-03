@@ -9,7 +9,6 @@ import Table from 'react-bootstrap/Table';
 import moment from 'moment';
 import './indexVendor.css';
 import addStockLogo from './Images/addStock.gif'
-//import image from './Images/addStock.svg';
 
 const initialState = {
     responsible: '',
@@ -96,7 +95,7 @@ export class AddStock extends Component {
     render() {
         return (
                 <ModalOpener buttonText='Añadir stock' handleClose={this.resetState}
-                buttonClassName='buttonVendor2' imageClassName='imgVendor' logo={addStockLogo} title='Añadir stock' post={this.post} children={this.myForm()} />
+                cardClassName='card' buttonClassName='buttonVendor2' imageClassName='imgVendor' logo={addStockLogo} title='Añadir stock' post={this.post} children={this.myForm()} />
         );
     }
 }

@@ -20,7 +20,7 @@ export const ModalWork = ({ handleClose, show, modify }) => {//Se encargará de 
 
     const post = () => {
         if (modify === 'reg')
-            Axios.post('http://localhost:3307/getNamesWhere', { name }).then((response) => {
+            Axios.post('http://localhost:3307/getWorkshopNamesWhere', { name }).then((response) => {
                 setError(response.data.length !== 0);
                 if (response.data.length === 0)
                     Axios.post('http://localhost:3307/regWorkshop', { name, contact });

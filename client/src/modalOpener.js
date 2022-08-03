@@ -8,10 +8,10 @@ export class ModalOpener extends ModalController {
 
     render() {
         return (
-            <div>
-                <button onClick={this.showModal}>{/*Hereda la función desde ModalController*/}
+            <div className={this.props.cardClassName}>
                     <img className={this.props.imageClassName} alt="" src={this.props.logo}/>
-                    <div className={this.props.buttonClassName}>{this.props.buttonText}</div>
+                <button className={this.props.buttonClassName} onClick={this.showModal}>{/*Hereda la función desde ModalController*/}
+                    {this.props.buttonText}
                 </button>
                 <ModalPrototype show={this.state.showModal} handleClose={() => {
                     this.hideModal();
@@ -36,8 +36,9 @@ export class ModalOpener extends ModalController {
 ModalOpener.propTypes = {
     post: PropTypes.func.isRequired,//Enviará los datos al back-end
     title: PropTypes.string.isRequired,//Título del modal
-    buttonClassName: PropTypes.string,//Texto que le dará clase a el div
-    imageClassName: PropTypes.string,//Texto que le dará clase a el div
+    cardClassName: PropTypes.string,//Texto que le dará clase a el div
+    buttonClassName: PropTypes.string,//Texto que le dará clase al boton
+    imageClassName: PropTypes.string,//Texto que le dará clase a la imagen
     logo: PropTypes.string.isRequired,//Dirección relativa donde se encuentra el logo
     buttonText: PropTypes.string.isRequired,//Texto que aparecerá en el botón
     children: PropTypes.element.isRequired,//Hijo que aparecerá en el modal

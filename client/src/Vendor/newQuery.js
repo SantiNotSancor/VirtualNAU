@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 import newQueryLogo from './Images/newQuery.gif';
 
 const initialState = {
-    customer : '',                                                              //Añade cliente  
+    customerName : '',                                                              //Añade cliente  
     observation : '',                                                           //Añade observaciones
     query : [{id:'', description:'', quantity:'', colour:'', toDeliver:''}]     //Lista de objetos pedido
 }
@@ -20,11 +20,19 @@ export class NewQuery extends Component {
         this.setState(initialState);
     }
 
+    componentDidUpdate(prevState) {
+        if (this.state.customerName === prevState.customerName)
+            return;
+        if (!this.state.customerName)
+            return;
+        Axios.get('http://localhost:3307/getCustomer', )
+    }
+
     myForm = () => {
         return(
             <>
                 <Request toShow="customerName" onChange={(e) => {
-                    this.setState({customer: e.target.value});
+                    this.setState({customerName: e.target.value});
                 }}/>
                 <Request toShow="observation" onChange={(e) => {
                     this.setState({observation: e.target.value});
@@ -103,7 +111,7 @@ export class NewQuery extends Component {
     render() {
         return (
             <ModalOpener buttonText='Nuevo pedido' handleClose={this.resetState}
-                buttonClassName='buttonVendor1' imageClassName='imgVendor' logo={newQueryLogo} title={'Nuevo pedido'} post={this.post} children={this.myForm()} />
+                cardClassName='card' buttonClassName='buttonVendor1' imageClassName='imgVendor' logo={newQueryLogo} title={'Nuevo pedido'} post={this.post} children={this.myForm()} />
             
         );
     }
