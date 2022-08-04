@@ -1,0 +1,49 @@
+/*
+	Color fondo: #632432;
+	Color header: 246355;
+	Color borde: 0F362D;
+	Color iluminado: 369681;
+*/
+body{
+	background-color: #20154D;
+	font-family: 'Poppins', sans-serif;
+}
+
+#main-container{
+	margin: 150px auto;
+	width: 600px;
+}
+
+table{
+	background-color: rgb(206, 206, 206);
+	text-align: left;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td{
+	padding: 20px;
+}
+
+thead{
+	background-color: #4b4b4b;
+	border-bottom: solid 5px #8736c9;
+	color: white;
+}
+
+tr:nth-child(even){
+	
+	background-color: white;
+}
+
+tr:hover td{
+	background-color:#955ec2;
+	color: white;
+}
+
+input{
+	width: 90%;
+	height: 2.5vw;
+	border: none;
+    
+}
