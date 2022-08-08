@@ -5,6 +5,7 @@ import Axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import image from './Images/newPayment.gif';
 import './indexWorkshopAdm.css'
+import Table from 'react-bootstrap/Table';
 
 
 const initialState = {
@@ -15,6 +16,9 @@ const initialState = {
 }
 
 export class NewPaymentButton extends Component {
+
+    toPrint = React.createRef();
+
     constructor(props) {
         super(props);
         this.state = initialState;
@@ -78,23 +82,42 @@ export class NewPaymentButton extends Component {
     }
 
     render() {
+        let {name, money} = this.state;
         return (
-            <ModalOpener buttonText='Nuevo pago' handleClose={this.resetState} footer={{ label: 'Imprimir', func: this.FunctionalComponentToPrint, show: !this.state.error }}
+            <>
+            {/* component to be printed */}
+            <div style={{ display: "none" }}>
+            <ComponentToPrint ref={(el) => (this.toPrint = el)} data={{name, money}}/>
+            </div>
+            <ModalOpener buttonText='Nuevo pago' handleClose={this.resetState}
+                footer={{ content: this.toPrint, show: !this.state.error }} error={this.state.error}
                 cardClassName='cardWorkshopAdm' containerClassName='containerWorkshopAdm' buttonClassName='button1WorkshopAdm' imageClassName='imgWorkshopAdm' className={'title'} logo={image} title={'Pagar'} post={this.post} children={this.myForm()} />
+            </>
+        );
+    }
+
+}
+
+class ComponentToPrint extends React.Component {
+    render(){
+        const { data } = this.props;
+        return (
+            <div id="toPrint">
+                <Table striped bordered>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Monto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style={{ 'backgroundColor': 'green' }}>
+                            <td>{data.name}</td>
+                            <td>{'$' + data.money}</td>
+                        </tr>
+                    </tbody>
+                </Table>
+            </div>
         );
     }
 }
-
-// const FunctionalComponentToPrint = React.forwardRef<printable | null; Props>((props, ref) => { 
-//     return <div ref={ref}><p>My Component Content Here</p></div>;
-//   });
-
-//  class printable extends Component {
-//     render(){
-//         return(
-//             <>
-                
-//             </>
-//         )
-//     }
-//  }
