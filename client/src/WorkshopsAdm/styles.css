@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-body
+ body
 {
 background-color: #20154D;
-background-image: url("wave4.png");
+background-image: url("/client/public/wave4.png");
 background-repeat: no-repeat;
+} 
 
-}
 
-h2{
+.h2WorkshopAdm{
   color: white;
   text-align: center;
   font-family: 'Roboto', sans-serif;
@@ -16,7 +16,7 @@ h2{
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.651);
 }
 
-.button1{
+.button1WorkshopAdm{
   background-image: linear-gradient(to right, #5b00ee 0%, #650ef0  100%);
   color: white;
   margin: 10%;
@@ -25,6 +25,7 @@ h2{
   left: 14%;
   top: 2.8vw;
   border: none;
+  border-radius: 3px;
   font-family: 'Roboto', sans-serif;
   letter-spacing: 1.5px;
   opacity: 0.6;
@@ -38,7 +39,7 @@ h2{
 button:hover {opacity: 1}
 
 
-.button2{
+.button2WorkshopAdm{
   background-image: linear-gradient(to right, #5b00ee 0%, #650ef0 100%);
   color:rgb(255, 255, 255);
   margin: 10%;
@@ -61,7 +62,7 @@ button:hover {opacity: 1}
 button:hover {opacity: 1}
 
 
-.button3{
+.button3WorkshopAdm{
   background-image: linear-gradient(to right, #5b00ee 0%, #650ef0 100%);
   color:rgb(255, 255, 255);
   margin: 10%;
@@ -83,7 +84,7 @@ button:hover {opacity: 1}
 
 button:hover {opacity: 1}
 
-p{
+.pWorkshopAdm{
   color: white;
   text-align: center;
   font-family: 'Roboto', sans-serif;
@@ -91,7 +92,7 @@ p{
   font-size: 1.5vw;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.651);
 }
-.button4{
+.button4WorkshopAdm{
   background-image: linear-gradient(to right, #5b00ee 0%, #650ef0 100%);
   color:rgb(255, 255, 255);
   
@@ -115,7 +116,7 @@ p{
 
 button:hover {opacity: 1}
 
-.button5{
+.button5WorkshopAdm{
   background-image: linear-gradient(to right, #5b00ee 0%, #650ef0 100%);
   color:rgb(255, 255, 255);
   margin: 1%;
@@ -137,7 +138,7 @@ button:hover {opacity: 1}
 
 button:hover {opacity: 1}
 
-.button6{
+.button6WorkshopAdm{
   background-image: linear-gradient(to right, #5b00ee 0%, #650ef0 100%);
   color:rgb(255, 255, 255);
   margin: 1%;
@@ -161,7 +162,7 @@ button:hover {opacity: 1}
 button:hover {opacity: 1}
 
   
-.card {
+.cardWorkshopAdm {
   float: left;
   color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.452);
@@ -175,7 +176,7 @@ button:hover {opacity: 1}
   background-color: #34186c;
 }
 
-.card2 {
+.card2WorkshopAdm {
   float: left;
   color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.452);
@@ -213,6 +214,73 @@ img {
   left: 10%;
 }
 
+.select {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 15px;
+  width: 16%;
+  top: 5vw;
+  left: 42vw;
+  opacity: 0.6;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.452);
+}    .select select {
+      font-family: 'Roboto';
+      letter-spacing: 1.5px;
+      
+      transition: 0.3s;
+      display: inline-block;
+      width: 100%;
+      height: 3vw;
+      cursor: pointer;
+      padding: 10px 15px;
+      outline: 0;
+      border: none;
+      border-radius: 4.5px;
+      background: #5b00ee;
+      color: #ffffff;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+  }
+      .select select::-ms-expand {
+          display: none;
+      }
+      .select select:hover,
+      .select select:focus {
+          color: #ffffff;
+          background: #7723ff;
+          
+      }
+      .select select:disabled {
+          opacity: 0;
+          pointer-events: none;
+      }
+    
+.select_arrow {
+  position: absolute;
+  top: 13px;
+  right: 15px;
+  width: 0.5px;
+  height: 0.5px;
+  border: solid #ffffffbe;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+.select select:hover ~ .select_arrow,
+.select select:focus ~ .select_arrow {
+  border-color: #ffffff;
+}
+.select select:disabled ~ .select_arrow {
+  border-top-color: #ffffff;
+}
+
+button:hover {opacity: 1}
 
 .container {
   padding: 5%;
