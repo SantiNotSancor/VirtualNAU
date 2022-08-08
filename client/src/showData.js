@@ -24,7 +24,7 @@ export class ShowData extends Component {
         this.setState(initialState);
     }
 
-    setData = e => {//Consigue los datos de la base de datos, en base a e, que le especifica qué datos buscar
+    setData = e => {//Consigue los datos de la base de datos, en base a e, que le especifica qué datos buscar   
         console.log('hi');
         Axios.get('http://localhost:3307/get' + e.charAt(0).toUpperCase() + e.slice(1)).then(response => {
             const res = response.data, table = [], titles = [];
@@ -110,7 +110,8 @@ export class ShowData extends Component {
             });
             if(!this.state.table || this.state.table.length === 0)
                 this.setState({ filteredTable: table });
-            console.log(this.state.table);
+            console.log(table);
+            console.log(titles);
             this.setState({ titles, table, filteredTable: table, data: e });
             this.setFilters(titles);
         });
@@ -134,12 +135,12 @@ export class ShowData extends Component {
                 case 'Colores':
                 case 'responsible/s':
                 case 'Detalles':
+                case 'Código':
                 case 'Observaciones':
                     filters.push('input');
                     break;
                 case 'Saldo':
                 case 'Cantidad':
-                case 'Código':
                 case 'Bultos':
                 case 'Precio unitario':
                 case 'Peso':
@@ -170,26 +171,80 @@ export class ShowData extends Component {
     }
 
     compareTable = () => {//Le asigna a filteredTable una versión filtrada de table 
-        //TODO:     Revisar las llamadas a compareTable
-        const {table, filterInputs} = this.state;
-        let filteredTable = table, toErase = [];
-        console.log('HI');
+        //TODO: table se actualiza a filteredTable
+        
+const {table, filterInputs, filters} = this.state;
+        let filteredTable = table.slice(), toErase = [];
         table.map((row, i) => {
             let erase = false;
             row.map((cell, j) => {
-                let aux = typeof(cell) !== 'string'? toString(cell) : cell;
-                if(!aux.includes(filterInputs[j])){
-                    console.log('BORRAR');
-                    erase = true;
+                let filterInput = filterInputs[j];
+                let operator = filterInput[0];
+                switch(filters[j]){
+                    case 'input':
+                        let cellString = typeof(cell) !== 'string'? cell.toString() : cell;
+                        if(!cellString.toLowerCase().includes(filterInput))
+                            erase = true;
+                        break;
+                    case 'number':
+                        let number = filterInput.slice(1, filterInput.length);
+                        if(filterInput === ''){
+                            erase = false;
+                            break;
+                        }
+                        if(isNaN(number) || (operator !== ' ' && operator !== '<' && operator !== '>' && operator !== '=')){
+                            erase = true;
+                            break;
+                        }
+                        
+                        number = Number(number);
+                        switch(operator){
+                            case ' ':
+                                erase = false;
+                                break;
+                            case '>':
+                                erase = number >= cell;
+                                break;
+                            case '<':
+                                erase = number <= cell;
+                                break;
+                            case '=':
+                                erase = number !== cell;
+                                break;
+                        }
+                        break;
+                    case 'date':
+                        if(!(((filterInput.length === 10 && filterInput[5] === '/') || filterInput.length === 5) && filterInput[2] === '/')){
+                            erase = false;
+                            break;
+                        }
+                        let dateParts = filterInput.slice(1, filterInput.length).split('/');
+                        let date = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+                        dateParts = cell.split('/');
+                        cell = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+                        switch(operator){
+                            case ' ':
+                                erase = false;
+                                break;
+                            case '>':
+                                erase = date >= cell;
+                                break;
+                            case '<':
+                                erase = date <= cell;
+                                break;
+                            case '=':
+                                erase = date !== cell;
+                                break;
+                        }
+                        erase = false;
+                        break;
                 }
             })
-            if(erase){
+            if(erase)
                 toErase.push(i);
-                console.log("ELIMINAR   " + row);
-            }
         })
+        toErase = toErase.reverse();
         toErase.map((element) => filteredTable.splice(element, 1));
-        //Filtrar filteredTable
         if(this.state.filteredTable !== filteredTable)
             this.setState({filteredTable});
     }
@@ -250,7 +305,29 @@ export class ShowData extends Component {
                                             <Dropdown.Item eventKey={'='}>Igual</Dropdown.Item>
                                         </DropdownButton></td>
                                     case 'date':
-                                        return <td key={i}>FALTA AGREGAR</td>//TODO: AGREGAR
+                                        return <td key={i}><FormControl onChange={(e) => {
+                                            let aux = this.state.filterInputs;
+                                            if(aux[i] === '')
+                                                aux[i] = ' ';
+                                            let firstChar = aux[i][0];
+                                            aux[i] = firstChar + e.target.value;
+                                            this.setState({filterInputs: aux});
+                                            this.compareTable();
+                                        }}/>
+                                        
+                                        <DropdownButton onSelect={(e) => {
+                                            let aux = this.state.filterInputs;
+                                            if(aux[i] === '')
+                                                aux[i] = e;
+                                            else
+                                                aux[i] = e + aux[i].substring(1);
+                                            this.setState({filterInputs: aux});
+                                            this.compareTable();
+                                        }}>
+                                            <Dropdown.Item eventKey={'>'}>Mayor</Dropdown.Item>
+                                            <Dropdown.Item eventKey={'<'}>Menor</Dropdown.Item>
+                                            <Dropdown.Item eventKey={'='}>Igual</Dropdown.Item>
+                                        </DropdownButton></td>
                                     default:
                                         if(!filter[0])
                                             return <td key={i}></td>;
@@ -267,7 +344,13 @@ export class ShowData extends Component {
                                 }
                             })}
                             </tr>
-                            {filteredTable.map((row, i) => this.setFilters(row, i, titles))}
+                            {filteredTable.map((row, i) => {
+                                return (
+                                    <tr key={i}>
+                                        {row.map((cell, j) => <td key={j}>{cell}</td>)}
+                                    </tr>
+                                );
+                            })}
                         </tbody>
                     </Table>
                     : null}

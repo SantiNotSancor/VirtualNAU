@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS users(
 );
 
 CREATE TABLE IF NOT EXISTS articles(
-	id INT(5) UNSIGNED NOT NULL UNIQUE,/*99.999*/
+    id INT(5) UNSIGNED NOT NULL UNIQUE,/*99.999*/
     description TEXT(255) NOT NULL,
     PRIMARY KEY(id)
 );
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS workshops(
 );
 
 CREATE TABLE IF NOT EXISTS tasks(
-	id INT(3) NOT NULL,
+    id INT(3) NOT NULL,
     /*A asignar con la tarea*/
     article_id INT(5) UNSIGNED NOT NULL,
     article_description TEXT(255),
@@ -52,15 +52,15 @@ CREATE TABLE IF NOT EXISTS tasks(
 );
 
 CREATE TABLE IF NOT EXISTS payments(
-	id INT(7) UNSIGNED NOT NULL AUTO_INCREMENT,
+    id INT(7) UNSIGNED NOT NULL AUTO_INCREMENT,
     name TEXT(255) NOT NULL,/*Puede que no sea necesario*/
-	date TEXT(10) NOT NULL,
+    date TEXT(10) NOT NULL,
     money INT(5) UNSIGNED NOT NULL,
     PRIMARY KEY(id)
 );
 
 CREATE TABLE IF NOT EXISTS parts(
-	id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT,
+    id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT,
     task INT(3) UNSIGNED NOT NULL,
     date TEXT(10) NOT NULL,
     threads INT(2) NOT NULL,/*Lo entregado*/
@@ -71,13 +71,13 @@ CREATE TABLE IF NOT EXISTS parts(
 );
 
 CREATE TABLE IF NOT EXISTS taskCount(
-	id INT(1) AUTO_INCREMENT,
+    id INT(1) AUTO_INCREMENT,
     count INT(3) UNSIGNED NOT NULL,
     PRIMARY KEY(id)
 );
 
 CREATE TABLE IF NOT EXISTS customer(
-	customerId INT(3) UNSIGNED NOT NULL AUTO_INCREMENT,
+    customerId INT(3) UNSIGNED NOT NULL AUTO_INCREMENT,
     customerName TEXT(255) NOT NULL,
     PRIMARY KEY(customerId)
 );
@@ -95,12 +95,12 @@ INSERT INTO articles (id, description) VALUES (198,'Gorro');
 INSERT INTO workshops (id, name, contact, money) VALUES (1,'Rogelioshop','1141617737',30000);
 INSERT INTO workshops (id, name, contact, money) VALUES (2,'Valentinshop','1145893211',34000);
 INSERT INTO workshops (id, name, contact, money) VALUES (3,'Lodeloshop','1176543219',38000);
-INSERT INTO payments (id, name, date, money) VALUES (598,'Rogelioshop','2022/6/16',5000);
-INSERT INTO payments (id, name, date, money) VALUES (456,'Rogelioshop','2022/6/17',6000);
-INSERT INTO payments (id, name, date, money) VALUES (764,'Valentinshop','2022/6/22',3000);
-INSERT INTO payments (id, name, date, money) VALUES (123,'Lodeloshop','2022/6/14',2500);
-INSERT INTO payments (id, name, date, money) VALUES (789,'Lodeloshop','2022/6/29',10000);
-INSERT INTO tasks (id, article_id, article_description, quantity, packages, cutDate, fabrics, colors, responsible, generalFeatures, state) VALUES (1,343,'Media',200,10,'2022/6/20','Gagas.inc','Azul','Vendedor','Tamaño x diseño x','toAssign');
+INSERT INTO payments (id, name, date, money) VALUES (598,'Rogelioshop','16/06/2022',5000);
+INSERT INTO payments (id, name, date, money) VALUES (456,'Rogelioshop','17/06/2022',6000);
+INSERT INTO payments (id, name, date, money) VALUES (764,'Valentinshop','22/06/2022',3000);
+INSERT INTO payments (id, name, date, money) VALUES (123,'Lodeloshop','01/08/2022',2500);
+INSERT INTO payments (id, name, date, money) VALUES (789,'Lodeloshop','10/07/2022',10000);
+INSERT INTO tasks (id, article_id, article_description, quantity, packages, cutDate, fabrics, colors, responsible, generalFeatures, state) VALUES (1,343,'Media',200,10,'6/01/2021','Gagas.inc','Azul','Vendedor','Tamaño x diseño x','toAssign');
 INSERT INTO taskcount (id, count) VALUES (0,1);
 INSERT INTO customer (customerName) VALUES ('Alejandro');
 INSERT INTO customer (customerName) VALUES ('Irene');
