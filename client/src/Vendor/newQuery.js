@@ -111,7 +111,7 @@ export class NewQuery extends Component {
     render() {
         return (
             <ModalOpener buttonText='Nuevo pedido' handleClose={this.resetState}
-                cardClassName='card' buttonClassName='buttonVendor1' imageClassName='imgVendor' logo={newQueryLogo} title={'Nuevo pedido'} post={this.post} children={this.myForm()} />
+                cardClassName='card' containerClassName='containerVendor' buttonClassName='buttonVendor1' imageClassName='imgVendor' logo={newQueryLogo} title={'Nuevo pedido'} post={this.post} children={this.myForm()} />
             
         );
     }

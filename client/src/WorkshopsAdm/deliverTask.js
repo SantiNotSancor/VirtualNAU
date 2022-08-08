@@ -122,7 +122,7 @@ export class DeliverTaskButton extends Component {
     render() {
         return (
             <>
-                <ModalOpener buttonText="Recibir tarea" children={this.myForm()} logo={image} cardClassName='cardWorkshopAdm' buttonClassName='button3WorkshopAdm'
+                <ModalOpener buttonText="Recibir tarea" children={this.myForm()} logo={image} cardClassName='cardWorkshopAdm' containerClassName='containerWorkshopAdm' buttonClassName='button3WorkshopAdm' imageClassName='imgWorkshopAdm'
                     footer={{ label: 'Imprimir', func: this.print, show: !!document.getElementById("taskTable") }}
                     title="Ingreso de tarea" post={this.post} error={this.state.error} handleClose={this.resetState} />
                 {/*Crea un botón que abre a un modal en el que aparecerá lo devuelto en this.myForm*/}

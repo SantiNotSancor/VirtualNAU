@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import image from './Images/newPayment.gif';
 import './styles.css'
 
+
 const initialState = {
     errors: [true, true],
     error: true,
@@ -78,8 +79,22 @@ export class NewPaymentButton extends Component {
 
     render() {
         return (
-            <ModalOpener buttonText='Nuevo pago' handleClose={this.resetState} footer={{ label: 'Imprimir', func: this.print, show: !this.state.error }}
-                cardClassName='cardWorkshopAdm' buttonClassName='button1WorkshopAdm' className={'title'} logo={image} title={'Pagar'} post={this.post} children={this.myForm()} />
+            <ModalOpener buttonText='Nuevo pago' handleClose={this.resetState} footer={{ label: 'Imprimir', func: this.FunctionalComponentToPrint, show: !this.state.error }}
+                cardClassName='cardWorkshopAdm' containerClassName='containerWorkshopAdm' buttonClassName='button1WorkshopAdm' imageClassName='imgWorkshopAdm' className={'title'} logo={image} title={'Pagar'} post={this.post} children={this.myForm()} />
         );
     }
 }
+
+const FunctionalComponentToPrint = React.forwardRef<ComponentToPrint | null; Props>((props, ref) => { 
+    return <div ref={ref}><p>My Component Content Here</p></div>;
+  });
+
+ class printable extends Component {
+    render(){
+        return(
+            <>
+                <p>Nombre del </p>
+            </>
+        )
+    }
+ }
