@@ -4,7 +4,7 @@ import { Request } from '../textInputs';
 import Axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import image from './Images/newPayment.gif';
-import './styles.css'
+import './indexWorkshopAdm.css'
 
 
 const initialState = {
@@ -85,16 +85,16 @@ export class NewPaymentButton extends Component {
     }
 }
 
-const FunctionalComponentToPrint = React.forwardRef<ComponentToPrint | null; Props>((props, ref) => { 
-    return <div ref={ref}><p>My Component Content Here</p></div>;
-  });
+// const FunctionalComponentToPrint = React.forwardRef<printable | null; Props>((props, ref) => { 
+//     return <div ref={ref}><p>My Component Content Here</p></div>;
+//   });
 
- class printable extends Component {
-    render(){
-        return(
-            <>
-                <p>Nombre del </p>
-            </>
-        )
-    }
- }
+//  class printable extends Component {
+//     render(){
+//         return(
+//             <>
+                
+//             </>
+//         )
+//     }
+//  }

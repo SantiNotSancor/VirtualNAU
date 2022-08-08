@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
- body
+ /* body
 {
 background-color: #20154D;
 background-image: url("/client/public/wave4.png");
 background-repeat: no-repeat;
-} 
+}  */
 
 
 .h2WorkshopAdm{
@@ -196,7 +196,7 @@ div.gallery:hover
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
-img {
+.imgWorkshopAdm {
   border-radius: 5px 5px 0 0;
   max-width: 80%;
   max-height: 80%;
