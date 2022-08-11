@@ -4,7 +4,7 @@ import { Request } from '../textInputs';
 import Axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import image from './Images/newPayment.gif';
-import './indexWorkshopAdm.css'
+import './styles.css'
 import Table from 'react-bootstrap/Table';
 
 

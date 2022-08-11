@@ -7,7 +7,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import moment from 'moment';
-import './indexVendor.css';
+import './styles.css';
 import addStockLogo from './Images/addStock.gif'
 
 const initialState = {
