@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
- body
+body
 {
 background-color: #20154D;
-background-image: url("/client/public/wave4.png");
+background-image: url("wave4.png");
 background-repeat: no-repeat;
-} 
 
+}
 
-.h2WorkshopAdm{
+h2{
   color: white;
   text-align: center;
   font-family: 'Roboto', sans-serif;
@@ -16,7 +16,7 @@ background-repeat: no-repeat;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.651);
 }
 
-.button1WorkshopAdm{
+.button1{
   background-image: linear-gradient(to right, #5b00ee 0%, #650ef0  100%);
   color: white;
   margin: 10%;
@@ -25,7 +25,6 @@ background-repeat: no-repeat;
   left: 14%;
   top: 2.8vw;
   border: none;
-  border-radius: 3px;
   font-family: 'Roboto', sans-serif;
   letter-spacing: 1.5px;
   opacity: 0.6;
@@ -39,7 +38,7 @@ background-repeat: no-repeat;
 button:hover {opacity: 1}
 
 
-.button2WorkshopAdm{
+.button2{
   background-image: linear-gradient(to right, #5b00ee 0%, #650ef0 100%);
   color:rgb(255, 255, 255);
   margin: 10%;
@@ -62,7 +61,7 @@ button:hover {opacity: 1}
 button:hover {opacity: 1}
 
 
-.button3WorkshopAdm{
+.button3{
   background-image: linear-gradient(to right, #5b00ee 0%, #650ef0 100%);
   color:rgb(255, 255, 255);
   margin: 10%;
@@ -84,7 +83,7 @@ button:hover {opacity: 1}
 
 button:hover {opacity: 1}
 
-.pWorkshopAdm{
+p{
   color: white;
   text-align: center;
   font-family: 'Roboto', sans-serif;
@@ -92,7 +91,7 @@ button:hover {opacity: 1}
   font-size: 1.5vw;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.651);
 }
-.button4WorkshopAdm{
+.button4{
   background-image: linear-gradient(to right, #5b00ee 0%, #650ef0 100%);
   color:rgb(255, 255, 255);
   
@@ -116,7 +115,7 @@ button:hover {opacity: 1}
 
 button:hover {opacity: 1}
 
-.button5WorkshopAdm{
+.button5{
   background-image: linear-gradient(to right, #5b00ee 0%, #650ef0 100%);
   color:rgb(255, 255, 255);
   margin: 1%;
@@ -138,7 +137,7 @@ button:hover {opacity: 1}
 
 button:hover {opacity: 1}
 
-.button6WorkshopAdm{
+.button6{
   background-image: linear-gradient(to right, #5b00ee 0%, #650ef0 100%);
   color:rgb(255, 255, 255);
   margin: 1%;
@@ -162,7 +161,7 @@ button:hover {opacity: 1}
 button:hover {opacity: 1}
 
   
-.cardWorkshopAdm {
+.card {
   float: left;
   color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.452);
@@ -176,7 +175,7 @@ button:hover {opacity: 1}
   background-color: #34186c;
 }
 
-.card2WorkshopAdm {
+.card2 {
   float: left;
   color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.452);
@@ -214,73 +213,6 @@ img {
   left: 10%;
 }
 
-.select {
-  position: relative;
-  display: inline-block;
-  margin-bottom: 15px;
-  width: 16%;
-  top: 5vw;
-  left: 42vw;
-  opacity: 0.6;
-  display: inline-block;
-  text-decoration: none;
-  cursor: pointer;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.452);
-}    .select select {
-      font-family: 'Roboto';
-      letter-spacing: 1.5px;
-      
-      transition: 0.3s;
-      display: inline-block;
-      width: 100%;
-      height: 3vw;
-      cursor: pointer;
-      padding: 10px 15px;
-      outline: 0;
-      border: none;
-      border-radius: 4.5px;
-      background: #5b00ee;
-      color: #ffffff;
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-  }
-      .select select::-ms-expand {
-          display: none;
-      }
-      .select select:hover,
-      .select select:focus {
-          color: #ffffff;
-          background: #7723ff;
-          
-      }
-      .select select:disabled {
-          opacity: 0;
-          pointer-events: none;
-      }
-    
-.select_arrow {
-  position: absolute;
-  top: 13px;
-  right: 15px;
-  width: 0.5px;
-  height: 0.5px;
-  border: solid #ffffffbe;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-}
-.select select:hover ~ .select_arrow,
-.select select:focus ~ .select_arrow {
-  border-color: #ffffff;
-}
-.select select:disabled ~ .select_arrow {
-  border-top-color: #ffffff;
-}
-
-button:hover {opacity: 1}
 
 .container {
   padding: 5%;
