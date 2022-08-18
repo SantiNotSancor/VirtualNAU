@@ -22,7 +22,7 @@ input{
     border-radius: 0;
     outline: none;
     height: 3rem;
-    width: 70%;
+    width: 40%;
     font-size: 1rem;
     margin: 1%;
     padding: 0;
@@ -41,9 +41,36 @@ input{
 
 .input-cart{border-top:3px solid #a160ad;margin-top:2%;margin-bottom:50%;}
 
+.input2{
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #5a5a5a;
+    border-radius: 0;
+    outline: none;
+    height: 3rem;
+    width: 20%;
+    font-size: 1rem;
+    margin: 1%;
+    padding: 0;
+    box-shadow: none;
+    box-sizing: content-box;
+    font-family: 'Poppins', sans-serif;
+    opacity: 0.6;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  input:hover {opacity: 1}
+
+
+.input-cart{border-top:3px solid #a160ad;margin-top:2%;margin-bottom:50%;}  
+
+
 .confirmar{
     position:relative;
-    top:7vw;
+    top:6.46vw;
     width: 15%;
     padding:1%;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
@@ -52,7 +79,7 @@ input{
     background-color: #8736c9;
     color: white;
     border-radius: 2%;
-    left: 14%;
+    left: 42%;
     opacity: 0.9;
     transition: 0.3s;
     display: inline-block;
@@ -62,10 +89,9 @@ input{
   
   button:hover {opacity: 1}
 
-.cancelar
-{
+.cancelar{
 position:relative;
-top:3.6vw;
+top:3vw;
 width:15%;
 padding:1%;
 box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
@@ -74,7 +100,7 @@ font-family: 'Poppins', sans-serif;
 background-color: #4b4b4b;
 color: white;
 border-radius: 2%;
-left: 70%;
+left: 85%;
 opacity: 0.9;
 transition: 0.3s;
 display: inline-block;
@@ -106,4 +132,14 @@ div{
     height: 22vw;
     top: 10vw;
 
+}
+
+select{
+    -webkit-appearance: none;
+    position: relative;
+    top: 0.3vw;
+    width: 1vw;
+    height: 1.5vw;
+    text-align: center;
+    border-color: #969696;
 }
