@@ -25,7 +25,8 @@ export class ShowData extends Component {
     }
 
     setData = e => {//Consigue los datos de la base de datos, en base a e, que le especifica qué datos buscar   
-        console.log('hi');
+        if(this.state.data === e)
+            return;
         Axios.get('http://localhost:3307/get' + e.charAt(0).toUpperCase() + e.slice(1)).then(response => {
             const res = response.data, table = [], titles = [];
             if (res)
@@ -188,15 +189,14 @@ const {table, filterInputs, filters} = this.state;
                         break;
                     case 'number':
                         let number = filterInput.slice(1, filterInput.length);
-                        if(filterInput === ''){
+                        if(number === ''){
                             erase = false;
                             break;
                         }
                         if(isNaN(number) || (operator !== ' ' && operator !== '<' && operator !== '>' && operator !== '=')){
                             erase = true;
                             break;
-                        }
-                        
+                        }                    
                         number = Number(number);
                         switch(operator){
                             case ' ':
@@ -214,11 +214,12 @@ const {table, filterInputs, filters} = this.state;
                         }
                         break;
                     case 'date':
-                        if(!(((filterInput.length === 10 && filterInput[5] === '/') || filterInput.length === 5) && filterInput[2] === '/')){
+                        let dateRaw = filterInput.slice(1, filterInput.length);
+                        if(!(((dateRaw.length === 10 && dateRaw[5] === '/') || dateRaw.length === 5) && dateRaw[2] === '/')){
                             erase = false;
                             break;
                         }
-                        let dateParts = filterInput.slice(1, filterInput.length).split('/');
+                        let dateParts = dateRaw.slice(1, dateRaw.length).split('/');
                         let date = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
                         dateParts = cell.split('/');
                         cell = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
@@ -227,21 +228,22 @@ const {table, filterInputs, filters} = this.state;
                                 erase = false;
                                 break;
                             case '>':
-                                erase = date >= cell;
+                                erase = (1 === dates.compare(date, cell));
+                                //erase = date >= cell;
                                 break;
                             case '<':
-                                erase = date <= cell;
+                                erase = (-1 === dates.compare(date, cell));
+                                //erase = date <= cell;
                                 break;
                             case '=':
-                                erase = date !== cell;
+                                erase = (0 === dates.compare(date, cell));
+                                //erase = date !== cell;
                                 break;
                         }
-                        erase = false;
-                        break;
-                }
-            })
-            if(erase)
-                toErase.push(i);
+                    }
+                if(!erase)
+                    toErase.push(i);
+            });
         })
         toErase = toErase.reverse();
         toErase.map((element) => filteredTable.splice(element, 1));
@@ -274,15 +276,13 @@ const {table, filterInputs, filters} = this.state;
                             {this.state.filters.map((filter, i) => {
                                 switch (filter) {
                                     case 'input':
-                                        return <td key={i}><FormControl onChange={(e) => {
-                                            let aux = this.state.filterInputs;
+                                        return <td key={i}><FormControl value={aux[i]} onChange={(e) => {
                                             aux[i] = e.target.value;
                                             this.setState({filterInputs: aux});
                                             this.compareTable();
                                         }}/></td>
                                     case 'number':
                                         return <td key={i}><FormControl onChange={(e) => {
-                                            let aux = this.state.filterInputs;
                                             if(aux[i] === '')
                                                 aux[i] = ' ';
                                             let firstChar = aux[i][0];
@@ -292,7 +292,6 @@ const {table, filterInputs, filters} = this.state;
                                         }}/>
                                         
                                         <DropdownButton onSelect={(e) => {
-                                            let aux = this.state.filterInputs;
                                             if(aux[i] === '')
                                                 aux[i] = e;
                                             else
@@ -306,7 +305,6 @@ const {table, filterInputs, filters} = this.state;
                                         </DropdownButton></td>
                                     case 'date':
                                         return <td key={i}><FormControl onChange={(e) => {
-                                            let aux = this.state.filterInputs;
                                             if(aux[i] === '')
                                                 aux[i] = ' ';
                                             let firstChar = aux[i][0];
@@ -316,7 +314,6 @@ const {table, filterInputs, filters} = this.state;
                                         }}/>
                                         
                                         <DropdownButton onSelect={(e) => {
-                                            let aux = this.state.filterInputs;
                                             if(aux[i] === '')
                                                 aux[i] = e;
                                             else
@@ -333,7 +330,6 @@ const {table, filterInputs, filters} = this.state;
                                             return <td key={i}></td>;
                                         return <td key={i}>
                                         <DropdownButton onSelect={(e) => {
-                                            let aux = this.state.filterInputs;
                                             aux[i] = e;
                                             this.setState({filterInputs: aux});
                                             this.compareTable();
