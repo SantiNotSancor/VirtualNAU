@@ -229,16 +229,16 @@ const {table, filterInputs, filters} = this.state;
                                 erase = false;
                                 break;
                             case '>':
-                                erase = (1 === dates.compare(date, cell));
-                                //erase = date >= cell;
+                                // erase = (1 === dates.compare(date, cell));
+                                erase = date >= cell;
                                 break;
                             case '<':
-                                erase = (-1 === dates.compare(date, cell));
-                                //erase = date <= cell;
+                                // erase = (-1 === dates.compare(date, cell));
+                                erase = date <= cell;
                                 break;
                             case '=':
-                                erase = (0 === dates.compare(date, cell));
-                                //erase = date !== cell;
+                                // erase = (0 === dates.compare(date, cell));
+                                erase = date !== cell;
                                 break;
                         }
                     }
@@ -279,6 +279,7 @@ const {table, filterInputs, filters} = this.state;
                         <tbody>
                             <tr>
                             {this.state.filters.map((filter, i) => {
+                                let aux = this.state.filterInputs;
                                 switch (filter) {
                                     case 'input':
                                         return <td key={i}><FormControl value={aux[i]} onChange={(e) => {
