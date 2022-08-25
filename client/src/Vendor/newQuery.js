@@ -6,6 +6,7 @@ import Table from 'react-bootstrap/Table';
 import Axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import newQueryLogo from './Images/newQuery.gif';
+import './styles.css';
 
 const initialState = {
     customerName : '',                                                              //Añade cliente  
@@ -25,7 +26,7 @@ export class NewQuery extends Component {
             return;
         if (!this.state.customerName)
             return;
-        Axios.get('http://localhost:3307/getCustomer', )
+        Axios.get('http://localhost:3307/getCustomerNames', )
     }
 
     myForm = () => {
@@ -111,7 +112,7 @@ export class NewQuery extends Component {
     render() {
         return (
             <ModalOpener buttonText='Nuevo pedido' handleClose={this.resetState}
-                cardClassName='card' containerClassName='containerVendor' buttonClassName='buttonVendor1' imageClassName='imgVendor' logo={newQueryLogo} title={'Nuevo pedido'} post={this.post} children={this.myForm()} />
+                cardClassName='cardVendor' containerClassName='containerVendor' buttonClassName='buttonVendor1' imageClassName='imgVendor' logo={newQueryLogo} title={'Nuevo pedido'} post={this.post} children={this.myForm()} />
             
         );
     }

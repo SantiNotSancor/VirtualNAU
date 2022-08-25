@@ -4,6 +4,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Table from 'react-bootstrap/Table';
 import FormControl from 'react-bootstrap/FormControl';
+import './WorkshopsAdm/styles.css'
 
 const initialState = {
     data: '', //El nombre de la BD de la que sacamos los datos
@@ -256,14 +257,18 @@ const {table, filterInputs, filters} = this.state;
             dropdownList.push(key);
         return (
             <>
-                <DropdownButton title={title} onSelect={e => {
-                    this.setData(e);
-                    title = data.e;
-                }}>
-                    {dropdownList.map((e, index) => <Dropdown.Item key={index} eventKey={e}>{data[e]}</Dropdown.Item>)}
-                </DropdownButton>
+
+                <div className='selectWorkshopAdm'>
+                    <select title={title} onSelect={e => {
+                        this.setData(e);
+                        title = data.e;
+                    }}>
+                        <option>Elegir datos a mostrar</option>
+                        {dropdownList.map((e, index) => <option key={index} eventKey={e}>{data[e]}</option>)}
+                    </select>
+                </div>
                 {(titles && filteredTable) ?
-                    <Table striped bordered>
+                    <table>
                         <thead>
                             <tr>
                                 {titles.map((title, i) => this.header(title, i))}
@@ -300,9 +305,9 @@ const {table, filterInputs, filters} = this.state;
                                             this.setState({filterInputs: aux});
                                             this.compareTable();
                                         }}>
-                                            <Dropdown.Item eventKey={'>'}>Mayor</Dropdown.Item>
-                                            <Dropdown.Item eventKey={'<'}>Menor</Dropdown.Item>
-                                            <Dropdown.Item eventKey={'='}>Igual</Dropdown.Item>
+                                            <option eventKey={'>'}>Mayor</option>
+                                            <option eventKey={'<'}>Menor</option>
+                                            <option eventKey={'='}>Igual</option>
                                         </DropdownButton></td>
                                     case 'date':
                                         return <td key={i}><FormControl onChange={(e) => {
@@ -324,9 +329,9 @@ const {table, filterInputs, filters} = this.state;
                                             this.setState({filterInputs: aux});
                                             this.compareTable();
                                         }}>
-                                            <Dropdown.Item eventKey={'>'}>Mayor</Dropdown.Item>
-                                            <Dropdown.Item eventKey={'<'}>Menor</Dropdown.Item>
-                                            <Dropdown.Item eventKey={'='}>Igual</Dropdown.Item>
+                                            <option eventKey={'>'}>Mayor</option>
+                                            <option eventKey={'<'}>Menor</option>
+                                            <option eventKey={'='}>Igual</option>
                                         </DropdownButton></td>
                                     default:
                                         if(!filter[0])
@@ -339,7 +344,7 @@ const {table, filterInputs, filters} = this.state;
                                             this.compareTable();
                                         }}>
                                             {filter.map((element, index) => 
-                                            <Dropdown.Item key={index} eventKey={element}>{element}</Dropdown.Item>)}
+                                            <option key={index} eventKey={element}>{element}</option>)}
                                         </DropdownButton></td>        
                                 }
                             })}
@@ -352,7 +357,7 @@ const {table, filterInputs, filters} = this.state;
                                 );
                             })}
                         </tbody>
-                    </Table>
+                    </table>
                     : null}
             </>
         );
