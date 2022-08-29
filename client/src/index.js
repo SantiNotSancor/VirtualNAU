@@ -8,7 +8,7 @@ import WorkshopsAdm from './WorkshopsAdm/index';
 
 ReactDOM.render(
   //<Login />,  
-  //<Vendor />,
-  <WorkshopsAdm />,
+  <Vendor />,
+  //<WorkshopsAdm />,
   document.getElementById('root')
 );
