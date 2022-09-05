@@ -57,9 +57,10 @@ input{
     left: 79%;
     opacity: 0.9;
     transition: 0.3s;
-    display: inline-block;
     text-decoration: none;
     cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
   }
   
   button:hover {opacity: 1}
@@ -79,7 +80,8 @@ border-radius: 2%;
 left: 90%;
 opacity: 0.9;
 transition: 0.3s;
-display: inline-block;
+display: flex;
+flex-wrap: wrap;
 text-decoration: none;
 cursor: pointer;
 }
@@ -98,6 +100,8 @@ position: relative;
 }
 
 div{
+  display: flex;
+    flex-wrap: wrap;
     position: relative;
     left: 13%;
     border-radius: 1%;
@@ -105,7 +109,7 @@ div{
     width: 70%;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     padding: 2%;
-    height: 27vw;
+    height: 32vw;
     top: 10vw;
 
 }
