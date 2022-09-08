@@ -16,6 +16,7 @@ h2{
     font-size: 15px;
 }
 input{
+
     background-color: transparent;
     border: none;
     border-bottom: 1px solid #5a5a5a;
@@ -59,8 +60,6 @@ input{
     transition: 0.3s;
     text-decoration: none;
     cursor: pointer;
-    display: flex;
-    flex-wrap: wrap;
   }
   
   button:hover {opacity: 1}
@@ -80,8 +79,6 @@ border-radius: 2%;
 left: 90%;
 opacity: 0.9;
 transition: 0.3s;
-display: flex;
-flex-wrap: wrap;
 text-decoration: none;
 cursor: pointer;
 }
@@ -100,8 +97,7 @@ position: relative;
 }
 
 div{
-  display: flex;
-    flex-wrap: wrap;
+    overflow: scroll;
     position: relative;
     left: 13%;
     border-radius: 1%;
@@ -110,7 +106,7 @@ div{
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     padding: 2%;
     height: 32vw;
-    top: 10vw;
+    top: 5vw;
 
 }
 
@@ -145,3 +141,8 @@ input::placeholder {
     color: rgb(0, 0, 0);
     opacity: 1;
   }
+
+  
+
+
+
