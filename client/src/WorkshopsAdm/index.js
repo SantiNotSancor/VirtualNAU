@@ -7,6 +7,8 @@ import { AssignTaskButton } from './assignTask';
 import { ShowData } from '../showData';
 import './styles.css';
 
+import { ModalPrototype } from '../modal'; //BORRAR DESPUES
+
 export default class WorkshopsAdm extends Component {
 
   render() {
@@ -14,16 +16,21 @@ export default class WorkshopsAdm extends Component {
       <>
         <style>{'body {background-color: #20154D; background-Image: url(http://localhost:3000/images/waveWorkshopAdm.png); background-repeat: no-repeat; background-size: contain;'}</style>  
         <h2 className='h2WorkshopAdm'>¿Qué desea hacer?</h2>
-        <div><NewPaymentButton /></div>
+        <ModalPrototype 
+        post = {() => {}} title="Prueba"  handleClose ={() => {}} children={<></>}
+        />
+        
+        
+        {/* <div><NewPaymentButton /></div> */}
         {/* <div><NewTaskButton /></div> */}
-        <div><AssignTaskButton /></div>
-        <div><DeliverTaskButton /></div>
-        <div><ArtWorkButton article={false} /></div>
-        <div className='selectWorkshopAdm'>
-          
-        </div>
+        {/* <div><AssignTaskButton /></div> */}
+        {/* <div><DeliverTaskButton /></div> */}
+        {/* <div><ArtWorkButton article={false} /></div> */}
+        {/* <div className='selectWorkshopAdm'> */}
+        
+        {/* </div> */}
         {/* <div><ArtWorkButton article={true} /></div> */}
-        <ShowData />
+        {/* <ShowData /> */}
       </>
     );
   }

@@ -288,8 +288,12 @@ button:hover {opacity: 1}
   padding: 5%;
 }
 
-.modalPayment{
-  display: none; /* Hidden by default */
+/* NEWPAYMENT MODAL */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+.modal{
+  /* display: none; Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 0;
@@ -299,6 +303,10 @@ button:hover {opacity: 1}
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  font-family: 'Poppins', sans-serif;
+  border-top: 3px solid #a160ad;
+  margin-top: 2%;
+  margin-bottom: 50%;
 }
 
 .modalPayment-content {
@@ -308,3 +316,69 @@ button:hover {opacity: 1}
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
 }
+
+.modalDiv {
+  position: relative;
+  left: 25%;
+  border-radius: 1%;
+  background-color: white;
+  width: 50%;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  padding: 2%;
+  height: 22vw;
+  top: 10vw;
+}
+
+.titleModal {
+  color:rgb(95, 95, 95);
+  text-align: center;
+}
+
+.confirm {
+  position:relative;
+  top:7vw;
+  width: 15%;
+  padding:1%;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  background-color: #8736c9;
+  color: white;
+  border-radius: 2%;
+  left: 14%;
+  opacity: 0.9;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.cancel {
+position:relative;
+top:3.6vw;
+width:15%;
+padding:1%;
+box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+border: none;
+font-family: 'Poppins', sans-serif;
+background-color: #4b4b4b;
+color: white;
+border-radius: 2%;
+left: 70%;
+opacity: 0.9;
+transition: 0.3s;
+display: inline-block;
+text-decoration: none;
+cursor: pointer;
+}
+
+button.cancel:hover, button.confirm:hover {
+  opacity: 1
+}
+
+/* body
+{
+background-color: hsl(252, 57%, 19%);
+background-repeat: no-repeat;
+
+} */

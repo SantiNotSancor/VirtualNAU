@@ -5,7 +5,6 @@ import Axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import image from './Images/newPayment.gif';
 import './styles.css'
-import Table from 'react-bootstrap/Table';
 
 
 const initialState = {
@@ -58,16 +57,29 @@ export class NewPaymentButton extends Component {
 
     myForm = () => {
         return (
-            <Form ref={this.form}>
-                <Request toShow="workshopName" handleEnter={this.handleEnter} onChange={(value, error) => {
-                    this.setState({ name: value });
-                    this.updateError(0, error);
-                }} />
-                <Request toShow="money" handleEnter={this.handleEnter} onChange={(e, error) => {
-                    this.setState({ money: e.target.value });
-                    this.updateError(1, error);
-                }} />
-            </Form>
+            <div  className='modalPayment' style={{display: "none"}} /*id="myModal"*/>
+                <Form ref={this.form}>
+                    <div /*className='modalPayment-content'*/>
+                        <span className="close">&times;</span>
+                        <Request toShow="workshopName" handleEnter={this.handleEnter} onChange={(value, error) => {
+                            this.setState({ name: value });
+                            this.updateError(0, error);
+                        }} />
+                        <Request toShow="money" handleEnter={this.handleEnter} onChange={(e, error) => {
+                            this.setState({ money: e.target.value });
+                            this.updateError(1, error);
+                        }} />
+                    </div>
+                </Form>
+            </div>
+            // <!-- The Modal -->
+            // <div id="myModal" class="modal">
+            
+            //   <!-- Modal content -->
+            //   <div class="modal-content">
+            //     <span class="close">&times;</span>
+            //     <p>Some text in the Modal..</p>
+            //   </div>
         );
     }
 
@@ -91,7 +103,7 @@ export class NewPaymentButton extends Component {
                 </div>
                 <ModalOpener buttonText='Nuevo pago' handleClose={this.resetState}
                     footer={{ content: this.toPrint, show: !this.state.error }} error={this.state.error}
-                    cardClassName='cardWorkshopAdm' containerClassName='containerWorkshopAdm' buttonClassName='button1WorkshopAdm' imageClassName='imgWorkshopAdm' className={'title'} logo={image} title={'Pagar'} post={this.post} children={this.myForm()}
+                    cardClassName='cardWorkshopAdm' containerClassName='containerWorkshopAdm' buttonClassName='button1WorkshopAdm' imageClassName='imgWorkshopAdm' className={'title'} logo={image} title={'Pagar'} post={this.post} children={this.myForm()} modalClass="modalPayment" modalContentClass="modalNewPayment-content" modalId="myModal"
                 />
             </>
         );
@@ -104,7 +116,7 @@ class ComponentToPrint extends React.Component {
         const { data } = this.props;
         return (
             <div id="toPrint" className='modalPayment'>
-                <Table striped bordered>
+                <table>
                     <thead>
                         <tr>
                             <th>Nombre</th>
@@ -117,7 +129,7 @@ class ComponentToPrint extends React.Component {
                             <td>{'$' + data.money}</td>
                         </tr>
                     </tbody>
-                </Table>
+                </table>
             </div>
         );
     }

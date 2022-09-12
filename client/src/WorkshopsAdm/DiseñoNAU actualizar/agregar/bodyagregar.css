@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 body
 {
-background-color: #20154D;
+background-color: hsl(252, 57%, 19%);
 background-repeat: no-repeat;
 font-family: 'Poppins', sans-serif;
 }
@@ -9,13 +9,9 @@ font-family: 'Poppins', sans-serif;
 h1{
     color:rgb(95, 95, 95);
     text-align: center;
+}
 
-}
-h2{
-    color:rgb(95, 95, 95);
-    font-size: 15px;
-}
-input{
+input {
     background-color: transparent;
     border: none;
     border-bottom: 1px solid #5a5a5a;
@@ -34,10 +30,7 @@ input{
     display: inline-block;
     text-decoration: none;
     cursor: pointer;
-  }
-  
-  input:hover {opacity: 1}
-
+}
 
 .input-cart{border-top:3px solid #a160ad;margin-top:2%;margin-bottom:50%;}
 
@@ -58,9 +51,8 @@ input{
     display: inline-block;
     text-decoration: none;
     cursor: pointer;
-  }
-  
-  button:hover {opacity: 1}
+}
+button:hover {opacity: 1}
 
 .cancelar
 {
@@ -84,17 +76,6 @@ cursor: pointer;
 
 button:hover {opacity: 1}
 
-.casilla{
-width: 2%;
-position: relative;
-}
-
-.entregar{
-    font-size: 100%;
-    position: relative;
-    bottom:1.4vw;
-}
-
 div{
     position: relative;
     left: 25%;
@@ -105,5 +86,4 @@ div{
     padding: 2%;
     height: 22vw;
     top: 10vw;
-
 }
