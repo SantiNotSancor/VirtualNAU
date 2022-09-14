@@ -217,7 +217,7 @@ img {
   left: 10%;
 }
 
-.selectWorkshopAdm {
+.select {
   position: relative;
   display: inline-block;
   margin-bottom: 15px;
@@ -229,9 +229,7 @@ img {
   text-decoration: none;
   cursor: pointer;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.452);
-}    
-
-.selectWorkshopAdm select {
+}    .select select {
       font-family: 'Roboto';
       letter-spacing: 1.5px;
       transition: 0.3s;
@@ -249,21 +247,21 @@ img {
       -webkit-appearance: none;
       -moz-appearance: none;
   }
-      .selectWorkshopAdm select::-ms-expand {
+      .select select::-ms-expand {
           display: none;
       }
-      .selectWorkshopAdm select:hover,
-      .selectWorkshopAdm select:focus {
+      .select select:hover,
+      .select select:focus {
           color: #ffffff;
           background: #7723ff;
           
       }
-      .selectWorkshopAdm select:disabled {
+      .select select:disabled {
           opacity: 0;
           pointer-events: none;
       }
     
-.selectWorkkshopAdm_arrow {
+.select_arrow {
   position: absolute;
   top: 13px;
   right: 15px;
@@ -276,20 +274,21 @@ img {
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
 }
-.selectWorkshopAdm select:hover ~ .select_arrow,
-.selectWorkshopAdm select:focus ~ .select_arrow {
+.select select:hover ~ .select_arrow,
+.select select:focus ~ .select_arrow {
   border-color: #ffffff;
 }
-.selectWorkshopAdm select:disabled ~ .select_arrow {
+.select select:disabled ~ .select_arrow {
   border-top-color: #ffffff;
 }
 
 button:hover {opacity: 1}
 
-.containerWorkshopAdm {
+.container {
   padding: 5%;
 }
 
+<<<<<<< HEAD
 /* NEWPAYMENT MODAL */
 
 
@@ -384,3 +383,7 @@ background-color: hsl(252, 57%, 19%);
 background-repeat: no-repeat;
 
 } */
+=======
+
+
+>>>>>>> parent of 1c6b2c54 (Chau bootstrap)

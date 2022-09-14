@@ -167,7 +167,7 @@ export class AssignTaskButton extends Component {
                 <div style={{ display: "none" }}>
                     <ComponentToPrint ref={(el) => (this.toPrint = el)} data={{deadline, description, quantity, weight, threads, price}}/>
                 </div>
-                <ModalOpener buttonText='Asignar Tarea' handleClose={this.resetState}
+                <ModalOpener buttonText='Remito' handleClose={this.resetState}
                     footer={{ content: this.toPrint, show: !this.state.error }} error={this.state.error}
                     cardClassName='cardWorkshopAdm' containerClassName='containerWorkshopAdm' buttonClassName='button2WorkshopAdm' imageClassName='imgWorkshopAdm' logo={image} title={'Asignar Tarea'} post={this.post} children={this.myForm()} />
             {/* Crea un botón que abre a un modal en el que aparecerá lo devuelto en this.myForm */}

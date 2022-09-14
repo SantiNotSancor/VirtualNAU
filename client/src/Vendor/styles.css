@@ -2,7 +2,7 @@
 
 body{
   background-color: #20154D;
-  background-Image: url(http://Images/waveVendor.png);
+  background-Image: url(./Images/wave2.png);
   background-repeat: no-repeat;
 } 
 
@@ -79,7 +79,7 @@ body{
 .buttonVendor3:hover {opacity: 1}
 
 
-.cardVendor {
+.card {
   float: left;
   color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.452);
