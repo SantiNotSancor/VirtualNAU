@@ -85,14 +85,13 @@ export class NewPaymentButton extends Component {
         let {name, money} = this.state;
         return (
             <>
-                {/* component to be printed */}
-                <div style={{ display: "none" }}>
-                <ComponentToPrint ref={(el) => (this.toPrint = el)} data={{name, money}}/>
-                </div>
-                <ModalOpener buttonText='Nuevo pago' handleClose={this.resetState}
-                    footer={{ content: this.toPrint, show: !this.state.error }} error={this.state.error}
-                    cardClassName='cardWorkshopAdm' containerClassName='containerWorkshopAdm' buttonClassName='button1WorkshopAdm' imageClassName='imgWorkshopAdm' className={'title'} logo={image} title={'Pagar'} post={this.post} children={this.myForm()}
-                />
+            {/* component to be printed */}
+            <div style={{ display: "none" }}>
+            <ComponentToPrint ref={(el) => (this.toPrint = el)} data={{name, money}}/>
+            </div>
+            <ModalOpener buttonText='Nuevo pago' handleClose={this.resetState}
+                footer={{ content: this.toPrint, show: !this.state.error }} error={this.state.error}
+                cardClassName='cardWorkshopAdm' containerClassName='containerWorkshopAdm' buttonClassName='button1WorkshopAdm' imageClassName='imgWorkshopAdm' className={'title'} logo={image} title={'Pagar'} post={this.post} children={this.myForm()} />
             </>
         );
     }
@@ -103,7 +102,7 @@ class ComponentToPrint extends React.Component {
     render(){
         const { data } = this.props;
         return (
-            <div id="toPrint" className='modalPayment'>
+            <div id="toPrint">
                 <Table striped bordered>
                     <thead>
                         <tr>
