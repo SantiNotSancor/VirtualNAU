@@ -3,6 +3,7 @@ import { ModalOpener } from '../modalOpener';
 import { Request } from '../textInputs';
 import Axios from 'axios';
 import Form from 'react-bootstrap/Form';
+import Table from 'react-bootstrap/Table';
 import image from './Images/newPayment.gif';
 import './styles.css'
 
@@ -97,16 +98,6 @@ export class NewPaymentButton extends Component {
         let {name, money} = this.state;
         return (
             <>
-<<<<<<< HEAD
-                {/* component to be printed */}
-                <div style={{ display: "none" }}>
-                <ComponentToPrint ref={(el) => (this.toPrint = el)} data={{name, money}}/>
-                </div>
-                <ModalOpener buttonText='Nuevo pago' handleClose={this.resetState}
-                    footer={{ content: this.toPrint, show: !this.state.error }} error={this.state.error}
-                    cardClassName='cardWorkshopAdm' containerClassName='containerWorkshopAdm' buttonClassName='button1WorkshopAdm' imageClassName='imgWorkshopAdm' className={'title'} logo={image} title={'Pagar'} post={this.post} children={this.myForm()} modalClass="modalPayment" modalContentClass="modalNewPayment-content" modalId="myModal"
-                />
-=======
             {/* component to be printed */}
             <div style={{ display: "none" }}>
             <ComponentToPrint ref={(el) => (this.toPrint = el)} data={{name, money}}/>
@@ -114,7 +105,6 @@ export class NewPaymentButton extends Component {
             <ModalOpener buttonText='Nuevo pago' handleClose={this.resetState}
                 footer={{ content: this.toPrint, show: !this.state.error }} error={this.state.error}
                 cardClassName='cardWorkshopAdm' containerClassName='containerWorkshopAdm' buttonClassName='button1WorkshopAdm' imageClassName='imgWorkshopAdm' className={'title'} logo={image} title={'Pagar'} post={this.post} children={this.myForm()} />
->>>>>>> parent of 1c6b2c54 (Chau bootstrap)
             </>
         );
     }
@@ -125,13 +115,8 @@ class ComponentToPrint extends React.Component {
     render(){
         const { data } = this.props;
         return (
-<<<<<<< HEAD
-            <div id="toPrint" className='modalPayment'>
-                <table>
-=======
             <div id="toPrint">
                 <Table striped bordered>
->>>>>>> parent of 1c6b2c54 (Chau bootstrap)
                     <thead>
                         <tr>
                             <th>Nombre</th>
@@ -144,7 +129,7 @@ class ComponentToPrint extends React.Component {
                             <td>{'$' + data.money}</td>
                         </tr>
                     </tbody>
-                </table>
+                </Table>
             </div>
         );
     }

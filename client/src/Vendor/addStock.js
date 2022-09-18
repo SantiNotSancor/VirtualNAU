@@ -3,7 +3,7 @@ import { ModalOpener } from '../modalOpener';
 import { Request, TaskRequest } from '../textInputs';
 import Axios from 'axios';
 import moment from 'moment';
-//import image from './Images/addStock.svg';
+import image from './Images/addStock.gif';
 
 const initialState = {
     responsible: '',
@@ -71,13 +71,8 @@ export class AddStock extends Component {
 
     render() {
         return (
-<<<<<<< HEAD
-            <ModalOpener buttonText='Añadir stock' handleClose={this.resetState}
-                className={'title'} /*logo={image}*/ title={'Añadir stock'} post={this.post} children={this.myForm()} />
-=======
                 <ModalOpener buttonText='Añadir stock' handleClose={this.resetState}
-                cardClassName='card' containerClassName='containerVendor' buttonClassName='buttonVendor2' imageClassName='imgVendor' logo={addStockLogo} title='Añadir stock' post={this.post} children={this.myForm()} />
->>>>>>> parent of 1c6b2c54 (Chau bootstrap)
+                cardClassName='cardVendor' containerClassName='containerVendor' buttonClassName='buttonVendor2' imageClassName='imgVendor' logo={image} title='Añadir stock' post={this.post} children={this.myForm()} />
         );
     }
 }

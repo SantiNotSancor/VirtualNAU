@@ -21,20 +21,14 @@ export default class WorkshopsAdm extends Component {
         />
         
         
-        {/* <div><NewPaymentButton /></div> */}
+        <div><NewPaymentButton /></div>
         {/* <div><NewTaskButton /></div> */}
-<<<<<<< HEAD
-        {/* <div><AssignTaskButton /></div> */}
-        {/* <div><DeliverTaskButton /></div> */}
-        {/* <div><ArtWorkButton article={false} /></div> */}
-        {/* <div className='selectWorkshopAdm'> */}
-        
-        {/* </div> */}
-=======
         <div><AssignTaskButton /></div>
         <div><DeliverTaskButton /></div>
         <div><ArtWorkButton article={false} /></div>
->>>>>>> parent of 1c6b2c54 (Chau bootstrap)
+        {/* <div className='selectWorkshopAdm'> */}
+        
+        {/* </div> */}
         {/* <div><ArtWorkButton article={true} /></div> */}
         {/* <ShowData /> */}
       </>
