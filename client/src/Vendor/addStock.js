@@ -40,9 +40,7 @@ export class AddStock extends Component {
 
     removeMaterial(i) {
         let materials = this.state.materials;
-        console.log(materials);
         materials.splice(i, 1);
-        console.log(materials);
         this.setState({ materials });
     }
 
@@ -53,9 +51,7 @@ export class AddStock extends Component {
     }
     
     post() {//TODO: MICHAT Se debe enviar materials (exceptuando el último elemento, que está vacío) a la base de datos
-        //let materials = this.state.materials;
-        // materials.pop();
-        // console.log(materials);
+
         this.resetState();
     }
 
