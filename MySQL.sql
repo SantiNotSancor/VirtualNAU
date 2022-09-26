@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS tasks(
     name TEXT(255),
     weight DECIMAL(5,1) UNSIGNED,
     price DECIMAL(5,1) UNSIGNED,
-    threads INT(2),
+    threads INT(3),
     paid bit,
     /*A asignar en entrada*/
     calification INT(2),
@@ -87,11 +87,38 @@ CREATE TABLE IF NOT EXISTS vendedor(
     customerName TEXT (255) NOT NULL,
     article_id INT (5) UNSIGNED NOT NULL,
     article_description TEXT (255),
-    description TEXT (255) NOT NULL,
     quantity INT (5) UNSIGNED NOT NULL,
     colors TEXT (255),
-    exitDate TEXT (10),
+    entryDate TEXT (10),
 	PRIMARY KEY(id)
+);
+
+CREATE TABLE IF NOT EXISTS ordenescorte(
+	id INT (3) NOT NULL,
+    article_id INT (5) UNSIGNED NOT NULL,
+    article_description TEXT (255),
+    quantity INT (5) UNSIGNED NOT NULL,
+    colors TEXT (255),
+    threads INT (3),
+    date TEXT (10),
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE IF NOT EXISTS colorscorte(
+	
+
+
+
+
+);
+
+CREATE TABLE IF NOT EXISTS threadscorte(
+
+
+
+
+
+
 );
 
 INSERT INTO users (id, name, password) VALUES (1,'manager','gatito');
@@ -119,7 +146,8 @@ INSERT INTO customer (customerName) VALUES ('Irene');
 INSERT INTO customer (customerName) VALUES ('Walter');
 INSERT INTO customer (customerName) VALUES ('Mauro');
 INSERT INTO customer (customerName) VALUES ('Mortimer');
-
+INSERT INTO vendedor (id, customerName, article_id, article_description, quantity, colors, entryDate) VALUES (1,'Rogelioshop',250,'Mochila',200,'Verde','15/01/2021');
+INSERT INTO ordenescorte (id, article_id, article_description, quantity, colors, threads, date) VALUES (1,'144','Cartuchera',200,'Roja',5,'20/01/2021');
 
 SELECT * FROM users;
 SELECT * FROM articles;
@@ -129,3 +157,5 @@ SELECT * FROM taskCount;
 SELECT * FROM tasks;
 SELECT * FROM parts;
 SELECT * FROM customer;
+SELECT * FROM vendedor;
+SELECT * FROM ordenescorte;
