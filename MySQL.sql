@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS customer(
     PRIMARY KEY(customerId)
 );
 
-CREATE TABLE IF NOT EXISTS vendedor(
+CREATE TABLE IF NOT EXISTS vendorOrders(
 	id INT (3) NOT NULL,
     customerName TEXT (255) NOT NULL,
     article_id INT (5) UNSIGNED NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS vendedor(
 	PRIMARY KEY(id)
 );
 
-CREATE TABLE IF NOT EXISTS ordenescorte(
+CREATE TABLE IF NOT EXISTS productionOrders(
 	id INT (3) NOT NULL,
     article_id INT (5) UNSIGNED NOT NULL,
     article_description TEXT (255),
@@ -104,14 +104,14 @@ CREATE TABLE IF NOT EXISTS ordenescorte(
     PRIMARY KEY(id)
 );
 
-CREATE TABLE IF NOT EXISTS colorscorte(
+CREATE TABLE IF NOT EXISTS colorsOrder(
 	id INT (3) NOT NULL,
     corte_id INT (5) UNSIGNED NOT NULL,
     colors TEXT (255),
 	PRIMARY KEY(id)
 );
 
-CREATE TABLE IF NOT EXISTS fabricscorte(
+CREATE TABLE IF NOT EXISTS fabricsOrder(
 	id INT (3) NOT NULL,
     corte_id INT (5) UNSIGNED NOT NULL,
     fabrics INT (3),
