@@ -99,26 +99,23 @@ CREATE TABLE IF NOT EXISTS ordenescorte(
     article_description TEXT (255),
     quantity INT (5) UNSIGNED NOT NULL,
     colors TEXT (255),
-    threads INT (3),
+    fabrics INT (3),
     date TEXT (10),
     PRIMARY KEY(id)
 );
 
 CREATE TABLE IF NOT EXISTS colorscorte(
-	
-
-
-
-
+	id INT (3) NOT NULL,
+    corte_id INT (5) UNSIGNED NOT NULL,
+    colors TEXT (255),
+	PRIMARY KEY(id)
 );
 
-CREATE TABLE IF NOT EXISTS threadscorte(
-
-
-
-
-
-
+CREATE TABLE IF NOT EXISTS fabricscorte(
+	id INT (3) NOT NULL,
+    corte_id INT (5) UNSIGNED NOT NULL,
+    fabrics INT (3),
+	PRIMARY KEY(id)
 );
 
 INSERT INTO users (id, name, password) VALUES (1,'manager','gatito');
@@ -147,8 +144,9 @@ INSERT INTO customer (customerName) VALUES ('Walter');
 INSERT INTO customer (customerName) VALUES ('Mauro');
 INSERT INTO customer (customerName) VALUES ('Mortimer');
 INSERT INTO vendedor (id, customerName, article_id, article_description, quantity, colors, entryDate) VALUES (1,'Rogelioshop',250,'Mochila',200,'Verde','15/01/2021');
-INSERT INTO ordenescorte (id, article_id, article_description, quantity, colors, threads, date) VALUES (1,'144','Cartuchera',200,'Roja',5,'20/01/2021');
-
+INSERT INTO ordenescorte (id, article_id, article_description, quantity, colors, fabrics, date) VALUES (1,'144','Cartuchera',200,'Roja',5,'20/01/2021');
+INSERT INTO colorscorte (id, corte_id, colors) VALUES (1,487,'Rosa');
+INSERT INTO fabricscorte (id, corte_id, fabrics) VALUES (1,566,45);
 
 SELECT * FROM users;
 SELECT * FROM articles;
@@ -160,3 +158,5 @@ SELECT * FROM parts;
 SELECT * FROM customer;
 SELECT * FROM vendedor;
 SELECT * FROM ordenescorte;
+SELECT * FROM colorscorte;
+SELECT * FROM fabricscorte;
