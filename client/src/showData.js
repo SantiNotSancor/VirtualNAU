@@ -173,7 +173,7 @@ export class ShowData extends Component {
     compareTable = () => {//Le asigna a filteredTable una versión filtrada de table 
         //TODO: table se actualiza a filteredTable
         
-const {table, filterInputs, filters} = this.state;
+        const {table, filterInputs, filters} = this.state;
         let filteredTable = table.slice(), toErase = [];
         table.map((row, i) => {
             let erase = false;
