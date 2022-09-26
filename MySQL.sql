@@ -82,6 +82,18 @@ CREATE TABLE IF NOT EXISTS customer(
     PRIMARY KEY(customerId)
 );
 
+CREATE TABLE IF NOT EXISTS vendedor(
+	id INT (3) NOT NULL,
+    customerName TEXT (255) NOT NULL,
+    article_id INT (5) UNSIGNED NOT NULL,
+    article_description TEXT (255),
+    description TEXT (255) NOT NULL,
+    quantity INT (5) UNSIGNED NOT NULL,
+    colors TEXT (255),
+    exitDate TEXT (10),
+	PRIMARY KEY(id)
+);
+
 INSERT INTO users (id, name, password) VALUES (1,'manager','gatito');
 INSERT INTO users (id, name, password) VALUES (2,'vendor','ciervo');
 INSERT INTO users (id, name, password) VALUES (3,'production','jirafa');
