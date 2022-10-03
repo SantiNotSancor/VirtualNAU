@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+body
+{
+background-color: #20154D;
+background-repeat: no-repeat;
+font-family: 'Poppins', sans-serif;
+}
+
+h1{
+    color:rgb(95, 95, 95);
+    text-align: center;
+
+}
+h2{
+    color:rgb(95, 95, 95);
+    font-size: 15px;
+}
+input{
+
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #5a5a5a;
+    border-radius: 0;
+    outline: none;
+    height: 3rem;
+    width: 86%;
+    font-size: 1rem;
+    margin: 1%;
+    padding: 0;
+    box-shadow: none;
+    box-sizing: content-box;
+    font-family: 'Poppins', sans-serif;
+    opacity: 0.6;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 50px;
+  }
+  
+  input:hover {opacity: 1}
+
+
+.input-cart{border-top:3px solid #a160ad;margin-top:2%;margin-bottom:50%;}
+
+.confirmar{
+    position:relative;
+    top:9.9vw;
+    width: 10%;
+    padding:1%;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    background-color: #8736c9;
+    color: white;
+    border-radius: 2%;
+    left: 79%;
+    opacity: 0.9;
+    transition: 0.3s;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  button:hover {opacity: 1}
+
+.cancelar
+{
+position:relative;
+top:7vw;
+width:10%;
+padding:1%;
+box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+border: none;
+font-family: 'Poppins', sans-serif;
+background-color: #4b4b4b;
+color: white;
+border-radius: 2%;
+left: 90%;
+opacity: 0.9;
+transition: 0.3s;
+text-decoration: none;
+cursor: pointer;
+}
+
+button:hover {opacity: 1}
+
+.casilla{
+width: 2%;
+position: relative;
+}
+
+.entregar{
+    font-size: 100%;
+    position: relative;
+    bottom:1.4vw;
+}
+
+div{
+    overflow: scroll;
+    position: relative;
+    left: 13%;
+    border-radius: 1%;
+    background-color: white;
+    width: 70%;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    padding: 2%;
+    height: 32vw;
+    top: 5vw;
+
+}
+
+.input2{
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 1px solid rgb(128, 128, 128);
+  border-radius: 4px;
+  box-sizing: border-box;
+    height: 2vw;
+    width: 22%;
+    font-size: 1rem;
+    box-shadow: none;
+    font-family: 'Poppins', sans-serif;
+    opacity: 0.9;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 10px;
+    position: relative;
+    top: 3vw;
+  }
+  
+  .input2:hover {opacity: 1}
+
+
+.input2-cart{border-top:3px solid #a160ad;margin-top:2%;margin-bottom:50%;}
+
+input::placeholder {
+    color: rgb(0, 0, 0);
+    opacity: 1;
+  }
+
+  
+.boton{
+
+    position: relative;
+    left: 65vw;
+
+}
+
+
