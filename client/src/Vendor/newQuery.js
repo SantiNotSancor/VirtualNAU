@@ -40,7 +40,7 @@ export class NewQuery extends Component {
     }
 
     post() {//TODO: MICHAT Se debe enviar items (exceptuando el último elemento, que está vacío) a la base de datos
-
+        //TODO: Se deben actualizar las órdenes de corte para que se le sume o cree una nueva, agregando los productos
         this.resetState();
     }
 

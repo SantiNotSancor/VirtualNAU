@@ -2,89 +2,45 @@ import React, { Component } from 'react';
 import { ModalOpener } from '../modalOpener';
 import { Request, TaskRequest } from '../textInputs';
 import Axios from 'axios';
+import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Table from 'react-bootstrap/Table';
 import FormControl from 'react-bootstrap/FormControl';
+import { ModalController, ModalPrototype } from '../modal';
 //import image from './Images/ShowOrders.svg';
 
-const initialState = {
+const initialStateOrders = {
     table: [],//La tabla de datos sin filtrar
     filteredTable: [],//La tabla a mostrar
-    titles: [],//Los atributos de la BD
-    headers: [],//Los títulos que se mostrarán en la tabla
-    input: '',//Ingreso de Inputbox para filtrar la tabla
-    filters: [],//Lista que muestra el tipo de filtro
-    filterInputs: [] //Lista que contiene lo ingresado por el usuario en cada filtro
+    titles: ['Número', 'Artículo', 'Descripción', 'Cantidad', 'Colores', 'Telas'],//Los atributos de la BD
+    filters: ['input', 'input', 'input', 'number', 'input', 'input'],//Lista que muestra el tipo de filtro
+    filterInputs: ['', '', '', '', '', ''] //Lista que contiene lo ingresado por el usuario en cada filtro
 };
 
 export class ShowOrders extends Component {
-    state = initialState;
+    
+    state = this.initialStateOrders;
 
     resetState = () => {
-        this.setState(initialState);
+        this.setState(initialStateOrders);
     }
 
-    setData = e => {//Consigue los datos de la base de datos de las órdenes de corte
-        Axios.get('http://localhost:3307/getCutOrders').then(response => {
-            const res = response.data, table = [], titles = [];
-            if (res)
-                res.map(row => table.push(Object.values(row)));
-            Object.getOwnPropertyNames(res[0]).map(property => {
-                let header;
-                switch (property) {
-                    case 'id':
-                        header = 'Número';
-                        break;
-                    case 'article_id':
-                        header = 'Artículo';
-                        break;
-                    case 'article_description':
-                        header = 'Descripción de artículo'
-                        break;
-                    case 'quantity':
-                        header = 'Cantidad';
-                        break;
-                    case 'colors':
-                        header = 'Colores';
-                        break;
-                    case 'fabrics':
-                        header = 'Telas';
-                        break;
-                }
-                titles.push(header);
-            });
-            this.setState({ titles, table, filteredTable: table});
-            this.setFilters(titles);
-        });
+    componentDidMount = () => {//Consigue los datos de la base de datos de las órdenes de corte
+        // Axios.get('http://localhost:3307/getCutOrders').then(response => {
+        //     const res = response.data, table = [], titles = [];
+        //     if (res)
+        //         res.map(row => table.push(Object.values(row)));
+        //     this.setState({ table, filteredTable: table});
+        // });
+        let table = [[1, 2024, 'Riñonera con tacha', '30', 'Rojo, celeste y negro', 'Frizelina'],
+                     [2, 2034, 'Riñonera de cinturón', '55', 'Rojo y negro', 'Gamuza']];
+        this.setState({table, filteredTable: table});
     }
 
     header = (name, index) => {//Devuelve un HTML tipo header que diga name
         return (<th key={index}>{name}</th>);
-    }
-    
-    setFilters = (titles) => {//Crea los filtros en base a los títulos
-        let filters = [];
-        let filterInputs = [];
-        titles.map((title) => {
-            switch(title){
-                case 'Artículo':
-                case 'Descripción de artículo':
-                case 'Telas':
-                case 'Colores':
-                    filters.push('input');
-                    break;
-                case 'Cantidad':
-                    filters.push('number');
-                    break;
-                default:
-                    filters.push('');
-                    break;
-                }
-            filterInputs.push('');
-            })
-        this.setState({filters, filterInputs});
     }
 
     compareTable = () => {//Le asigna a filteredTable una versión filtrada de table 
@@ -192,6 +148,7 @@ export class ShowOrders extends Component {
                             return (
                                 <tr key={i}>
                                     {row.map((cell, j) => <td key={j}>{cell}</td>)}
+                                    <NewTasks data={row} />
                                 </tr>
                             );
                         })}
@@ -205,6 +162,36 @@ export class ShowOrders extends Component {
         return (
             <ModalOpener buttonText='Ver órdenes' children={this.myForm()} error={this.state.error} className={'title'}
                 /*logo={image}*/ title={'Ver órdenes de corte'} post={()=>{}} handleClose={this.resetState} />
+        )
+    }
+}
+
+
+export class NewTasks extends ModalController {
+    myForm = () => {
+
+    }
+
+    render () {
+        return(
+            <>
+                <button className={this.props.buttonClassName} onClick={this.showModal}>{/*Hereda la función desde ModalController*/}
+                    Armar
+                </button>
+                <ModalPrototype show={this.state.showModal} handleClose={() => {
+                    this.hideModal();
+                    if(this.props.handleClose)
+                        this.props.handleClose();
+                }} footer={this.props.footer}
+                children={this.myForm()} title={this.props.title} post={() => {
+                    if (!this.props.error) {
+                        this.props.post();
+                        this.hideModal();
+                    }
+                    else
+                        alert('Error');
+                }} />
+            </>
         )
     }
 }

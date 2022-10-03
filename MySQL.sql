@@ -77,9 +77,9 @@ CREATE TABLE IF NOT EXISTS taskCount(
 );
 
 CREATE TABLE IF NOT EXISTS customer(
-    customerId INT(3) UNSIGNED NOT NULL AUTO_INCREMENT,
-    customerName TEXT(255) NOT NULL,
-    PRIMARY KEY(customerId)
+    id INT(3) UNSIGNED NOT NULL AUTO_INCREMENT,
+    name TEXT(255) NOT NULL,
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE IF NOT EXISTS vendorOrders(
@@ -100,7 +100,6 @@ CREATE TABLE IF NOT EXISTS productionOrders(
     quantity INT (5) UNSIGNED NOT NULL,
     colors TEXT (255),
     fabrics INT (3),
-    date TEXT (10),
     PRIMARY KEY(id)
 );
 
