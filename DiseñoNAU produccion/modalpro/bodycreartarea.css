@@ -99,10 +99,10 @@ position: relative;
 div{
     overflow: scroll;
     position: relative;
-    left: 13%;
+    left: 8%;
     border-radius: 1%;
     background-color: white;
-    width: 70%;
+    width: 80%;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     padding: 2%;
     height: 32vw;
@@ -143,11 +143,54 @@ input::placeholder {
   }
 
   
-.boton{
-
-    position: relative;
-    left: 65vw;
-
+.button2{
+  position: relative;
+  top: 3vw;
+  left: 1vw;
+  height: 3vw;
+  padding:1%;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: small;
+  background-color: #8736c9;
+  color: white;
+  border-radius: 2%;
+  opacity: 0.9;
+  transition: 0.3s;
+  text-decoration: none;
+  cursor: pointer;
 }
+
+button:hover {opacity: 1}
+
+
+
+.input3{
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 1px solid #d900ff;
+  border-radius: 4px;
+  box-sizing: border-box;
+    height: 2vw;
+    width: 22%;
+    font-size: 1rem;
+    box-shadow: none;
+    font-family: 'Poppins', sans-serif;
+    opacity: 0.9;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 10px;
+    position: relative;
+    top: 3vw;
+  }
+  
+  .input3:hover {opacity: 1}
+
+
+.input3-cart{border-top:3px solid #a160ad;margin-top:2%;margin-bottom:50%;}
 
 
