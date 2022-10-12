@@ -124,7 +124,7 @@ export class ShowData extends Component {
     setFilters = (titles) => {//Crea los filtros en base a los títulos
         let filters = [];
         let filterInputs = [];
-        titles.map((title) => {//TODO: 
+        titles.map((title) => {//TODO: ¿Hecho?
             switch(title){
                 case 'Descripción':
                 case 'Nombre':
@@ -171,7 +171,7 @@ export class ShowData extends Component {
     }
 
     compareTable = () => {//Le asigna a filteredTable una versión filtrada de table 
-        //TODO: table se actualiza a filteredTable
+        //TODO: table se actualiza a filteredTable ¿Hecho?
         
         const {table, filterInputs, filters} = this.state;
         let filteredTable = table.slice(), toErase = [];

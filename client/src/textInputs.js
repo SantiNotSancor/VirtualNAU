@@ -204,24 +204,22 @@ export class RawResourceRequest extends Component {
         };
     }
 
-    componentDidMount = () => {//TODO: MICHAT Obtener una lista con el formato id: nombre (descripción) de todas las materias primas
+    componentDidMount = () => {
         if(this.inicialized)
             return
-        // Axios.get('http://localhost:3307/getArticle').then((response) => {
-        //     setArticle(response.data.map(article => article.id + ': ' + article.description));
-        // })
-        this.setState({suggestions: ['15: Cierre (Marca SanCor)', '4: Pasador (Amarillo)', '6: Cable (De cobre)']});//Porivisional para probar las funcionalidades
-        this.setState({inicialized: true});
+        Axios.get('http://localhost:3307/getmaterials').then((response) => {
+            let suggestions = response.data.map(material => material.id + ': ' + material.name + ' (' + material.description + ')');
+            this.setState({inicialized: true, suggestions});
+        });
     }
 
-    updateList = () => {//TODO: MICHAT Obtener una lista con el formato id: nombre (descripción) de todas las materias primas
-        if(this.inicialized)
-            return
-        // Axios.get('http://localhost:3307/getArticle').then((response) => {
-        //     setArticle(response.data.map(article => article.id + ': ' + article.description));
-        // })
-        this.setState({suggestions: ['15: Cierre (Marca SanCor)', '4: Pasador (Amarillo)', '6: Cable (De cobre)']});//Porivisional para probar las funcionalidades
-        this.setState({inicialized: true});
+    updateList = () => {
+        // if(this.inicialized)
+        //     return
+        Axios.get('http://localhost:3307/getmaterials').then((response) => {
+            let suggestions = response.data.map(material => material.id + ': ' + material.name + ' (' + material.description + ')');
+            this.setState({inicialized: true, suggestions});
+        });
     }
 
     clearText = () => {
@@ -590,64 +588,3 @@ export const TaskRequest = ({ setSelectedTask, tasks, title, setTitle, handleEnt
         </DropdownButton>
     );
 }
-
-// const ArticleRequest = ({ label, placeholder, onChange }) => {
-
-//     const [id, setId] = useState('');
-//     const [description, setDescription] = useState('');
-//     const [error, setError] = useState(false);
-//     const [show, setShow] = useState(false);
-
-//     const getDescription = (userInput) => {
-//         Axios.post('http://localhost:3307/getDescriptionWhere', { id: userInput }).then((response) => {
-//             setError(response.data.length === 0);
-//             if (response.data.length !== 0)
-//                 setDescription(response.data[0].description);
-//             else
-//                 setDescription('');
-//         });
-//     }
-
-//     const autoComplete = () => {
-//         {/* TODO: Que muestre un autocomplete (como el de talleres) que recupere el art. por su desc.
-//             Puede ser literalmente el mismo, que cada una de las opciones sea con el formato: "art: desc"
-//             De esta forma, al buscar la desc, ya dice el artículo. Lo ideal searía que luego lo ingrese auto
-//             máticamente*/}
-//         return;
-//     };
-
-//     const popover = (
-//         <Popover>
-//             <Popover.Header as="h3">Descripción de artículo</Popover.Header>
-//             <Popover.Body>
-//                 {error ?
-//                     <>
-//                         <em>No existe este código de artículo</em>
-//                         <Button onClick={() => {
-//                             setId('');
-//                             setShow(true);
-//                         }}>Registrarlo</Button>
-//                         <p>Buscarlo</p>
-//                         {autoComplete()}
-//                     </>
-//                     : description}
-//             </Popover.Body>
-//         </Popover>
-//     );
-
-//     if (!show)
-//         return (
-//             <Form.Group className="mb-3">
-//                 <Form.Label>{label}</Form.Label>
-//                 <InputGroup>
-//                     <OverlayTrigger show={id !== ''} placement="right" overlay={popover}>
-//                         <FormControl type="text" placeholder={placeholder} onChange={(e) => {
-//                             onChange(e);
-//                             setId(e.target.value)
-//                             getDescription(e.target.value);
-//                         }} />
-//                     </OverlayTrigger>
-//                 </InputGroup>
-//             </Form.Group>);
-//     return (<ModalArt handleClose={() => setShow(false)} show={show} registration={true} />);
-// }

@@ -25,11 +25,16 @@ export class AddStock extends Component {
     }
 
     componentDidMount() {
-        //TODO: MICHAT Debe darle valor a materialData, que será una lista de objetos con id, peso por unidad y metro por unidad. De no poseer alguno de los últimos dos datos, debe mostrar 0
-        let aux = [{id: 15, weight: 0.5, meters: 0},
-                {id: 4, weight: 3, meters: 1},
-                {id: 6, weight: 0.5, meters: 1.5}];
-        this.setState({ materialsData: aux });
+        Axios.get('http://localhost:3307/getMaterials').then(response => {
+            const res = response.data;
+            let materialsData = res.map(material => {
+                return {
+                    'id': material.id,
+                    'weight': (material.weight)? material.weight : 0,
+                    'meters': (material.meters)? material.meters : 0}
+            })
+            this.setState({ materialsData: aux });
+        });
     }
 
     addMaterial(material) {
@@ -50,8 +55,10 @@ export class AddStock extends Component {
         this.setState({ materials });
     }
     
-    post() {//TODO: MICHAT Se debe enviar materials (exceptuando el último elemento, que está vacío) a la base de datos
-
+    post() {//Envia materials (exceptuando el último elemento, que está vacío) a la base de datos
+        let materials = this.state.materials.slice();
+        materials.pop();
+        materials.forEach(material => Axios.post('http://localhost:3307/updateMaterials', material));
         this.resetState();
     }
 

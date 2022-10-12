@@ -84,7 +84,16 @@ app.post('/getPassword', (req, res) => {
 
 app.get('/getCustomerNames', (req, res) => {
   const { name, article } = req.body;
-  db.query("SELECT customerName FROM customer'", [name], (err, result) => {
+  db.query("SELECT customerName FROM customer", [name], (err, result) => {
+    if (err)
+      console.log(err);
+    else
+      res.send(result);
+  });
+});
+
+app.get('/getMaterials', (req, res) => {
+  db.query("SELECT * FROM customer", (err, result) => {
     if (err)
       console.log(err);
     else
@@ -164,6 +173,19 @@ app.post('/getParts', (req, res) => {
     }
   });
 });
+
+app.post('/updateMaterial', (req, res) => {
+  const { id, quantity } = req.body;
+  db.query(
+    "UPDATE materials SET quantity = quantity + ? WHERE id = ?", [quantity, id], (err, res) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  )  
+})
 
 app.post('/newPart', (req, res) => {
   const { name, task, date, quantity, weight, money, threads, paid } = req.body;//name y id deben ser los mismos que en el seleccionado

@@ -117,6 +117,16 @@ CREATE TABLE IF NOT EXISTS fabricsOrder(
 	PRIMARY KEY(id)
 );
 
+CREATE TABLE IF NOT EXISTS materials(
+    id INT (3) NOT NULL,
+    description TEXT (255),
+    name TEXT (255),
+    quantity INT (3),
+    weight DECIMAL (6,2), 
+    meters DECIMAL (5,1),
+	PRIMARY KEY(id)
+);
+
 INSERT INTO users (id, name, password) VALUES (1,'manager','gatito');
 INSERT INTO users (id, name, password) VALUES (2,'vendor','ciervo');
 INSERT INTO users (id, name, password) VALUES (3,'production','jirafa');

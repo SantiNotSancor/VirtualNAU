@@ -28,14 +28,14 @@ export class ShowOrders extends Component {
     }
 
     componentDidMount = () => {//Consigue los datos de la base de datos de las órdenes de corte
-        // Axios.get('http://localhost:3307/getCutOrders').then(response => {
-        //     const res = response.data, table = [], titles = [];
-        //     if (res)
-        //         res.map(row => table.push(Object.values(row)));
-        //     this.setState({ table, filteredTable: table});
-        // });
-        let table = [[1, 2024, 'Riñonera con tacha', '30', 'Rojo, celeste y negro', 'Frizelina'],
-                     [2, 2034, 'Riñonera de cinturón', '55', 'Rojo y negro', 'Gamuza']];
+        Axios.get('http://localhost:3307/getCutOrders').then(response => {
+            const res = response.data, table = [];
+            if (res)
+                res.map(row => table.push(Object.values(row)));
+            this.setState({ table, filteredTable: table});
+        });
+        // let table = [[1, 2024, 'Riñonera con tacha', '30', 'Rojo, celeste y negro', 'Frizelina'],
+        //              [2, 2034, 'Riñonera de cinturón', '55', 'Rojo y negro', 'Gamuza']];
         this.setState({table, filteredTable: table});
     }
 
@@ -44,7 +44,7 @@ export class ShowOrders extends Component {
     }
 
     compareTable = () => {//Le asigna a filteredTable una versión filtrada de table 
-        //TODO: table se actualiza a filteredTable
+        //TODO: table se actualiza a filteredTable ¿Hecho?
         
         const {table, filterInputs, filters} = this.state;
         let filteredTable = table.slice(), toErase = [];
