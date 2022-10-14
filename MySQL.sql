@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS tasks(
     quantity INT(5) UNSIGNED NOT NULL,/*La cantidad total pedida*/
     packages INT(2) UNSIGNED NOT NULL,
     cutDate TEXT(10),
-    fabrics TEXT(255),
+    fabrics INT(3),
     colors TEXT(255),
     responsible TEXT(255) NOT NULL,
     generalFeatures TEXT(255),
@@ -119,11 +119,10 @@ CREATE TABLE IF NOT EXISTS fabricsOrder(
 
 CREATE TABLE IF NOT EXISTS materials(
     id INT (3) NOT NULL,
-    description TEXT (255),
-    name TEXT (255),
-    quantity INT (3),
-    weight DECIMAL (6,2), 
-    meters DECIMAL (5,1),
+    description TEXT (255) NOT NULL,
+    quantity INT (3) UNSIGNED NOT NULL,
+    weight DECIMAL (6,2) NOT NULL,
+    meters DECIMAL (5,1) NOT NULL,
 	PRIMARY KEY(id)
 );
 
@@ -152,10 +151,11 @@ INSERT INTO customer (customerName) VALUES ('Irene');
 INSERT INTO customer (customerName) VALUES ('Walter');
 INSERT INTO customer (customerName) VALUES ('Mauro');
 INSERT INTO customer (customerName) VALUES ('Mortimer');
-INSERT INTO vendedor (id, customerName, article_id, article_description, quantity, colors, entryDate) VALUES (1,'Rogelioshop',250,'Mochila',200,'Verde','15/01/2021');
-INSERT INTO ordenescorte (id, article_id, article_description, quantity, colors, fabrics, date) VALUES (1,'144','Cartuchera',200,'Roja',5,'20/01/2021');
-INSERT INTO colorscorte (id, corte_id, colors) VALUES (1,487,'Rosa');
-INSERT INTO fabricscorte (id, corte_id, fabrics) VALUES (1,566,45);
+INSERT INTO vendorOrders (id, customerName, article_id, article_description, quantity, colors, entryDate) VALUES (1,'Rogelioshop',250,'Mochila',200,'Verde','15/01/2021');
+INSERT INTO productionOrders (id, article_id, article_description, quantity, colors, fabrics, date) VALUES (1,144,'Cartuchera',200,'Roja',5,'20/01/2021');
+INSERT INTO colorsOrder (id, corte_id, colors) VALUES (1,487,'Rosa');
+INSERT INTO fabricsOrder (id, corte_id, fabrics) VALUES (1,566,45);
+INSERT INTO materials (id, description, quantity, weight, meters) VALUES (200,'Carton',25,'1,5','1,2');
 
 SELECT * FROM users;
 SELECT * FROM articles;
@@ -165,7 +165,8 @@ SELECT * FROM taskCount;
 SELECT * FROM tasks;
 SELECT * FROM parts;
 SELECT * FROM customer;
-SELECT * FROM vendedor;
-SELECT * FROM ordenescorte;
-SELECT * FROM colorscorte;
-SELECT * FROM fabricscorte;
+SELECT * FROM vendorOrders;
+SELECT * FROM productionOrders;
+SELECT * FROM colorsOrder;
+SELECT * FROM fabricsOrder;
+SELECT * FROM materials;
