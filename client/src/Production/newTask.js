@@ -5,6 +5,7 @@ import { Request } from '../textInputs';
 import Axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import moment from 'moment';
+import { ModalController } from '../modal';
 
 const initialState = {
     task: '',
@@ -20,7 +21,7 @@ const initialState = {
     generalFeatures: '',
 }
 
-export class NewTask extends Component {
+export class NewTask extends ModalController {
     state = initialState;
     form = React.createRef();
 
@@ -28,7 +29,7 @@ export class NewTask extends Component {
         let task = this.state.task;
         this.setState(initialState);
         this.setState({ task });
-    }
+    };
 
     updateError = (index, error) => {
         let errors = [...this.state.errors];
@@ -40,7 +41,7 @@ export class NewTask extends Component {
             aux = aux && (key === index) ? error : e;
         });
         this.setState({ error: aux });
-    }
+    };
 
     handleEnter = (event) => {
         if (event.key.toLowerCase() !== 'enter')
@@ -98,7 +99,7 @@ export class NewTask extends Component {
                 }} />
             </Form>
         );
-    }
+    };
 
     post = () => {
         let aux = this.state;
@@ -115,12 +116,17 @@ export class NewTask extends Component {
                     });
             });
         });
-    }
+    };
+
+    
     render() {
         return (
-            <ModalOpener buttonText='Nueva tarea' children={this.myForm()} error={this.state.error} className={'title'}
-                cardClassName='cardWorkshopAdm' buttonClassName='button2WorkshopAdm' /*logo={image}*/ title={'Creación de tarea'} post={this.post} handleClose={this.resetState} />
+            <button onClick={this.showModal}>
+                Armar
+            </button>
+            // <ModalOpener buttonText='Nueva tarea' children={this.myForm()} error={this.state.error} className={'title'}
+            //     cardClassName='cardWorkshopAdm' buttonClassName='button2WorkshopAdm' /*logo={image}*/ title={'Creación de tarea'} post={this.post} handleClose={this.resetState} />
             //Crea un botón que abre a un modal en el que aparecerá lo devuelto en this.myForm
         );
-    }
+    };
 }

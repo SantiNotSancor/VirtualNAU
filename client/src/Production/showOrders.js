@@ -4,6 +4,7 @@ import { Request, TaskRequest } from '../textInputs';
 import Axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { NewTask } from './newTask';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Table from 'react-bootstrap/Table';
@@ -21,7 +22,7 @@ const initialStateOrders = {
 
 export class ShowOrders extends Component {
     
-    state = this.initialStateOrders;
+    state = initialStateOrders;
 
     resetState = () => {
         this.setState(initialStateOrders);
@@ -31,12 +32,13 @@ export class ShowOrders extends Component {
         Axios.get('http://localhost:3307/getCutOrders').then(response => {
             const res = response.data, table = [];
             if (res)
-                res.map(row => table.push(Object.values(row)));
+                res.forEach(row => table.push(Object.values(row)));
             this.setState({ table, filteredTable: table});
+            console.log(table, res);
         });
         // let table = [[1, 2024, 'Riñonera con tacha', '30', 'Rojo, celeste y negro', 'Frizelina'],
         //              [2, 2034, 'Riñonera de cinturón', '55', 'Rojo y negro', 'Gamuza']];
-        this.setState({table, filteredTable: table});
+        //this.setState({table, filteredTable: table});
     }
 
     header = (name, index) => {//Devuelve un HTML tipo header que diga name
@@ -148,7 +150,7 @@ export class ShowOrders extends Component {
                             return (
                                 <tr key={i}>
                                     {row.map((cell, j) => <td key={j}>{cell}</td>)}
-                                    <NewTasks data={row} />
+                                    <NewTask />
                                 </tr>
                             );
                         })}
@@ -169,13 +171,17 @@ export class ShowOrders extends Component {
 
 export class NewTasks extends ModalController {
     myForm = () => {
-
+        
     }
 
     render () {
         return(
             <>
-                <button className={this.props.buttonClassName} onClick={this.showModal}>{/*Hereda la función desde ModalController*/}
+                {/* <button className={this.props.buttonClassName} onClick={this.showModal}>Hereda la función desde ModalController
+                    Armar
+                </button> */}
+                <NewTask />
+                <button onClick={() => alert('Se ha creado una tarea nueva')}>
                     Armar
                 </button>
                 <ModalPrototype show={this.state.showModal} handleClose={() => {

@@ -96,29 +96,22 @@ CREATE TABLE IF NOT EXISTS vendorOrders(
 CREATE TABLE IF NOT EXISTS productionOrders(
 	id INT (3) NOT NULL,
     article_id INT (5) UNSIGNED NOT NULL,
-    article_description TEXT (255),
     quantity INT (5) UNSIGNED NOT NULL,
     colors TEXT (255),
     fabrics INT (3),
     PRIMARY KEY(id)
 );
 
-CREATE TABLE IF NOT EXISTS colorsOrder(
-	id INT (3) NOT NULL,
-    corte_id INT (5) UNSIGNED NOT NULL,
-    colors TEXT (255),
-	PRIMARY KEY(id)
-);
-
-CREATE TABLE IF NOT EXISTS fabricsOrder(
-	id INT (3) NOT NULL,
-    corte_id INT (5) UNSIGNED NOT NULL,
-    fabrics INT (3),
-	PRIMARY KEY(id)
+CREATE TABLE IF NOT EXISTS recipe(
+    id SERIAL,
+    article_id INT (5) UNSIGNED NOT NULL,
+    material_id INT (5) NOT NULL,
+    quantity INT (3) NOT NULL,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS materials(
-    id INT (3) NOT NULL,
+    id INT (5) NOT NULL,
     description TEXT (255) NOT NULL,
     quantity INT (3) UNSIGNED NOT NULL,
     weight DECIMAL (6,2) NOT NULL,
@@ -146,11 +139,6 @@ INSERT INTO payments (id, name, date, money) VALUES (123,'Lodeloshop','01/08/202
 INSERT INTO payments (id, name, date, money) VALUES (789,'Lodeloshop','10/07/2022',10000);
 INSERT INTO tasks (id, article_id, article_description, quantity, packages, cutDate, fabrics, colors, responsible, generalFeatures, state) VALUES (1,343,'Media',200,10,'6/01/2021','Gagas.inc','Azul','Vendedor','Tamaño x diseño x','toAssign');
 INSERT INTO taskcount (id, count) VALUES (0,1);
-INSERT INTO customer (customerName) VALUES ('Alejandro');
-INSERT INTO customer (customerName) VALUES ('Irene');
-INSERT INTO customer (customerName) VALUES ('Walter');
-INSERT INTO customer (customerName) VALUES ('Mauro');
-INSERT INTO customer (customerName) VALUES ('Mortimer');
 INSERT INTO vendorOrders (id, customerName, article_id, article_description, quantity, colors, entryDate) VALUES (1,'Rogelioshop',250,'Mochila',200,'Verde','15/01/2021');
 INSERT INTO productionOrders (id, article_id, article_description, quantity, colors, fabrics, date) VALUES (1,144,'Cartuchera',200,'Roja',5,'20/01/2021');
 INSERT INTO colorsOrder (id, corte_id, colors) VALUES (1,487,'Rosa');

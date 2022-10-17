@@ -72,6 +72,16 @@ app.get('/getWorkshopNames', (req, res) => {
   });
 });
 
+app.get('/getCutOrders', (req, res) => {
+  db.query("SELECT * FROM productionOrders", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
 app.post('/getPassword', (req, res) => {
   const user = req.body.user;
   db.query("SELECT password FROM users WHERE name = ?", [user], (err, result) => {
@@ -185,7 +195,21 @@ app.post('/updateMaterial', (req, res) => {
       }
     }
   )  
-})
+});
+
+app.post('/newProductionOrder', (req, res) => {
+  const { quantity, articleId } = req.body;
+  db.query(
+    `IF EXISTS(SELECT * from productionOrder where article_id=${articleId})            
+    BEGIN            
+      update productionOrder set quantity=quantity+${quantity} where article_id=${articleId}
+    END                    
+    ELSE            
+    BEGIN
+      insert into productionOrder (article_id, quantity) values (${articleId}, ${quantity});
+    END`
+  );
+});
 
 app.post('/newPart', (req, res) => {
   const { name, task, date, quantity, weight, money, threads, paid } = req.body;//name y id deben ser los mismos que en el seleccionado

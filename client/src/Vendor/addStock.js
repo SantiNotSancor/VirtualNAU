@@ -33,7 +33,7 @@ export class AddStock extends Component {
                     'weight': (material.weight)? material.weight : 0,
                     'meters': (material.meters)? material.meters : 0}
             })
-            this.setState({ materialsData: aux });
+            this.setState({ materialsData });
         });
     }
 
