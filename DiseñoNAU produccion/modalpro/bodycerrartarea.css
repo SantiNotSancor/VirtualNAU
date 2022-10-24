@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+body
+{
+background-color: #20154D;
+background-repeat: no-repeat;
+font-family: 'Poppins', sans-serif;
+}
+
+h1{
+    color:rgb(95, 95, 95);
+    text-align: center;
+
+}
+h2{
+    color:rgb(95, 95, 95);
+    font-size: 15px;
+}
+
+
+.confirmar{
+    position:relative;
+    top:9.9vw;
+    width: 10%;
+    padding:1%;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    background-color: #8736c9;
+    color: white;
+    border-radius: 2%;
+    left: 79%;
+    opacity: 0.9;
+    transition: 0.3s;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  button:hover {opacity: 1}
+
+.cancelar
+{
+position:relative;
+top:7vw;
+width:10%;
+padding:1%;
+box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+border: none;
+font-family: 'Poppins', sans-serif;
+background-color: #4b4b4b;
+color: white;
+border-radius: 2%;
+left: 90%;
+opacity: 0.9;
+transition: 0.3s;
+text-decoration: none;
+cursor: pointer;
+}
+
+button:hover {opacity: 1}
+
+.casilla{
+width: 2%;
+position: relative;
+}
+
+.entregar{
+    font-size: 100%;
+    position: relative;
+    bottom:1.4vw;
+}
+               
+div{
+    overflow: scroll;
+    position: relative;
+    left: 8%;
+    border-radius: 1%;
+    background-color: white;
+    width: 80%;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    padding: 2%;
+    height: 32vw;
+    top: 5vw;
+
+}
+
+
