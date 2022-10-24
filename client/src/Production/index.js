@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import {NewTask} from './newTask';
 import {ShowOrders} from './showOrders';
+import './styles.css'
 
 
 export default class Production extends Component {
   render() {
     return (
       <>
-        <h2>¿Qué desea hacer?</h2>
+        <style>{'body {background-color: #20154D; background-Image: url(http://localhost:3000/wave3.png); background-repeat: no-repeat; background-size: cover'}</style>
+        <h2 class='h2Production'>¿Qué desea hacer?</h2>
         <ShowOrders />
         <NewTask />
       </>

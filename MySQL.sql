@@ -140,7 +140,7 @@ INSERT INTO payments (id, name, date, money) VALUES (789,'Lodeloshop','10/07/202
 INSERT INTO tasks (id, article_id, article_description, quantity, packages, cutDate, fabrics, colors, responsible, generalFeatures, state) VALUES (1,343,'Media',200,10,'6/01/2021','Gagas.inc','Azul','Vendedor','Tamaño x diseño x','toAssign');
 INSERT INTO taskcount (id, count) VALUES (0,1);
 INSERT INTO vendorOrders (id, customerName, article_id, article_description, quantity, colors, entryDate) VALUES (1,'Rogelioshop',250,'Mochila',200,'Verde','15/01/2021');
-INSERT INTO productionOrders (id, article_id, article_description, quantity, colors, fabrics, date) VALUES (1,144,'Cartuchera',200,'Roja',5,'20/01/2021');
+INSERT INTO productionOrders (id, article_id, quantity, colors, fabrics) VALUES (1,144,200,'Roja','Gamuza');
 INSERT INTO colorsOrder (id, corte_id, colors) VALUES (1,487,'Rosa');
 INSERT INTO fabricsOrder (id, corte_id, fabrics) VALUES (1,566,45);
 INSERT INTO materials (id, description, quantity, weight, meters) VALUES (200,'Carton',25,'1,5','1,2');
