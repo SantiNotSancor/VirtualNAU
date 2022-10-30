@@ -1,4 +1,4 @@
-/* body {
+body {
   background-color: #20154D;
   background-image: url("./images/wave.png");
   background-repeat: no-repeat;
@@ -6,24 +6,23 @@
   width: 100%;
   height: 700px;
   font-family: "SalmaAlfasans", sans-serif;
-} */
+}
 
 
-/* li {
+li {
   float: left;
-} */
+}
 
-/* li a {
+li a {
   display: block;
   color: white;
   text-align: center;
   padding: 25px 10px;
   text-decoration: none;
-  
-} */
+}
 
 
-.logo {
+.logoIndex {
   max-width: 15%;
   max-height: 15%;
   position: relative;
@@ -33,8 +32,7 @@
   z-index: 1;
 }
 
-
-.h1Login {
+h1 {
   color: rgb(255, 255, 255);
   position: relative;
   margin-left: -25%;
@@ -48,7 +46,7 @@
   left: -20px;
 }
 
-.h2Login{
+h2{
   color: rgb(255, 255, 255);
   font-style: sans-serif;
   font-size:17px;
@@ -61,7 +59,7 @@
 }
 
 
-.selectLogin {
+select {
   position:relative;
   background-color: #423277;
   border-radius: 3px;
@@ -75,7 +73,7 @@
   right:75%;
 }
 
-.inputLogin {
+input {
 position:relative;
 background-color: #423277;
 border-radius: 3px;
@@ -85,9 +83,10 @@ bottom:16%;
 right: 61%;
 width: 302px;
 height: 40px;
+overflow: scroll;
 }
 
-.pLogin{
+p{
   color: rgb(255, 47, 47);
   font-size:15px;
   text-align: center;
@@ -97,7 +96,7 @@ height: 40px;
   white-space: pre;
 }
 
-.buttonLogin {
+button {
   display: inline-block;
   border-radius: 3px;
   position: relative;
@@ -121,14 +120,14 @@ height: 40px;
   margin: 5px;
 }
 
-.buttonLogin span {
+button span {
   cursor: pointer;
   display: inline-block;
   position: relative;
   transition: 0.5s;
 }
 
-.buttonLogin span:after {
+button span:after {
   content: '\00bb';
   position: absolute;
   opacity: 0;
@@ -137,17 +136,17 @@ height: 40px;
   transition: 0.5s;
 }
 
-.buttonLogin:hover span {
+button:hover span {
   padding-right: 25px;
 }
 
-.buttonLogin:hover span:after {
+button:hover span:after {
   opacity: 1;
   right: 0;
 }
 
 
-.divLogin {
+div {
   background-color: #20154D;
   position: relative;
   left: 35%;

@@ -2,6 +2,7 @@ import React, { Component, useEffect } from 'react';
 import {AddStock} from './addStock';
 import {NewQuery} from './newQuery';
 import {ModalShowData} from '../showData';
+// import {ViewQuery} from './viewQuery.js';
 // import {TickSuspended} from './tickSuspended';
 // import {TickToDos} from './tickToDos';
 import './styles.css';

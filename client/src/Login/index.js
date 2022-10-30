@@ -4,6 +4,15 @@ import Axios from "axios";
 import logo from './images/nau.png';
 import Vendor from '../Vendor';
 
+// import { 
+//     BrowserRouter as Router,
+//     Routes,
+//     Route,
+//     Link
+// } from "react-router-dom";
+// import './styles.css'
+// import Vendor from '../Vendor';
+
 const initialState = {
     password: "",
     user: "",
@@ -39,8 +48,8 @@ export default class Login extends Component {
     render() {
         return (
             <div>
-                <style>body:{'background-color: #20154D; background-image: url("./images/wave.png"); background-repeat: no-repeat; background-position: 2px 280px; width: 100%; height: 700px; font-family: "SalmaAlfasans", sans-serif;'}</style>
-                <img className="logo" src={logo}/>
+                <style>{'body {background-color: #20154D; background-image: url("http://localhost:3000/images/wave.png"); background-repeat: no-repeat; background-position: 2px 280px; width: 100%; height: 700px; font-family: "SalmaAlfasans", sans-serif; background-size: contain;'}</style>
+                <img className="logoIndex" src={logo}/>
                 <h1></h1>
                 <div className="divLogin">
                     <h1 className="h1Login">Iniciar sesión</h1>

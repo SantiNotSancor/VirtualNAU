@@ -119,8 +119,6 @@ export class ShowData extends Component {
                 }
                 titles.push(header);
             });
-            if(!this.state.table || this.state.table.length === 0)
-                this.setState({ filteredTable: table });
             console.log(table);
             console.log(titles);
             this.setState({ titles, table, filteredTable: table, data: e });

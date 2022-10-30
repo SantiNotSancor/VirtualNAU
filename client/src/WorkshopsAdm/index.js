@@ -12,7 +12,7 @@ export default class WorkshopsAdm extends Component {
   render() {
     return (
       <>
-        <style>{'body {background-color: #20154D; background-Image: url(http://localhost:3000/wave4.png); background-repeat: no-repeat; background-size: contain'}</style>  
+        <style>{'body {background-color: #20154D; background-Image: url(http://localhost:3000/images/wave4.png); background-repeat: no-repeat; background-size: contain;'}</style>  
         <h2 className='h2WorkshopAdm'>¿Qué desea hacer?</h2>
         <div><NewPaymentButton /></div>
         {/* <div><NewTaskButton /></div> */}
