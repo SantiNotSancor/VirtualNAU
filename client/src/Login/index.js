@@ -2,7 +2,14 @@ import React, { Component } from "react";
 import Axios from "axios";
 //import './index.css';
 import logo from './images/nau.png';
-import Vendor from '../Vendor';
+import { 
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Link
+} from "react-router-dom";
+import './styles.css'
+// import Vendor from '../Vendor';
 
 // import { 
 //     BrowserRouter as Router,
@@ -47,24 +54,27 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div>
-                <style>{'body {background-color: #20154D; background-image: url("http://localhost:3000/images/wave.png"); background-repeat: no-repeat; background-position: 2px 280px; width: 100%; height: 700px; font-family: "SalmaAlfasans", sans-serif; background-size: contain;'}</style>
-                <img className="logoIndex" src={logo}/>
-                <h1></h1>
-                <div className="divLogin">
+            <div className="divLogin2">
+                <style>{'body {background-color: #20154D; background-image: url("http://localhost:3000/images/wave.png"); background-repeat: no-repeat; background-position: 2px 280px; width: 100%; height: 700px; font-family: "SalmaAlfasans", sans-serif; background-size: contain; overflow: hidden;'}</style>
+                <h1 className="h1Login"></h1>
+                <div className="divLogin1">
+                    <img className="logoLogin" src={logo}/>
                     <h1 className="h1Login">Iniciar sesión</h1>
-                    <h2 className="h2Login">Seleccione tipo de usuario</h2>
-                    <select className="selectLogin" name="Tipo de Usuario" id="usuario"
-                        onChange={(user) => {
-                            console.log(user.target.value)
-                            
-                        }}>
-                        <option value="vendor">Vendedor</option>
-                        <option value="production">Producción</option>
-                        <option value="workshops">Administración de talleres</option>
-                        <option value="expedition">Expedición</option>
-                        <option value="manager">Gerencia</option>
-                    </select>
+                    <div>
+                        <h2 className="h2Login">Seleccione tipo de usuario</h2>
+                        <select className="selectLogin" name="Tipo de Usuario" id="usuario"
+                            onChange={(user) => {
+                                console.log(user.target.value)
+                                Axios.post('http://localhost:3307/getPassword', { user: user.target.value }).then((response) =>
+                                this.setState({ actualPassword: response.data[0].password, user: user.target.value }));
+                            }}>
+                            <option value="vendor">Vendedor</option>
+                            <option value="production">Producción</option>
+                            <option value="workshops">Administración de talleres</option>
+                            <option value="expedition">Expedición</option>
+                            <option value="manager">Gerencia</option>
+                        </select>
+                    </div>
                     <input className="inputLogin" type="password" placeholder="Contraseña" onChange={(e) => this.setState({ password: e.target.value })}></input>
                     {this.state.error ? <p className="pLogin">Contraseña incorrecta. Vuelva a intentarlo.</p> : null}
                     <br/>

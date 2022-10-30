@@ -4,26 +4,23 @@
     <link rel="stylesheet" href="styles.css">
 <body>
   <img class="logoIndex" src="./images/nau.png" alt="imagen logo" > 
-  <h1></h1>
-  <div>
-    <h1>Iniciar sesión</h1>
-    <h2>Seleccione tipo de usuario</h2>
-
-    <select name="Tipo de Usuario" id="usuario">
-      <option value="g">Gerente</option>
-      <option value="v">Vendedor</option>
-      <option value="p">Producción</option>
-      <option value="a">Administrador de talleres</option>
-      <option value="e">Expedición</option>
-    </select>
-    <p></p>
-    <input type="password" placeholder="Contraseña">
-    <p>
-      Contraseña incorrecta. Vuelva a intentarlo.</p>
-    <p></p>
-    <button style="vertical-align:middle" > <span>Ingresar</span></button>
-  </div>  
-
+  <h1 class="h1Login"></h1>
+    <div class="divLogin1">
+      <h1 class="h1Login">Iniciar sesión</h1>
+      <h2 class="h2Login">Seleccione tipo de usuario</h2>
   
+      <select name="Tipo de Usuario" id="usuario" class="selectLogin">
+        <option value="g">Gerente</option>
+        <option value="v">Vendedor</option>
+        <option value="p">Producción</option>
+        <option value="a">Administrador de talleres</option>
+        <option value="e">Expedición</option>
+      </select>
+      <p></p>
+      <input type="password" placeholder="Contraseña" class="inputLogin">
+      <p>Contraseña incorrecta. Vuelva a intentarlo.</p>
+      <p></p>
+      <button style="vertical-align:middle" class="buttonLogin"> <span>Ingresar</span></button>
+    </div>  
 </body>
 </html>
