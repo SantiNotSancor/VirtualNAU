@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {NewTask} from './newTask';
 import {ShowOrders} from './showOrders';
+import {ModalShowData} from '../showData';
 import './styles.css'
 
 
@@ -12,6 +13,7 @@ export default class Production extends Component {
         <h2 class='h2Production'>¿Qué desea hacer?</h2>
         <ShowOrders />
         <NewTask />
+        <ModalShowData />
       </>
     );
   }

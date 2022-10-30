@@ -1,6 +1,7 @@
 import React, { Component, useEffect } from 'react';
 import {AddStock} from './addStock';
 import {NewQuery} from './newQuery';
+import {ModalShowData} from '../showData';
 // import {TickSuspended} from './tickSuspended';
 // import {TickToDos} from './tickToDos';
 import './styles.css';
@@ -13,6 +14,7 @@ export default class Vendor extends Component {
         <h2 className='indexVendorh2'>¿Qué desea hacer?</h2>
         <div><NewQuery /></div>
         <div><AddStock /></div>
+        <div><ModalShowData /></div>
         {/* <div className='card'><ViewQuery /></div> */}
         {/*<TickSuspended />
         <TickToDo /> */}

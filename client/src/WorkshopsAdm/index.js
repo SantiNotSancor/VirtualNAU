@@ -4,7 +4,7 @@ import { ArtWorkButton } from './RegistrationDrop/registrationDrop';
 import { NewPaymentButton } from './newPayment';
 import { DeliverTaskButton } from './deliverTask';
 import { AssignTaskButton } from './assignTask';
-//  import { ShowData } from '../showData';
+import {ModalShowData} from '../showData';
 import './styles.css'
 
 export default class WorkshopsAdm extends Component {
@@ -20,7 +20,7 @@ export default class WorkshopsAdm extends Component {
         <div><DeliverTaskButton /></div>
         <div><ArtWorkButton article={false} /></div>
         {/* <div><ArtWorkButton article={true} /></div> */}
-        {/* <ShowData /> */}
+        <ModalShowData />
       </>
     );
   }

@@ -82,9 +82,8 @@ app.get('/getCutOrders', (req, res) => {
   });
 });
 
-app.post('/getPassword', (req, res) => {
-  const user = req.body.user;
-  db.query("SELECT password FROM users WHERE name = ?", [user], (err, result) => {
+app.post('/getPasswords', (req, res) => {
+  db.query("SELECT * FROM users;", (err, result) => {
     if (err)
       console.log(err);
     else
@@ -103,7 +102,7 @@ app.get('/getCustomerNames', (req, res) => {
 });
 
 app.get('/getMaterials', (req, res) => {
-  db.query("SELECT * FROM customer", (err, result) => {
+  db.query("SELECT * FROM materials", (err, result) => {
     if (err)
       console.log(err);
     else

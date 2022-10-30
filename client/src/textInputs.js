@@ -208,7 +208,7 @@ export class RawResourceRequest extends Component {
         if(this.inicialized)
             return
         Axios.get('http://localhost:3307/getmaterials').then((response) => {
-            let suggestions = response.data.map(material => material.id + ': ' + material.name + ' (' + material.description + ')');
+            let suggestions = response.data.map(material => material.id + ': ' + material.description);
             this.setState({inicialized: true, suggestions});
         });
     }

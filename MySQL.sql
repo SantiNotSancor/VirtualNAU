@@ -113,9 +113,9 @@ CREATE TABLE IF NOT EXISTS recipe(
 CREATE TABLE IF NOT EXISTS materials(
     id INT (5) NOT NULL,
     description TEXT (255) NOT NULL,
-    quantity INT (3) UNSIGNED NOT NULL,
-    weight DECIMAL (6,2) NOT NULL,
-    meters DECIMAL (5,1) NOT NULL,
+    quantity INT (3) UNSIGNED,
+    weight DECIMAL (6,2),
+    meters DECIMAL (5,1),
 	PRIMARY KEY(id)
 );
 
@@ -141,20 +141,6 @@ INSERT INTO tasks (id, article_id, article_description, quantity, packages, cutD
 INSERT INTO taskcount (id, count) VALUES (0,1);
 INSERT INTO vendorOrders (id, customerName, article_id, article_description, quantity, colors, entryDate) VALUES (1,'Rogelioshop',250,'Mochila',200,'Verde','15/01/2021');
 INSERT INTO productionOrders (id, article_id, quantity, colors, fabrics) VALUES (1,144,200,'Roja','Gamuza');
-INSERT INTO colorsOrder (id, corte_id, colors) VALUES (1,487,'Rosa');
-INSERT INTO fabricsOrder (id, corte_id, fabrics) VALUES (1,566,45);
-INSERT INTO materials (id, description, quantity, weight, meters) VALUES (200,'Carton',25,'1,5','1,2');
-
-SELECT * FROM users;
-SELECT * FROM articles;
-SELECT * FROM workshops;
-SELECT * FROM payments;
-SELECT * FROM taskCount;
-SELECT * FROM tasks;
-SELECT * FROM parts;
-SELECT * FROM customer;
-SELECT * FROM vendorOrders;
-SELECT * FROM productionOrders;
-SELECT * FROM colorsOrder;
-SELECT * FROM fabricsOrder;
-SELECT * FROM materials;
+INSERT INTO materials (id, description, quantity, weight, meters) VALUES (200,'Carton',25,1.5,1.2);
+INSERT INTO materials (id, description, quantity, weight, meters) VALUES (201,'PVU',25,2,null);
+INSERT INTO materials (id, description, quantity, weight, meters) VALUES (202,'Lana',25,null,1);

@@ -2,41 +2,39 @@ import React, { Component } from "react";
 import Axios from "axios";
 //import './index.css';
 import logo from './images/nau.png';
-import { 
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    Link
-} from "react-router-dom";
 import Vendor from '../Vendor';
 
 const initialState = {
     password: "",
-    actualPassword: "",
     user: "",
+    validations: [],
     error: false
 };
 
 export default class Login extends Component {
     state = initialState;
 
-    componentDidUpdate(prevState){
-        if(prevState.password !== this.state.password || prevState.actualPassword !== this.state.actualPassword)
-            this.setState({ error: this.state.password !== this.state.actualPassword });
+    componentDidMount(){
+        Axios.post('http://localhost:3307/getPasswords').then((response) => {
+            let aux = response.data.reduce((accumulator, element) => {
+                accumulator[element.name] = element.password;
+                return accumulator;
+            }, {});
+            console.log(aux);
+            this.setState({ validations: aux});
+        });
     }
 
     submit = () => {
-        console.log('Correcto');
+        let error = this.state.validations[this.state.user] === this.state.password;
+        this.setState({ error });
+        
+        if (error) //Enviar a otra pestaña
+            console.log('Correcto');
 
         //window.open(this.state.user,'_self');
         // TODO: Debe existir una página para cada usuario que se llame vendor, production, workshops, expedition o manager
     };
-
-    path(){
-        if (this.state.error)
-            return;
-        return '/' + this.state.user;
-    }
 
     render() {
         return (
@@ -50,8 +48,7 @@ export default class Login extends Component {
                     <select className="selectLogin" name="Tipo de Usuario" id="usuario"
                         onChange={(user) => {
                             console.log(user.target.value)
-                            Axios.post('http://localhost:3307/getPassword', { user: user.target.value }).then((response) =>
-                                this.setState({ actualPassword: response.data[0].password, user: user.target.value }));
+                            
                         }}>
                         <option value="vendor">Vendedor</option>
                         <option value="production">Producción</option>
@@ -63,63 +60,17 @@ export default class Login extends Component {
                     {this.state.error ? <p className="pLogin">Contraseña incorrecta. Vuelva a intentarlo.</p> : null}
                     <br/>
                     <br/>
-                    {/* <Router>
-                        <Link to={this.path()}> */}
-                            <button className="buttonLogin" onClick={
-                            (e) => {
-                                e.preventDefault();
-                                const error = this.state.password !== this.state.actualPassword;
-                                this.setState({ error });
-                                if (!error)
-                                    this.submit();
-                            }
-                        }>
-                                Ingresar
-                            </button>
-                        {/* </Link>
-                        <Routes>
-                            <Route path="/vendor" element={<Vendor />} />
-                        </Routes>
-                    </Router> */}
+                    <button className="buttonLogin" onClick={
+                        (e) => {
+                            e.preventDefault();
+                            const error = this.state.password !== this.state.actualPassword;
+                            this.setState({ error });
+                            if (!error)
+                            this.submit();
+                        }
+                    }>Ingresar</button>
                 </div>
             </div>
         );
-
-        // return (
-        // <Router>
-        //     <div>
-        //     <nav>
-        //         <ul>
-        //         <li>
-        //             <Link to="/vendor"><button>Home</button></Link>
-        //         </li>
-        //         <li>
-        //             <Link to="/about">About</Link>
-        //         </li>
-        //         <li>
-        //             <Link to="/users">Users</Link>
-        //         </li>
-        //         </ul>
-        //     </nav>
-        //     <Routes>
-        //         <Route path="/about" element={<About />} />
-        //         <Route path="/users" element={<Users/>} />
-        //         <Route path="/vendor" element={<Vendor/>} />
-        //     </Routes>
-        //     </div>
-        // </Router>
-        // );
     }
-  }
-  
-  function Home() {
-    return <p>Home</p>;
-  }
-  
-  function About() {
-    return <p>About</p>;
-  }
-  
-  function Users() {
-    return <p>Users</p>;
   }

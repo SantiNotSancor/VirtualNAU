@@ -4,6 +4,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Table from 'react-bootstrap/Table';
 import FormControl from 'react-bootstrap/FormControl';
+import { ModalOpener } from './modalOpener';
 
 const initialState = {
     data: '', //El nombre de la BD de la que sacamos los datos
@@ -15,6 +16,16 @@ const initialState = {
     filters: [],//Lista que muestra el tipo de filtro
     filterInputs: [] //Lista que contiene lo ingresado por el usuario en cada filtro
 };
+
+export class ModalShowData extends Component {
+
+    render() {
+        return (
+            <ModalOpener buttonText='Ver datos' handleClose={this.resetState}
+                className={'title'} /*logo={image}*/ title={'Ver datos'} children={<ShowData />} />
+        );
+    }
+}
 
 export class ShowData extends Component {
 

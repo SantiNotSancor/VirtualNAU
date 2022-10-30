@@ -38,9 +38,12 @@ export class ModalPrototype extends Component {//Debe ser invocada para crear el
                     {(this.props.footer && this.props.footer.show)?
                     <ReactToPrint trigger={() => <Button>Imprimir</Button>}
                         content={() => this.props.footer.content}/> : <></>}
-                    <Button variant="primary" type="submit" onClick={() => {
-                        this.props.post();//Se cierra desde post si todo está en orden
-                    }}>Confirmar</Button>
+                    {
+                        typeof this.props.post === 'function' ?
+                            <Button variant="primary" type="submit" onClick={() => {
+                                this.props.post();//Se cierra desde post si todo está en orden
+                            }}>Confirmar</Button> : null
+                    }
                     <Button variant="secundary" onClick={this.props.handleClose}>Cancelar</Button>
                 </Modal.Footer>
             </Modal >

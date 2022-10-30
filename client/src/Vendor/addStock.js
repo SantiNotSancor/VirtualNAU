@@ -72,7 +72,7 @@ export class AddStock extends Component {
                 <Table striped bordered id="taskTable">
                     <thead>
                         <tr>
-                            <th>ID: Nombre (descripción)</th>
+                            <th>ID: Nombre</th>
                             <th>Cantidad</th>
                             <th>Peso</th>
                             <th>Metros</th>
