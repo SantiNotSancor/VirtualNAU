@@ -53,27 +53,15 @@ export class NewQuery extends Component {
                 <Request toShow="observation" onChange={(e) => {
                     this.setState({ observation: e.target.value });
                 }} />
-                <Table striped bordered id="taskTable">
-                    <thead>
-                        <tr>
-                            <th>Artículo</th>
-                            <th>Cantidad</th>
-                            <th>Color</th>
-                            <th>Entregar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {!this.state.items ? null :
-                            this.state.items.map((item, index) => {
-                                //Debería tomar la fila dada por Row y agregarsela a la lista de items que posee el componente. De estar esta
-                                //ya ingresada (en caso de una modificación), reemplazarle.
-                                return <Row key={index} index={index} item={item} remove={i => this.removeItem(i)}
-                                    isLast={this.state.items.length - 1 === index} onChange={(this.state.items.length - 1 !== index) ?
-                                        (item) => this.changeItem(index, item) :
-                                        (item) => this.addItem(item)} />
-                            })}
-                    </tbody>
-                </Table>
+                {!this.state.items ? null :
+                    this.state.items.map((item, index) => {
+                        //Debería tomar la fila dada por Row y agregarsela a la lista de items que posee el componente. De estar esta
+                        //ya ingresada (en caso de una modificación), reemplazarle.
+                        return <Row key={index} index={index} item={item} remove={i => this.removeItem(i)}
+                            isLast={this.state.items.length - 1 === index} onChange={(this.state.items.length - 1 !== index) ?
+                                (item) => this.changeItem(index, item) :
+                                (item) => this.addItem(item)} />
+                })}
             </Form>
         );
     }
@@ -95,46 +83,40 @@ export const Row = ({ item, index, onChange, remove, isLast }) => {
     };
 
     return (
-        <tr key={index}>
+        <div key={index}>
             {/* TODO: handleEnter */}
-            <td>
                 {/* TODO: No se borra cuando se elimina (porque no tiene value, sino onChange) */}
-                <Request toShow="article" onChange={(event) => {
-                    let aux = { ...input };
-                    aux.id = event;
-                    setInput(aux);//Devuelve sólo el id (no la descripción)
-                    onChange(aux);
-                }} />
-            </td>
-            <td><FormControl value={input.quantity}//Cantidad
-                onChange={(e) => {
-                    console.log(e, isNaN(e.target.value), e.target.value < 0);
-                    if (isNaN(e.target.value) || e.target.value < 0)
-                        return;
-                    let aux = { ...input };
-                    aux.quantity = e.target.value;
-                    setInput(aux);
-                    onChange(aux);
-                }} />
-            </td>
-            <td><FormControl value={input.color}//Peso
-                onChange={(e) => {
-                    let aux = { ...input };
-                    aux.color = e.target.value;
-                    setInput(aux);
-                    onChange(aux);
-                }} />
-            </td>
-            <td>
-                <Form.Check onChange={() => {
-                    let aux = { ...input };
-                    aux.toDeliver = !toDeliver;
-                    setCheckbox(!toDeliver);
-                    setInput(aux);
-                    onChange(aux);
-                }} />
-            </td>
-            {!isLast ? <td><Button onClick={myRemove}>X</Button></td> : <></>}
-        </tr>
+        <Request toShow="article" onChange={(event) => {
+            let aux = { ...input };
+            aux.id = event;
+            setInput(aux);//Devuelve sólo el id (no la descripción)
+            onChange(aux);
+        }} />
+        <FormControl placeholder="Descripción" value={input.quantity}//Cantidad
+            onChange={(e) => {
+                console.log(e, isNaN(e.target.value), e.target.value < 0);
+                if (isNaN(e.target.value) || e.target.value < 0)
+                    return;
+                let aux = { ...input };
+                aux.quantity = e.target.value;
+                setInput(aux);
+                onChange(aux);
+            }} />
+        <FormControl placeholder="Color" value={input.color}//Peso
+            onChange={(e) => {
+                let aux = { ...input };
+                aux.color = e.target.value;
+                setInput(aux);
+                onChange(aux);
+            }} />
+        <Form.Check className="casillaModal" label={`Entregar`} onChange={() => {
+                let aux = { ...input };
+                aux.toDeliver = !toDeliver;
+                setCheckbox(!toDeliver);
+                setInput(aux);
+                onChange(aux);
+            }} />
+        {!isLast ? <td><Button className="buttonModal" onClick={myRemove}>X</Button></td> : <></>}
+        </div>
     );
 }

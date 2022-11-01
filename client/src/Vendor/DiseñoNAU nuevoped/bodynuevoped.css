@@ -9,31 +9,30 @@ font-family: 'Poppins', sans-serif;
 h1{
     color:rgb(95, 95, 95);
     text-align: center;
-
 }
-input{
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid #5a5a5a;
-    border-radius: 0;
-    outline: none;
-    height: 3rem;
-    width: 70%;
-    font-size: 1rem;
-    margin: 1%;
-    padding: 0;
-    box-shadow: none;
-    box-sizing: content-box;
-    font-family: 'Poppins', sans-serif;
-    opacity: 0.6;
-    transition: 0.3s;
-    display: inline-block;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
-  input:hover {opacity: 1}
 
+input{
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #5a5a5a;
+  border-radius: 0;
+  outline: none;
+  height: 3rem;
+  width: 70%;
+  font-size: 1rem;
+  margin: 1%;
+  padding: 0;
+  box-shadow: none;
+  box-sizing: content-box;
+  font-family: 'Poppins', sans-serif;
+  opacity: 0.6;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+  
+input:hover {opacity: 1}
 
 .input-cart{border-top:3px solid #a160ad;margin-top:2%;margin-bottom:50%;}
 
@@ -99,5 +98,4 @@ div{
     width: 50%;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     padding: 2%;
-
 }

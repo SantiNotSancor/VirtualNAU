@@ -5,6 +5,9 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Table from 'react-bootstrap/Table';
 import FormControl from 'react-bootstrap/FormControl';
 import { ModalOpener } from './modalOpener';
+import viewQueryLogo from './Vendor/Images/viewQuery.gif';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 const initialState = {
     data: '', //El nombre de la BD de la que sacamos los datos
@@ -22,7 +25,7 @@ export class ModalShowData extends Component {
     render() {
         return (
             <ModalOpener buttonText='Ver datos' handleClose={this.resetState}
-                className={'title'} /*logo={image}*/ title={'Ver datos'} children={<ShowData />} />
+            cardClassName='cardVendor' containerClassName='containerVendor' buttonClassName='buttonVendor3' imageClassName='imgVendor' logo={viewQueryLogo} title={'Visualizar Datos'} children={<ShowData />} />
         );
     }
 }

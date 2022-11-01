@@ -2,12 +2,12 @@ import React, { Component, useEffect } from 'react';
 import {AddStock} from './addStock';
 import {NewQuery} from './newQuery';
 import {ModalShowData} from '../showData';
-// import {ViewQuery} from './viewQuery.js';
+import {ViewQuery} from './viewQuery.js';
 // import {TickSuspended} from './tickSuspended';
 // import {TickToDos} from './tickToDos';
 import './styles.css';
 
-export default class Vendor extends Component {
+export default class ññVendor extends Component {
   render() {
     return (
       <>
@@ -16,7 +16,7 @@ export default class Vendor extends Component {
         <NewQuery />
         <AddStock />
         <ModalShowData />
-        {/* <div className='card'><ViewQuery /></div> */}
+        {/* <ViewQuery /> */}
         {/*<TickSuspended />
         <TickToDo /> */}
       </>

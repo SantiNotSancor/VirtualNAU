@@ -25,9 +25,9 @@ export class ModalPrototype extends Component {//Debe ser invocada para crear el
 
     render() {
         return (
-            <Modal show={this.props.show} dialogClassName="modal-dialog">
+            <Modal show={this.props.show} dialogClassName="col s12 m10 push-m1 z-depth-2 grey lighten-5 divModal">
                 <Modal.Header>
-                    <Modal.Title>{this.props.title}</Modal.Title>
+                    <Modal.Title><h1 class="h1Modal">{this.props.title}</h1></Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
@@ -40,11 +40,11 @@ export class ModalPrototype extends Component {//Debe ser invocada para crear el
                         content={() => this.props.footer.content}/> : <></>}
                     {
                         typeof this.props.post === 'function' ?
-                            <Button variant="primary" type="submit" onClick={() => {
+                            <Button className='confirmar' variant="primary" type="submit" onClick={() => {
                                 this.props.post();//Se cierra desde post si todo está en orden
                             }}>Confirmar</Button> : null
                     }
-                    <Button variant="secundary" onClick={this.props.handleClose}>Cancelar</Button>
+                    <Button variant="secundary" className="cancelar" onClick={this.props.handleClose}>Cancelar</Button>
                 </Modal.Footer>
             </Modal >
         );

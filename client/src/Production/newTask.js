@@ -6,6 +6,7 @@ import Axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import moment from 'moment';
 import { ModalController } from '../modal';
+import image from './media/button1Production.gif'
 
 const initialState = {
     task: '',
@@ -121,11 +122,8 @@ export class NewTask extends ModalController {
     
     render() {
         return (
-            <button onClick={this.showModal}>
-                Armar
-            </button>
-            // <ModalOpener buttonText='Nueva tarea' children={this.myForm()} error={this.state.error} className={'title'}
-            //     cardClassName='cardWorkshopAdm' buttonClassName='button2WorkshopAdm' /*logo={image}*/ title={'Creación de tarea'} post={this.post} handleClose={this.resetState} />
+            <ModalOpener buttonText='Crear tarea' children={this.myForm()} error={this.state.error}
+            cardClassName='cardProduction' containerClassName='containerProduction' buttonClassName='button1Production' imageClassName='imgProduction' logo={image} title={'Creación de tarea'} post={this.post} handleClose={this.resetState} />
             //Crea un botón que abre a un modal en el que aparecerá lo devuelto en this.myForm
         );
     };

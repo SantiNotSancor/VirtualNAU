@@ -21,8 +21,8 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
     switch (toShow) {
         //GENERAL
         case 'observation':
-            label = 'Observaciones';
-            placeholder = 'Ingrese observaciones si las tiene';
+            // label = 'Observaciones';
+            placeholder = 'Observaciones (opcional)';
             checked = (input) => true;
             break;
 
@@ -33,7 +33,7 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
             break;
         case 'article':
             label = 'Número de artículo';
-            placeholder = 'Ingrese el código único del artículo';
+            placeholder = 'ID';
             break;
         case 'quantityArticle':
             label = 'Cantidad asignada';
@@ -128,8 +128,7 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
             
         //VENDEDOR
         case 'customerName':
-            label = 'Nombre del cliente';
-            placeholder = 'Ingrese el nombre del/la cliente';
+            placeholder = 'Nombre del cliente';
             checked = async (input) => {
                 if (input === '')
                     return false
@@ -143,7 +142,6 @@ export const Request = ({ onChange, toShow, label, value, handleEnter }) => {//P
     }
 
     label = (auxLabel) ? auxLabel : label;
-    placeholder += '…';
     return (
         (toShow === 'workshopName') ? <NameRequest handleEnter={handleEnter} placeholder={placeholder} onChange={onChange} /> :
             ((toShow === 'article') ? <ArticleRequest handleEnter={handleEnter} placeholder={placeholder} onChange={onChange} /> :

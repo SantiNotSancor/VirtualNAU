@@ -10,7 +10,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Table from 'react-bootstrap/Table';
 import FormControl from 'react-bootstrap/FormControl';
 import { ModalController, ModalPrototype } from '../modal';
-//import image from './Images/ShowOrders.svg';
+import image from './media/button2Production.gif';
 
 const initialStateOrders = {
     table: [],//La tabla de datos sin filtrar
@@ -162,8 +162,8 @@ export class ShowOrders extends Component {
 
     render() {
         return (
-            <ModalOpener buttonText='Ver órdenes' children={this.myForm()} error={this.state.error} className={'title'}
-                /*logo={image}*/ title={'Ver órdenes de corte'} post={()=>{}} handleClose={this.resetState} />
+            <ModalOpener buttonText='Ver órdenes' children={this.myForm()} error={this.state.error} 
+            cardClassName='cardProduction' containerClassName='containerProduction' buttonClassName='button2Production' imageClassName='imgProduction' logo={image} title={'Ver órdenes de corte'} post={()=>{}} handleClose={this.resetState} />
         )
     }
 }

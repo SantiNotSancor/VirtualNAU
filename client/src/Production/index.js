@@ -11,8 +11,8 @@ export default class Production extends Component {
       <>
         <style>{'body {background-color: #20154D; background-Image: url(http://localhost:3000/wave3.png); background-repeat: no-repeat; background-size: cover'}</style>
         <h2 class='h2Production'>¿Qué desea hacer?</h2>
-        <ShowOrders />
         <NewTask />
+        <ShowOrders />
         <ModalShowData />
       </>
     );

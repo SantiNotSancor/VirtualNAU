@@ -1,7 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
 .modal{
-    background-color: violet;
+    background-color: #20154D;
+    font-family: 'Poppins', sans-serif;
 }
+
 .modal-dialog {
-    width: 90vw;    /* Occupy the 90% of the screen width */
-    max-width: none!important;
+    width: 300vw;   /* Occupy the 90% of the screen width*/
+    border-top:3px solid #a160ad;
+    margin-top:2%;
+    margin-bottom:50%;
+}
+
+.h1Modal{
+    color:rgb(95, 95, 95);
+    text-align: center;
+}
+
+.divModal{
+    border-radius: 1%;
+    background-color: white;
+    width: 50%!important;
+    max-width: 100%!important;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    padding: 2%;
+}
+
+.modal-content {
+    border: none!important  ;
+}
+
+input{
+    background-color: transparent;
+    border-top: none!important;
+    border-right: none!important;
+    border-left: none!important;
+    border-bottom: 1px solid #5a5a5a!important;
+    border-radius: 0;
+    outline: none;
+    height: 3rem;
+    width: 70%!important;
+    font-size: 1rem;
+    margin: 1%;
+    padding: 0;
+    box-shadow: none;
+    box-sizing: content-box!important;
+    font-family: 'Poppins', sans-serif;
+    opacity: 0.6;
+    transition: 0.3s;
+    display: inline-block!important;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.casillaModal{
+    width: 2%;
+    position: relative;
+}
+
+.buttonModal {
+    position: relative;
+    top: 1em;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+.cancelar
+{   
+width: 15%;
+padding:1%;
+box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+border: none;
+font-family: 'Poppins', sans-serif;
+background-color: #4b4b4b!important;
+color: white!important;
+border-radius: 2%;
+left: 85%;
+opacity: 0.9;
+transition: 0.3s;
+display: inline-block;
+text-decoration: none;
+cursor: pointer;
+}
+
+.confirmar{
+    width: 15%;
+    padding:1%;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    background-color: #8736c9!important;
+    color: white!important;
+    border-radius: 2%;
+    left: 52%;
+    opacity: 0.9;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+button {
+    background-color: #8736c9!important;
+    color: white!important;
 }
