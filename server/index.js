@@ -26,6 +26,18 @@ db.connect(function (err) {
   }
 });
 
+app.post('/demsarTable', (req, res) => {
+  const { month } = req.body;
+  db.query(
+    `SELECT art, SUM(quantity) as total FROM demsar WHERE MONTH(date)=${month} AND YEAR(date)=2022 GROUP BY art;`, (err, result) => {
+      if(err)
+        console.log(err);
+      else
+        res.send(result);
+    }
+  )
+});
+
 app.post('/regArticle', (req, res) => {
   const { id, description } = req.body;
   db.query(
