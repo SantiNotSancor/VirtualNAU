@@ -1,94 +1,65 @@
-* {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: rgb(1, 88, 122);
+html {
+	background-color: #20154D;
 }
 
-ul {
-  list-style: none;
-  margin: 0 auto;
-  padding: 0;
-  display: grid;
-  place-items: center;
+body{
+	background-color: #20154D;
+	font-family: 'Poppins', sans-serif;
+}
+input {
+    outline: none;
 }
 
-.menu-selector {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-rows: repeat(1, minmax(0, 1fr));
-  column-gap: 15px;
-  row-gap: 15px;
+#main-container{
+	margin: 150px auto;
+	width: 900px;
+    
 }
 
-.menu-selector > li {
-  padding: 5px;
-  text-align: center;
-  border: 2px solid black;
-  border-radius: 8px;
-  background-color: transparent;
-  width: 80%;
-  height: 100%;
-  place-items: center;
+table{
+	background-color: rgb(206, 206, 206);
+	text-align: left;
+	border-collapse: collapse;
+	width: 100%;
 }
 
-button {
-  padding: 0%;
-  border: 0px;
-  background-color: transparent;
+th, td{
+	padding: 20px;
+  width: 30%;
 }
 
-.title {
-  font-family: Arial;
-  font-size: 20px;
-  padding: 5px;
+thead{
+	background-color: #4b4b4b;
+	border-bottom: solid 5px #8736c9 !important;
+	color: white;
 }
 
-.logo-button {
-  grid-template-rows: 3fr 1fr;
-  row-gap: 15px;
-  float: left;
-  color: white;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.452);
-  transition: 0.3s;
-  width: 22%;
-  height: 8%;
-  margin: 5.6%;
-  border-radius: 10px;
-  background-image: linear-gradient(  #47257e 0%, #251958 100%);
+
+
+tr:hover td{
+	background-color:#955ec2;
+	color: white;
 }
 
-.logo-button li:first-child {
-  border-bottom: 2px solid #000000;
+input{
+	width: 90%;
+	height: 2.5vw;
+	border: none;
+    
 }
 
-.branched {
-  height: 100%;
-  width: 100%;
-  grid-template-rows: 1fr 2fr;
-  row-gap: 10px;
+select{
+    border: none;
+    border-radius: 1px;
+    position:relative;
+    bottom: 2vw;
+	right: 1.7vw;
+	width: 1.2vw;
+	text-align: center;
+	font-size: 1.5vw;
+    background-color:#ffffff;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	text-indent: 1px;
+	text-overflow: '';
 }
-
-.branched,
-.logo-button,
-.branch{
-  padding: 0px;
-}
-
-.branch {
-  width: 100%;
-  height: 100%;
-  grid-template-columns: 1fr 1fr 1fr;
-  column-gap: 10px;
-}
-
-.branch button{
-  background-color: blue;
-  width: 100%;
-  height: 100%;
-}
-
-em{
-  color: red;
-}
-
-li.dropdown.open { position: static; }  
-li.dropdown.open .dropdown-workshopsAdm { display:table; width: 100%; text-align: center; left:0; right:0; }  
-.dropdown-workshopsAdm>li { display: table-cell; } 

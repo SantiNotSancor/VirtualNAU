@@ -45,20 +45,27 @@ export default class Demsar extends Component {
         const data = this.state.data;
         return (
             <>
-            <table>
-                <tbody>
-                    {this.state.data.map((row, i) => {
-                        return (
-                            <tr key={i}>
-                                <td>{data[i][0]}</td>
-                                <td>{data[i][1]}</td>
-                                <td>{data[i][2]}</td>
-                                <td>{data[i][3]}</td>
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
+            <div id='main-container'>
+                <table>
+			    <thead>
+			    	<tr>
+			    		<th>Nombre artículos</th><th>Septiembre</th><th>Octubre</th><th>Noviembre</th>
+			    	</tr>
+			    </thead>
+                    <tbody>
+                        {this.state.data.map((row, i) => {
+                            return (
+                                <tr key={i}>
+                                    <td>{data[i][0]}</td>
+                                    <td>{data[i][1]}</td>
+                                    <td>{data[i][2]}</td>
+                                    <td>{data[i][3]}</td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            </div>
             </>
         );
     }
