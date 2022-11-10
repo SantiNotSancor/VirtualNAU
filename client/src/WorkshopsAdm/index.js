@@ -19,7 +19,7 @@ export default class WorkshopsAdm extends Component {
         <div><AssignTaskButton /></div>
         <div><DeliverTaskButton /></div>
         <div><ArtWorkButton article={false} /></div>
-        {/* <div><ArtWorkButton article={true} /></div> */}
+        <div><ArtWorkButton article={true} /></div>
         <ModalShowData />
       </>
     );
