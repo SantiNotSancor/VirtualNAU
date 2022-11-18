@@ -5,7 +5,7 @@ import Vendor from './Vendor/index';
 import WorkshopsAdm from './WorkshopsAdm/index';
 import Production from './Production/index';
 import Demsar from './demsar';
-// import 'bootstrap/dist/css/bootstrap.css';
+//import 'bootstrap/dist/css/bootstrap.css';
 
 
 ReactDOM.render(

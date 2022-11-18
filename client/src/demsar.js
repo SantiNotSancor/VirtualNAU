@@ -12,6 +12,7 @@ export default class Demsar extends Component {
         Axios.post('http://localhost:3307/demsarTable', {month: 10}).then((res10) => {//[{art: 10, quantity: 10}],
             Axios.post('http://localhost:3307/demsarTable', {month: 11}).then((res11) => {
                 Axios.post('http://localhost:3307/demsarTable', {month: 12}).then((res12) => {
+                    console.log({10: res10.data, 11: res11.data,12: res12.data});
                     let full = [res10.data, res11.data, res12.data];
                     let arts = full.reduce((acc, res) => {
                         res.forEach((obj) => {
@@ -43,20 +44,19 @@ export default class Demsar extends Component {
 
     render() {
         const data = this.state.data;
-        console.log(this.state.data);
+        console.log({data});
         return (
             <>
             <div id='main-container'>
                 <table>
 			    <thead>
 			    	<tr>
-			    		<th>Nombre artículos</th><th>Septiembre</th><th>Octubre</th><th>Noviembre</th>
+			    		<th>Nombre artículos</th><th>Octubre</th><th>Noviembre</th><th>Diciembre</th>
 			    	</tr>
 			    </thead>
                     <tbody>
                         {this.state.data.map((row, i) => {
                             return (
-                                
                                 <tr key={i}>
                                     <td>{data[i][0]}</td>
                                     <td>{data[i][1]}</td>
