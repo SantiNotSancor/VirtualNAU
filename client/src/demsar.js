@@ -43,6 +43,7 @@ export default class Demsar extends Component {
 
     render() {
         const data = this.state.data;
+        console.log(this.state.data);
         return (
             <>
             <div id='main-container'>
@@ -55,6 +56,7 @@ export default class Demsar extends Component {
                     <tbody>
                         {this.state.data.map((row, i) => {
                             return (
+                                
                                 <tr key={i}>
                                     <td>{data[i][0]}</td>
                                     <td>{data[i][1]}</td>

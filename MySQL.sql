@@ -144,3 +144,24 @@ INSERT INTO productionOrders (id, article_id, quantity, colors, fabrics) VALUES 
 INSERT INTO materials (id, description, quantity, weight, meters) VALUES (200,'Carton',25,1.5,1.2);
 INSERT INTO materials (id, description, quantity, weight, meters) VALUES (201,'PVU',25,2,null);
 INSERT INTO materials (id, description, quantity, weight, meters) VALUES (202,'Lana',25,null,1);
+
+DROP TABLE demsar;
+CREATE TABLE demsar(
+    id SERIAL PRIMARY KEY,
+    art VARCHAR(20),
+    quantity INT,
+    date DATE);
+INSERT INTO demsar (art, quantity, date) VALUES
+	('Pantalón', 150, '2022-12-12'),
+    ('Pantalón', 200, '2022-12-20'),
+    ('Pantalón', 210, '2022-12-29'),
+    ('Pantalón', 10, '2021-10-15'),
+    ('Pantalón', 20, '2021-10-13'),
+    ('Riñonera', 50, '2021-10-14'),
+    ('Riñonera', 83, '2022-11-09'),
+    ('Riñonera', 72, '2022-09-05'),
+    ('Riñonera', 93, '2022-09-02'),
+    ('Riñonera', 10, '2022-11-06'),
+    ('Cartuchera', 159, '2012-05-25'),
+    ('Cartuchera', 81, '2022-11-22'),
+    ('Cartuchera', 63, '2022-11-24');
